@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
+generator typegraphql {
+  provider = "typegraphql-prisma"
+  output   = "../node_modules/@generated/typegraphql"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+  CAPTAIN
+  OWNER
+}
+
+model FederatedCredentials {
+  id       Int    @id @default(autoincrement())
+  userId   Int
+  provider String
+  subject  String
+  User     User   @relation(fields: [userId], references: [id])
+}
+
+model Todo {
+  id        Int     @id @default(autoincrement())
+  ownerId   Int?
+  title     String
+  completed Boolean
+  User      User?   @relation(fields: [ownerId], references: [id])
+}
+
+model User {
+  id                   Int                    @id @default(autoincrement())
+  username             String                 @unique
+  email                String                 @unique
+  name                 String
+  roles                Role[]
+  emailVerified        Boolean
+  /// @TypeGraphQL.omit(output: true)
+  hashedPassword       String?
+  /// @TypeGraphQL.omit(output: true)
+  salt                 String?
+  /// @TypeGraphQL.omit(output: true)
+  idToken              String?
+  /// @TypeGraphQL.omit(output: true)
+  accessToken          String?
+  /// @TypeGraphQL.omit(output: true)
+  refreshToken         String?
+  /// @TypeGraphQL.omit(output: true)
+  jwt                  String?
+  federatedCredentials FederatedCredentials[]
+  todos                Todo[]
+}

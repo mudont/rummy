@@ -1,0 +1,47 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table FederatedCredentials {
+  id Int [pk, increment]
+  userId Int [not null]
+  provider String [not null]
+  subject String [not null]
+  User User [not null]
+}
+
+Table Todo {
+  id Int [pk, increment]
+  ownerId Int
+  title String [not null]
+  completed Boolean [not null]
+  User User
+}
+
+Table User {
+  id Int [pk, increment]
+  username String [unique, not null]
+  email String [unique, not null]
+  name String [not null]
+  roles Role[] [not null]
+  emailVerified Boolean [not null]
+  hashedPassword String [note: '@TypeGraphQL.omit(output: true)']
+  salt String [note: '@TypeGraphQL.omit(output: true)']
+  idToken String [note: '@TypeGraphQL.omit(output: true)']
+  accessToken String [note: '@TypeGraphQL.omit(output: true)']
+  refreshToken String [note: '@TypeGraphQL.omit(output: true)']
+  jwt String [note: '@TypeGraphQL.omit(output: true)']
+  federatedCredentials FederatedCredentials [not null]
+  todos Todo [not null]
+}
+
+Enum Role {
+  USER
+  ADMIN
+  CAPTAIN
+  OWNER
+}
+
+Ref: FederatedCredentials.userId > User.id
+
+Ref: Todo.ownerId > User.id

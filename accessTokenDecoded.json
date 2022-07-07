@@ -1,0 +1,56 @@
+{
+  "exp": 1656086134,
+  "iat": 1656085834,
+  "auth_time": 1656085834,
+  "jti": "d84c822b-8779-41bc-b3fc-ea2bc5e303d5",
+  "iss": "https://kc.donthireddy.us/realms/CMHackers",
+  "aud": ["CMHackersPublic", "account"],
+  "sub": "01896659-3026-4ceb-820b-3e71f14d64f2",
+  "typ": "Bearer",
+  "azp": "CMHackers",
+  "session_state": "7d78731e-badc-4b1a-90ff-273cae41eb90",
+  "acr": "1",
+  "allowed-origins": [
+    "https://awani.org",
+    "https://ex1.cmhackers.org",
+    "https://cmhackers.com",
+    "http://localhost:3000"
+  ],
+  "realm_access": {
+    "roles": [
+      "manager",
+      "default-roles-cmhackers",
+      "offline_access",
+      "uma_authorization",
+      "ADMIN",
+      "USER",
+      "CAPTAIN"
+    ]
+  },
+  "resource_access": {
+    "CMHackersPublic": { "roles": ["user"] },
+    "CMHackers": { "roles": ["uma_protection", "admin", "captain", "user"] },
+    "account": {
+      "roles": ["manage-account", "manage-account-links", "view-profile"]
+    }
+  },
+  "scope": "openid profile email",
+  "sid": "7d78731e-badc-4b1a-90ff-273cae41eb90",
+  "email_verified": true,
+  "user_name": "murali",
+  "roles": ["uma_protection", "admin", "captain", "user"],
+  "name": "Murali Donthireddy",
+  "groups": [
+    "manager",
+    "default-roles-cmhackers",
+    "offline_access",
+    "uma_authorization",
+    "ADMIN",
+    "USER",
+    "CAPTAIN"
+  ],
+  "preferred_username": "murali",
+  "given_name": "Murali",
+  "family_name": "Donthireddy",
+  "email": "maverickone@gmail.com"
+}
