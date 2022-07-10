@@ -23,41 +23,65 @@ enum Role {
   OWNER
 }
 
-model FederatedCredentials {
-  id       Int    @id @default(autoincrement())
-  userId   Int
-  provider String
-  subject  String
-  User     User   @relation(fields: [userId], references: [id])
+enum Suit {
+  Clubs
+  Diamonds
+  Hearts
+  Spades
+  Joker
 }
 
-model Todo {
-  id        Int     @id @default(autoincrement())
-  ownerId   Int?
-  title     String
-  completed Boolean
-  User      User?   @relation(fields: [ownerId], references: [id])
+enum Rank {
+  Ace
+  One
+  Two
+  Three
+  Four
+  Five
+  Six
+  Seven
+  Eight
+  Nine
+  Ten
+  Jack
+  Queen
+}
+
+enum PlayerStatus {
+  ACTIVE
+  OWES_CARD
+  DROPPED
+  WON
+  LOST
+}
+
+enum MoveType {
+  Drop
+  TakeOpen
+  TakeFromDeck
+  ReturnExtraCard
+  Show
 }
 
 model User {
-  id                   Int                    @id @default(autoincrement())
-  username             String                 @unique
-  email                String                 @unique
-  name                 String
-  roles                Role[]
-  emailVerified        Boolean
+  id             Int     @id @default(autoincrement())
+  username       String  @unique
+  email          String  @unique
+  name           String
+  roles          Role[]
+  emailVerified  Boolean
   /// @TypeGraphQL.omit(output: true)
-  hashedPassword       String?
+  hashedPassword String?
   /// @TypeGraphQL.omit(output: true)
-  salt                 String?
+  salt           String?
   /// @TypeGraphQL.omit(output: true)
-  idToken              String?
+  idToken        String?
   /// @TypeGraphQL.omit(output: true)
-  accessToken          String?
+  accessToken    String?
   /// @TypeGraphQL.omit(output: true)
-  refreshToken         String?
+  refreshToken   String?
   /// @TypeGraphQL.omit(output: true)
-  jwt                  String?
-  federatedCredentials FederatedCredentials[]
-  todos                Todo[]
+  jwt            String?
+
+  @@map("identitity")
 }
