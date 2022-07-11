@@ -1,24 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Pile from "../components/CardPile/Pile";
+//import { DragDropContext } from "react-dnd";
+//import MouseBackend from "react-dnd-mouse-backend";
 
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { TouchBackend } from "react-dnd-touch-backend";
+
+//import {MultiBackend} from "react-dnd-multi-backend";
+//import { MultiBackend, DndProvider } from 'react-dnd-multi-backend'
+//import { HTML5toTouch } from 'rdndmb-html5-to-touch'
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/*<DndProvider options={HTML5toTouch}>*/}
+      <DndProvider
+        backend={
+          window.location.hostname.startsWith("m.")
+            ? TouchBackend
+            : HTML5Backend
+        }
+      >
+        <Pile />
+      </DndProvider>
     </div>
   );
 }

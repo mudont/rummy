@@ -9,9 +9,9 @@ import {
   resolvers,
   ResolversEnhanceMap,
   applyResolversEnhanceMap,
-} from "@generated/typegraphql";
+} from "../prisma/@generated/typegraphql";
 
-import * as models from "@generated/typegraphql";
+import * as models from "../prisma/@generated/typegraphql";
 
 import {
   ArgsType,

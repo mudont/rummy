@@ -11,10 +11,12 @@ import StatusCodes from "http-status-codes";
 import socketio from "socket.io";
 import express, { NextFunction, Request, Response } from "express";
 import session from "express-session";
+import * as sqlite3 from "sqlite3";
 import passport from "passport";
-import ConnectSQLite from "connect-sqlite3";
-const SQLiteStore = ConnectSQLite(session);
-
+// import ConnectSQLite from "connect-sqlite3";
+// const SQLiteStore = ConnectSQLite(session);
+import sqliteStoreFactory from "express-session-sqlite";
+const SQLiteStore = sqliteStoreFactory(session);
 import "express-async-errors";
 
 import BaseRouter from "./routes/api";
@@ -39,7 +41,17 @@ app.use(
     secret: "keyboard cat",
     resave: false,
     saveUninitialized: false,
-    store: new SQLiteStore({ db: "sessions.db", dir: "." }),
+    store: new SQLiteStore({
+      driver: sqlite3.Database,
+      path: "./sessions.db",
+      // Session TTL in milliseconds
+      ttl: 24 * 3600 * 1000,
+      // (optional) Session id prefix. Default is no prefix.
+      prefix: "sess:",
+      // (optional) Adjusts the cleanup timer in milliseconds for deleting expired session rows.
+      // Default is 5 minutes.
+      cleanupInterval: 300000,
+    }),
   })
 );
 // below is equivalent to app.use(passport.session());
@@ -87,19 +99,14 @@ app.use(
 /************************************************************************************
  *                              Serve front-end content
  ***********************************************************************************/
-
+const reactProdDir = path.join(__dirname, "../client/build");
 const viewsDir = path.join(__dirname, "views");
 app.set("views", viewsDir);
 const staticDir = path.join(__dirname, "public");
 app.use(express.static(staticDir));
 
-// Login page
-app.get("/", (req: Request, res: Response) => {
-  return res.sendFile("login.html", { root: viewsDir });
-});
-
 // Users page
-app.get("/users", (req: Request, res: Response) => {
+app.get("/users2", (req: Request, res: Response) => {
   // const jwt = req.signedCookies[cookieProps.key];
   if (!req.user) {
     // if (!jwt) {
@@ -123,5 +130,10 @@ app.get("/chat", (req: Request, res: Response) => {
 //server.start().then(() => {
 const server = graphqlServer(app);
 
+//Everything else to React
+app.use(express.static(reactProdDir));
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
+});
 debug("All setup");
 export default server;

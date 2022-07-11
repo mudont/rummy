@@ -1,71 +1,184 @@
-# A Fullstack starter project
+# Rummy project
 
-## Features
+## Current state of development
 
-Bootstrapped with [express-generator-typescript](https://github.com/seanpmaxwell/express-generator-typescript)
+- the `client` dir has react-dnd code. The essential features are
+  demonstrated there, though quirks remain.
+  - touch backend works on mobile, html5 backend works on desktop, react-end-multi-backend is
+    supposed to solve this but is too old. maybe implement the idea of reacting to first touch event and
+    changing back end
+  - drag preview is offset way to right
+- `lib/cards.ts` in this repo has a fairly good Rummy engine
+  - Needs Prisma/database support. Prisma defs very incomplete
+- GraphQl layer needed
+  - queries/subscriptions/mutations
+  - client side graphql
+- Build out the React UI
+  - Don't forget Chat
 
-That gives us
+## SVGs
 
-- [x] `Express` app with a reasobable file layout
-- [x] `Typescript` code, with build and run scripts
-- [x] `Rest API`
-- [x] `socket.io`
-- [-] Local auth which we removed
-- [-] A simple HTML/JS client which needs to be replaced
+Got zipfile from [here](https://www.me.uk/cards/makeadeck.cgi)
 
-Then we added features:
+unzip to a folder
+make sure svg-to-react npm package is globally installed
 
-- [x] Passport auth framework
-- [x] `Keycloak` Auth
-- [x] Hacky `JWT` auth (couldn't quickly get passport-jwt working. need to revisit)
-- [x] `Prisma`/`postgresql`
-- [x] Apollo-Express `GraphQL`
-- [x] Generated schema resolvers with [typegraphql-prisma](https://github.com/MichalLytek/typegraphql-prisma)
-- [x] Role based (`RBAC)` Authorization for GraphQL objects ([Read this nice looking express/graphql/prisma repo](https://github.com/corona-school/backend))
-- [ ] Owner (ABAC) Authorization for GraphQL objects
-- [x] `React` front end ([How to serve](https://stackoverflow.com/questions/53234140/react-expressjs-backend-cant-serve-static-frontend)) / [Example with kanban](https://github.com/drkPrince/agilix)
-- [x] GraphQL Subscriptions
-- [x] Pretty front end
-  - Tailwind UI is a wrapper over Tailwind
-  - https://flowbite.com has some higher level components over tailwind
-- [ ] Tetsts in `spec` dir
-- [ ] [fluentd](https://github.com/fluent/fluentd) logging
+```sh
+# run svgtoreact. flip the two letter card names
+for i in ??.svg;do orig=`echo $i|sed "s/.svg//"`; new=`echo $orig|rev`; svgtoreact $orig $new ;done
+# rename .js to .tsx
+for i in ??.js;do j=`echo $i|sed "s/.js//"`; mv $i $j.tsx;done
+# Fix types
+sed -i ''  's/(props)/(props: any)/g' *.tsx
+# Generate map entries for cardsMap.ts
 
-## Known issues
-
-- See https://github.com/wellyshen/react-cool-starter . This probably has ideas to steal from
-  it uses a single port. client and server are integrated. universal architecture.
-- Needs refactoring.
-
-  - Server code is hacked together. The purpose of each line should be clear, but isn't
-  - API, GraphQL and Socket.io code should be seprated.
-  - Database code shoud exist only in services
-
-- ~~Keycloak logout leaves user on a Keycloak screen instead of returning them to app. Also, it actally logs our user only on Chrome. On Firefox and Safari, they stay logged in~~
-
-## Running Server
-
-Edit `.env` (see `.env.sample`) and configs in `src/pre-start/env`
-
-```
-yarn
-npx prisma migrate dev -n init
-npx prisma generate # needs to be re-run after every npm install
-npm run start:dev
+for i in  ??.tsx;do j=`echo $i|sed -e "s/.tsx//"`;echo $j: c.$j,;done
+# Make index.tsx for importing cards
+for i in  ??.tsx;do j=`echo $i|sed -e "s/.tsx//"`;echo "export {default as $j} from './$j'";done > index.tsx
 ```
 
-That should print the URL (port 8183). You can try it for GraphQL studio.
-Just the root URL should show a login link to Keycloak. If login is successful,
-a list of users and a Chat button. The chat uses `Socket.io`
+## Other Card game
 
-Port 8183 is hardcoded
+Sri said he would like to provide a spec for a card game to play with his family online. For now, let us implement Rummy.
 
-https://ex1.cmhackers.com redirects to this port
+[Typescript code for backend modeling](https://github.com/mitch-b/typedeck/)
 
-## Running the React client.
+## Drag and Drop
 
-```
-npm rum start
-```
+[react-dnd](https://react-dnd.github.io/react-dnd/examples) Runnable exmaples in the documentation.
 
-Will start on 3000 or next available port
+The animation library Framer motion includes drag n drop
+
+## Animation libraries
+
+[Framer Motion](https://github.com/framer/motion) seems to be the best React lib
+[Examples](https://www.framer.com/docs/examples/) include Drag and Drop
+
+[flip toolkit](https://github.dev/aholachek/react-flip-toolkit)
+
+https://github.com/chenglou/react-motion
+
+[GSAP](https://github.com/greensock/GSAP) is a good animation library. Can be used to card dealing etc. GSAP has a nice [React tutorial](https://greensock.com/react/) and an [Advanced one](https://greensock.com/react-advanced)
+
+It is used by [this Card react repo](https://github.com/listingslab/react-playing-cards). It has SVG card images, but no DnD.
+
+[This old React repo](https://github.com/wmaillard/react-playing-cards) has [working demo](http://aws-website-playingcards-cqzb8.s3-website-us-east-1.amazonaws.com/) that seems do a good chunk of what we would want. shows a bunch of cards in a couple of different arrangements, and DnD works.
+
+[A simple React program](https://github.com/AryanJ-NYC/react-playing-card) to show a card
+
+## Rummy Design
+
+### Low level UI design thoughts
+
+Probably use react-dnd to add DnD to the animated Card example in [this Card react repo](https://github.com/listingslab/react-playing-cards)
+
+### User point of view
+
+- MUT User creates a new Game, becomes owner of game.
+- screen shows all current players (around a table).
+- MUT They can be dragged to different positions. Dropped players will be grayed out
+- MUT Until game starts, Any logged in user can request to join by visiting /game/{game_id}
+- number of decks can chosen subject to: n x (52+2) > numPlayers \* 13 + 15
+- MUT Owner of Game start the game, resulting in cards being dealt
+- Each user see their cards face up
+- The open card is face up also. It must be highlighted in some way
+- Turn is set to player1.
+- The game iterates as follows.
+  - Turn player must do one of
+    - MUT Drop
+    - MUT Show. if he rejects,
+      the user is out with 80 points(verify this rule)
+    - MUT draw from deck or open card , and discard one of his cards, which
+    - MUT pass?
+    - Turn incremented circularly
+    - If pile runs out, shuffle all but top open card and make them the new pile . Do dropped cards go into this pile?
+  - Game ends when either
+    - one player left, or
+    - someone Shows and owner accepts.
+  - MUT Allow game to be restarted with points being accumulated.
+
+A chat window for users to comment.
+
+Owner can undo the most recent game iteration
+
+### Server side
+
+#### Mutations
+
+- create game
+- request to join game
+- accept in game
+- start game
+- move player at table
+- drop/show/exch open card/exch with pile
+- deal cards
+- Next iteration of game
+
+#### Subscription
+
+- After each mutation, send game state. Each player should see their own cards and the open card, and the previously discarded pile
+
+#### Queries
+
+- Players can request game state any time
+- List my games
+
+### Database
+
+Game
+
+- id
+- description
+- owner User
+- numJokersPerDeck
+- gamePlayers GamePlayer[]
+- moves Move[]
+- turnPlayer User
+- pile Card[]
+- openCards Card[]
+
+GamePlayer
+
+- gameId \*
+- userId \*
+- status pending/accepted
+- tablePosition
+- points
+- hand Card[]
+
+Move
+
+- id
+- gameId
+- player GamePlayer
+- action
+- isPrivate (Eg; reordering cards. Move doesn't affect game and cannot be undone by owner)
+
+Card
+
+- Suit
+- Rank
+
+### Code design
+
+A service layer module implements all the the server side functionality
+on top of Prisma
+
+### React UI pieces needed
+
+- Card SVGs are now in the components tree.
+- Rotate an element with CSS in React: style={{transform: `rotate(45deg)`}}
+- bonus if we can show the open cards pile in a disordered way and allow them to be draged around. wmaillard/react-playing-cards is very good but it is old tech
+  [This react-dnd example](https://react-dnd.github.io/react-dnd/examples/drag-around/custom-drag-layer) is promising.
+- Draggable list .
+  react-beautiful-dnd is list based, but react-dnd is more flaxible there is another called react-draggable or something
+- Show SVG cards as list items
+- animate movement of Cards
+- show cards as overlapping
+
+- bonus if we can show the open cards pile in a disordered way and allow them to be draged around. wmaillard/react-playing-cards is very good but it is old
+
+## Concepts to understand
+
+- [] DragLeyer for preview
+- [] [GQL local for state mgmt](https://www.apollographql.com/blog/apollo-client/caching/dispatch-this-using-apollo-client-3-as-a-state-management-solution/)

@@ -2,23 +2,7 @@
 //// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 //// ------------------------------------------------------
 
-Table FederatedCredentials {
-  id Int [pk, increment]
-  userId Int [not null]
-  provider String [not null]
-  subject String [not null]
-  User User [not null]
-}
-
-Table Todo {
-  id Int [pk, increment]
-  ownerId Int
-  title String [not null]
-  completed Boolean [not null]
-  User User
-}
-
-Table User {
+Table identity {
   id Int [pk, increment]
   username String [unique, not null]
   email String [unique, not null]
@@ -31,8 +15,137 @@ Table User {
   accessToken String [note: '@TypeGraphQL.omit(output: true)']
   refreshToken String [note: '@TypeGraphQL.omit(output: true)']
   jwt String [note: '@TypeGraphQL.omit(output: true)']
-  federatedCredentials FederatedCredentials [not null]
-  todos Todo [not null]
+  Club club [not null]
+  ClubMember club_member [not null]
+  GamePlayer game_player [not null]
+}
+
+Table club {
+  id Int [pk, increment]
+  name String [not null]
+  adminId Int [not null]
+  admin identity [not null]
+  ClubMember club_member [not null]
+}
+
+Table club_member {
+  clubId Int [not null]
+  club club [not null]
+  memberId Int [not null]
+  member identity [not null]
+  startDate DateTime [not null]
+  isActive Boolean [not null]
+
+  indexes {
+    (clubId, memberId) [unique]
+  }
+}
+
+Table game {
+  id Int [pk, increment]
+  state GameState [not null]
+  deck String[] [not null]
+  openPile String[] [not null]
+  turnPlayerId Int [not null]
+  openCard String
+  currJoker String [not null]
+  turnPlayer game_player [not null]
+  GamePlayer game_player [not null]
+}
+
+Table game_player {
+  id Int [pk, increment]
+  gameId Int [not null]
+  playerIdx Int [not null]
+  userId Int [not null]
+  user identity [not null]
+  game game [not null]
+  hand String[] [not null]
+  TurnInGame game [not null]
+  SimpleMove simple_move [not null]
+  ShowMove show_move [not null]
+  ReturnCardMove return_card_move [not null]
+  MeldMove meld_move [not null]
+  Meld meld [not null]
+
+  indexes {
+    (gameId, playerIdx) [unique]
+  }
+}
+
+Table meld {
+  id Int [pk, increment]
+  gamePlayerId Int [unique, not null]
+  gamePlayer game_player [not null]
+  createdAt DateTime [not null]
+  ShowMove show_move [not null]
+  MeldMove meld_move [not null]
+  Life life [not null]
+  Sequence sequence [not null]
+  Triplet triplet [not null]
+}
+
+Table life {
+  id Int [pk, increment]
+  meldId Int [not null]
+  meld meld [not null]
+  suit String [not null]
+  ranks String[] [not null]
+}
+
+Table sequence {
+  id Int [pk, increment]
+  meldId Int [not null]
+  meld meld [not null]
+  rank String [not null]
+  suits String[] [not null]
+  numJokers Int [not null]
+}
+
+Table triplet {
+  id Int [pk, increment]
+  meldId Int [not null]
+  meld meld [not null]
+  suit String [not null]
+  ranks String[] [not null]
+  numJokers Int [not null]
+}
+
+Table simple_move {
+  id Int [pk, increment]
+  moveNum Int [not null]
+  gamePlayerId Int [not null]
+  gamePlayer game_player [not null]
+  moveType MoveType [not null]
+}
+
+Table show_move {
+  id Int [pk, increment]
+  moveNum Int [not null]
+  gamePlayerId Int [not null]
+  gamePlayer game_player [not null]
+  moveType MoveType [not null]
+  meldId Int [not null]
+  meld meld [not null]
+}
+
+Table return_card_move {
+  id Int [pk, increment]
+  moveNum Int [not null]
+  gamePlayerId Int [not null]
+  gamePlayer game_player [not null]
+  moveType MoveType [not null]
+  card String [not null]
+}
+
+Table meld_move {
+  id Int [pk, increment]
+  moveNum Int [not null]
+  gamePlayerId Int [not null]
+  gamePlayer game_player [not null]
+  moveType MoveType [not null]
+  meldId Int [not null]
+  meld meld [not null]
 }
 
 Enum Role {
@@ -42,6 +155,81 @@ Enum Role {
   OWNER
 }
 
-Ref: FederatedCredentials.userId > User.id
+Enum Suit {
+  Clubs
+  Diamonds
+  Hearts
+  Spades
+  Joker
+}
 
-Ref: Todo.ownerId > User.id
+Enum Rank {
+  Ace
+  One
+  Two
+  Three
+  Four
+  Five
+  Six
+  Seven
+  Eight
+  Nine
+  Ten
+  Jack
+  Queen
+  King
+}
+
+Enum PlayerStatus {
+  Active
+  OwesCard
+  Dropped
+  Won
+  Lost
+}
+
+Enum MoveType {
+  TakeOpen
+  TakeFromDeck
+  ReturnExtraCard
+  Meld
+  Show
+  Finish
+}
+
+Enum GameState {
+  Active
+  Finished
+}
+
+Ref: club.adminId > identity.id
+
+Ref: club_member.clubId > club.id
+
+Ref: club_member.memberId > identity.id
+
+Ref: game.turnPlayerId - game_player.id
+
+Ref: game_player.userId > identity.id
+
+Ref: game_player.gameId - game.id
+
+Ref: meld.gamePlayerId > game_player.id
+
+Ref: life.meldId > meld.id
+
+Ref: sequence.meldId > meld.id
+
+Ref: triplet.meldId > meld.id
+
+Ref: simple_move.gamePlayerId > game_player.id
+
+Ref: show_move.gamePlayerId > game_player.id
+
+Ref: show_move.meldId > meld.id
+
+Ref: return_card_move.gamePlayerId > game_player.id
+
+Ref: meld_move.gamePlayerId > game_player.id
+
+Ref: meld_move.meldId > meld.id

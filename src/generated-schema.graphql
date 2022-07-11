@@ -7,20 +7,100 @@ type AffectedRowsOutput {
   count: Int!
 }
 
-type AggregateFederatedCredentials {
-  _avg: FederatedCredentialsAvgAggregate
-  _count: FederatedCredentialsCountAggregate
-  _max: FederatedCredentialsMaxAggregate
-  _min: FederatedCredentialsMinAggregate
-  _sum: FederatedCredentialsSumAggregate
+type AggregateClub {
+  _avg: ClubAvgAggregate
+  _count: ClubCountAggregate
+  _max: ClubMaxAggregate
+  _min: ClubMinAggregate
+  _sum: ClubSumAggregate
 }
 
-type AggregateTodo {
-  _avg: TodoAvgAggregate
-  _count: TodoCountAggregate
-  _max: TodoMaxAggregate
-  _min: TodoMinAggregate
-  _sum: TodoSumAggregate
+type AggregateClubMember {
+  _avg: ClubMemberAvgAggregate
+  _count: ClubMemberCountAggregate
+  _max: ClubMemberMaxAggregate
+  _min: ClubMemberMinAggregate
+  _sum: ClubMemberSumAggregate
+}
+
+type AggregateGame {
+  _avg: GameAvgAggregate
+  _count: GameCountAggregate
+  _max: GameMaxAggregate
+  _min: GameMinAggregate
+  _sum: GameSumAggregate
+}
+
+type AggregateGamePlayer {
+  _avg: GamePlayerAvgAggregate
+  _count: GamePlayerCountAggregate
+  _max: GamePlayerMaxAggregate
+  _min: GamePlayerMinAggregate
+  _sum: GamePlayerSumAggregate
+}
+
+type AggregateLife {
+  _avg: LifeAvgAggregate
+  _count: LifeCountAggregate
+  _max: LifeMaxAggregate
+  _min: LifeMinAggregate
+  _sum: LifeSumAggregate
+}
+
+type AggregateMeld {
+  _avg: MeldAvgAggregate
+  _count: MeldCountAggregate
+  _max: MeldMaxAggregate
+  _min: MeldMinAggregate
+  _sum: MeldSumAggregate
+}
+
+type AggregateMeldMove {
+  _avg: MeldMoveAvgAggregate
+  _count: MeldMoveCountAggregate
+  _max: MeldMoveMaxAggregate
+  _min: MeldMoveMinAggregate
+  _sum: MeldMoveSumAggregate
+}
+
+type AggregateReturnCardMove {
+  _avg: ReturnCardMoveAvgAggregate
+  _count: ReturnCardMoveCountAggregate
+  _max: ReturnCardMoveMaxAggregate
+  _min: ReturnCardMoveMinAggregate
+  _sum: ReturnCardMoveSumAggregate
+}
+
+type AggregateSequence {
+  _avg: SequenceAvgAggregate
+  _count: SequenceCountAggregate
+  _max: SequenceMaxAggregate
+  _min: SequenceMinAggregate
+  _sum: SequenceSumAggregate
+}
+
+type AggregateShowMove {
+  _avg: ShowMoveAvgAggregate
+  _count: ShowMoveCountAggregate
+  _max: ShowMoveMaxAggregate
+  _min: ShowMoveMinAggregate
+  _sum: ShowMoveSumAggregate
+}
+
+type AggregateSimpleMove {
+  _avg: SimpleMoveAvgAggregate
+  _count: SimpleMoveCountAggregate
+  _max: SimpleMoveMaxAggregate
+  _min: SimpleMoveMinAggregate
+  _sum: SimpleMoveSumAggregate
+}
+
+type AggregateTriplet {
+  _avg: TripletAvgAggregate
+  _count: TripletCountAggregate
+  _max: TripletMaxAggregate
+  _min: TripletMinAggregate
+  _sum: TripletSumAggregate
 }
 
 type AggregateUser {
@@ -48,6 +128,673 @@ input BoolWithAggregatesFilter {
   not: NestedBoolWithAggregatesFilter
 }
 
+type Club {
+  ClubMember(cursor: ClubMemberWhereUniqueInput, distinct: [ClubMemberScalarFieldEnum!], orderBy: [ClubMemberOrderByWithRelationInput!], skip: Int, take: Int, where: ClubMemberWhereInput): [ClubMember!]!
+  _count: ClubCount
+  admin: User!
+  adminId: Int!
+  id: Int!
+  name: String!
+}
+
+type ClubAvgAggregate {
+  adminId: Float
+  id: Float
+}
+
+input ClubAvgOrderByAggregateInput {
+  adminId: SortOrder
+  id: SortOrder
+}
+
+type ClubCount {
+  ClubMember: Int!
+}
+
+type ClubCountAggregate {
+  _all: Int!
+  adminId: Int!
+  id: Int!
+  name: Int!
+}
+
+input ClubCountOrderByAggregateInput {
+  adminId: SortOrder
+  id: SortOrder
+  name: SortOrder
+}
+
+input ClubCreateInput {
+  ClubMember: ClubMemberCreateNestedManyWithoutClubInput
+  admin: UserCreateNestedOneWithoutClubInput!
+  name: String!
+}
+
+input ClubCreateManyAdminInput {
+  id: Int
+  name: String!
+}
+
+input ClubCreateManyAdminInputEnvelope {
+  data: [ClubCreateManyAdminInput!]!
+  skipDuplicates: Boolean
+}
+
+input ClubCreateManyInput {
+  adminId: Int!
+  id: Int
+  name: String!
+}
+
+input ClubCreateNestedManyWithoutAdminInput {
+  connect: [ClubWhereUniqueInput!]
+  connectOrCreate: [ClubCreateOrConnectWithoutAdminInput!]
+  create: [ClubCreateWithoutAdminInput!]
+  createMany: ClubCreateManyAdminInputEnvelope
+}
+
+input ClubCreateNestedOneWithoutClubMemberInput {
+  connect: ClubWhereUniqueInput
+  connectOrCreate: ClubCreateOrConnectWithoutClubMemberInput
+  create: ClubCreateWithoutClubMemberInput
+}
+
+input ClubCreateOrConnectWithoutAdminInput {
+  create: ClubCreateWithoutAdminInput!
+  where: ClubWhereUniqueInput!
+}
+
+input ClubCreateOrConnectWithoutClubMemberInput {
+  create: ClubCreateWithoutClubMemberInput!
+  where: ClubWhereUniqueInput!
+}
+
+input ClubCreateWithoutAdminInput {
+  ClubMember: ClubMemberCreateNestedManyWithoutClubInput
+  name: String!
+}
+
+input ClubCreateWithoutClubMemberInput {
+  admin: UserCreateNestedOneWithoutClubInput!
+  name: String!
+}
+
+type ClubGroupBy {
+  _avg: ClubAvgAggregate
+  _count: ClubCountAggregate
+  _max: ClubMaxAggregate
+  _min: ClubMinAggregate
+  _sum: ClubSumAggregate
+  adminId: Int!
+  id: Int!
+  name: String!
+}
+
+input ClubListRelationFilter {
+  every: ClubWhereInput
+  none: ClubWhereInput
+  some: ClubWhereInput
+}
+
+type ClubMaxAggregate {
+  adminId: Int
+  id: Int
+  name: String
+}
+
+input ClubMaxOrderByAggregateInput {
+  adminId: SortOrder
+  id: SortOrder
+  name: SortOrder
+}
+
+type ClubMember {
+  club: Club!
+  clubId: Int!
+  isActive: Boolean!
+  member: User!
+  memberId: Int!
+  startDate: DateTime!
+}
+
+type ClubMemberAvgAggregate {
+  clubId: Float
+  memberId: Float
+}
+
+input ClubMemberAvgOrderByAggregateInput {
+  clubId: SortOrder
+  memberId: SortOrder
+}
+
+input ClubMemberClubIdMemberIdCompoundUniqueInput {
+  clubId: Int!
+  memberId: Int!
+}
+
+type ClubMemberCountAggregate {
+  _all: Int!
+  clubId: Int!
+  isActive: Int!
+  memberId: Int!
+  startDate: Int!
+}
+
+input ClubMemberCountOrderByAggregateInput {
+  clubId: SortOrder
+  isActive: SortOrder
+  memberId: SortOrder
+  startDate: SortOrder
+}
+
+input ClubMemberCreateInput {
+  club: ClubCreateNestedOneWithoutClubMemberInput!
+  isActive: Boolean!
+  member: UserCreateNestedOneWithoutClubMemberInput!
+  startDate: DateTime!
+}
+
+input ClubMemberCreateManyClubInput {
+  isActive: Boolean!
+  memberId: Int!
+  startDate: DateTime!
+}
+
+input ClubMemberCreateManyClubInputEnvelope {
+  data: [ClubMemberCreateManyClubInput!]!
+  skipDuplicates: Boolean
+}
+
+input ClubMemberCreateManyInput {
+  clubId: Int!
+  isActive: Boolean!
+  memberId: Int!
+  startDate: DateTime!
+}
+
+input ClubMemberCreateManyMemberInput {
+  clubId: Int!
+  isActive: Boolean!
+  startDate: DateTime!
+}
+
+input ClubMemberCreateManyMemberInputEnvelope {
+  data: [ClubMemberCreateManyMemberInput!]!
+  skipDuplicates: Boolean
+}
+
+input ClubMemberCreateNestedManyWithoutClubInput {
+  connect: [ClubMemberWhereUniqueInput!]
+  connectOrCreate: [ClubMemberCreateOrConnectWithoutClubInput!]
+  create: [ClubMemberCreateWithoutClubInput!]
+  createMany: ClubMemberCreateManyClubInputEnvelope
+}
+
+input ClubMemberCreateNestedManyWithoutMemberInput {
+  connect: [ClubMemberWhereUniqueInput!]
+  connectOrCreate: [ClubMemberCreateOrConnectWithoutMemberInput!]
+  create: [ClubMemberCreateWithoutMemberInput!]
+  createMany: ClubMemberCreateManyMemberInputEnvelope
+}
+
+input ClubMemberCreateOrConnectWithoutClubInput {
+  create: ClubMemberCreateWithoutClubInput!
+  where: ClubMemberWhereUniqueInput!
+}
+
+input ClubMemberCreateOrConnectWithoutMemberInput {
+  create: ClubMemberCreateWithoutMemberInput!
+  where: ClubMemberWhereUniqueInput!
+}
+
+input ClubMemberCreateWithoutClubInput {
+  isActive: Boolean!
+  member: UserCreateNestedOneWithoutClubMemberInput!
+  startDate: DateTime!
+}
+
+input ClubMemberCreateWithoutMemberInput {
+  club: ClubCreateNestedOneWithoutClubMemberInput!
+  isActive: Boolean!
+  startDate: DateTime!
+}
+
+type ClubMemberGroupBy {
+  _avg: ClubMemberAvgAggregate
+  _count: ClubMemberCountAggregate
+  _max: ClubMemberMaxAggregate
+  _min: ClubMemberMinAggregate
+  _sum: ClubMemberSumAggregate
+  clubId: Int!
+  isActive: Boolean!
+  memberId: Int!
+  startDate: DateTime!
+}
+
+input ClubMemberListRelationFilter {
+  every: ClubMemberWhereInput
+  none: ClubMemberWhereInput
+  some: ClubMemberWhereInput
+}
+
+type ClubMemberMaxAggregate {
+  clubId: Int
+  isActive: Boolean
+  memberId: Int
+  startDate: DateTime
+}
+
+input ClubMemberMaxOrderByAggregateInput {
+  clubId: SortOrder
+  isActive: SortOrder
+  memberId: SortOrder
+  startDate: SortOrder
+}
+
+type ClubMemberMinAggregate {
+  clubId: Int
+  isActive: Boolean
+  memberId: Int
+  startDate: DateTime
+}
+
+input ClubMemberMinOrderByAggregateInput {
+  clubId: SortOrder
+  isActive: SortOrder
+  memberId: SortOrder
+  startDate: SortOrder
+}
+
+input ClubMemberOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input ClubMemberOrderByWithAggregationInput {
+  _avg: ClubMemberAvgOrderByAggregateInput
+  _count: ClubMemberCountOrderByAggregateInput
+  _max: ClubMemberMaxOrderByAggregateInput
+  _min: ClubMemberMinOrderByAggregateInput
+  _sum: ClubMemberSumOrderByAggregateInput
+  clubId: SortOrder
+  isActive: SortOrder
+  memberId: SortOrder
+  startDate: SortOrder
+}
+
+input ClubMemberOrderByWithRelationInput {
+  club: ClubOrderByWithRelationInput
+  clubId: SortOrder
+  isActive: SortOrder
+  member: UserOrderByWithRelationInput
+  memberId: SortOrder
+  startDate: SortOrder
+}
+
+enum ClubMemberScalarFieldEnum {
+  clubId
+  isActive
+  memberId
+  startDate
+}
+
+input ClubMemberScalarWhereInput {
+  AND: [ClubMemberScalarWhereInput!]
+  NOT: [ClubMemberScalarWhereInput!]
+  OR: [ClubMemberScalarWhereInput!]
+  clubId: IntFilter
+  isActive: BoolFilter
+  memberId: IntFilter
+  startDate: DateTimeFilter
+}
+
+input ClubMemberScalarWhereWithAggregatesInput {
+  AND: [ClubMemberScalarWhereWithAggregatesInput!]
+  NOT: [ClubMemberScalarWhereWithAggregatesInput!]
+  OR: [ClubMemberScalarWhereWithAggregatesInput!]
+  clubId: IntWithAggregatesFilter
+  isActive: BoolWithAggregatesFilter
+  memberId: IntWithAggregatesFilter
+  startDate: DateTimeWithAggregatesFilter
+}
+
+type ClubMemberSumAggregate {
+  clubId: Int
+  memberId: Int
+}
+
+input ClubMemberSumOrderByAggregateInput {
+  clubId: SortOrder
+  memberId: SortOrder
+}
+
+input ClubMemberUpdateInput {
+  club: ClubUpdateOneRequiredWithoutClubMemberInput
+  isActive: BoolFieldUpdateOperationsInput
+  member: UserUpdateOneRequiredWithoutClubMemberInput
+  startDate: DateTimeFieldUpdateOperationsInput
+}
+
+input ClubMemberUpdateManyMutationInput {
+  isActive: BoolFieldUpdateOperationsInput
+  startDate: DateTimeFieldUpdateOperationsInput
+}
+
+input ClubMemberUpdateManyWithWhereWithoutClubInput {
+  data: ClubMemberUpdateManyMutationInput!
+  where: ClubMemberScalarWhereInput!
+}
+
+input ClubMemberUpdateManyWithWhereWithoutMemberInput {
+  data: ClubMemberUpdateManyMutationInput!
+  where: ClubMemberScalarWhereInput!
+}
+
+input ClubMemberUpdateManyWithoutClubInput {
+  connect: [ClubMemberWhereUniqueInput!]
+  connectOrCreate: [ClubMemberCreateOrConnectWithoutClubInput!]
+  create: [ClubMemberCreateWithoutClubInput!]
+  createMany: ClubMemberCreateManyClubInputEnvelope
+  delete: [ClubMemberWhereUniqueInput!]
+  deleteMany: [ClubMemberScalarWhereInput!]
+  disconnect: [ClubMemberWhereUniqueInput!]
+  set: [ClubMemberWhereUniqueInput!]
+  update: [ClubMemberUpdateWithWhereUniqueWithoutClubInput!]
+  updateMany: [ClubMemberUpdateManyWithWhereWithoutClubInput!]
+  upsert: [ClubMemberUpsertWithWhereUniqueWithoutClubInput!]
+}
+
+input ClubMemberUpdateManyWithoutMemberInput {
+  connect: [ClubMemberWhereUniqueInput!]
+  connectOrCreate: [ClubMemberCreateOrConnectWithoutMemberInput!]
+  create: [ClubMemberCreateWithoutMemberInput!]
+  createMany: ClubMemberCreateManyMemberInputEnvelope
+  delete: [ClubMemberWhereUniqueInput!]
+  deleteMany: [ClubMemberScalarWhereInput!]
+  disconnect: [ClubMemberWhereUniqueInput!]
+  set: [ClubMemberWhereUniqueInput!]
+  update: [ClubMemberUpdateWithWhereUniqueWithoutMemberInput!]
+  updateMany: [ClubMemberUpdateManyWithWhereWithoutMemberInput!]
+  upsert: [ClubMemberUpsertWithWhereUniqueWithoutMemberInput!]
+}
+
+input ClubMemberUpdateWithWhereUniqueWithoutClubInput {
+  data: ClubMemberUpdateWithoutClubInput!
+  where: ClubMemberWhereUniqueInput!
+}
+
+input ClubMemberUpdateWithWhereUniqueWithoutMemberInput {
+  data: ClubMemberUpdateWithoutMemberInput!
+  where: ClubMemberWhereUniqueInput!
+}
+
+input ClubMemberUpdateWithoutClubInput {
+  isActive: BoolFieldUpdateOperationsInput
+  member: UserUpdateOneRequiredWithoutClubMemberInput
+  startDate: DateTimeFieldUpdateOperationsInput
+}
+
+input ClubMemberUpdateWithoutMemberInput {
+  club: ClubUpdateOneRequiredWithoutClubMemberInput
+  isActive: BoolFieldUpdateOperationsInput
+  startDate: DateTimeFieldUpdateOperationsInput
+}
+
+input ClubMemberUpsertWithWhereUniqueWithoutClubInput {
+  create: ClubMemberCreateWithoutClubInput!
+  update: ClubMemberUpdateWithoutClubInput!
+  where: ClubMemberWhereUniqueInput!
+}
+
+input ClubMemberUpsertWithWhereUniqueWithoutMemberInput {
+  create: ClubMemberCreateWithoutMemberInput!
+  update: ClubMemberUpdateWithoutMemberInput!
+  where: ClubMemberWhereUniqueInput!
+}
+
+input ClubMemberWhereInput {
+  AND: [ClubMemberWhereInput!]
+  NOT: [ClubMemberWhereInput!]
+  OR: [ClubMemberWhereInput!]
+  club: ClubRelationFilter
+  clubId: IntFilter
+  isActive: BoolFilter
+  member: UserRelationFilter
+  memberId: IntFilter
+  startDate: DateTimeFilter
+}
+
+input ClubMemberWhereUniqueInput {
+  clubId_memberId: ClubMemberClubIdMemberIdCompoundUniqueInput
+}
+
+type ClubMinAggregate {
+  adminId: Int
+  id: Int
+  name: String
+}
+
+input ClubMinOrderByAggregateInput {
+  adminId: SortOrder
+  id: SortOrder
+  name: SortOrder
+}
+
+input ClubOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input ClubOrderByWithAggregationInput {
+  _avg: ClubAvgOrderByAggregateInput
+  _count: ClubCountOrderByAggregateInput
+  _max: ClubMaxOrderByAggregateInput
+  _min: ClubMinOrderByAggregateInput
+  _sum: ClubSumOrderByAggregateInput
+  adminId: SortOrder
+  id: SortOrder
+  name: SortOrder
+}
+
+input ClubOrderByWithRelationInput {
+  ClubMember: ClubMemberOrderByRelationAggregateInput
+  admin: UserOrderByWithRelationInput
+  adminId: SortOrder
+  id: SortOrder
+  name: SortOrder
+}
+
+input ClubRelationFilter {
+  is: ClubWhereInput
+  isNot: ClubWhereInput
+}
+
+enum ClubScalarFieldEnum {
+  adminId
+  id
+  name
+}
+
+input ClubScalarWhereInput {
+  AND: [ClubScalarWhereInput!]
+  NOT: [ClubScalarWhereInput!]
+  OR: [ClubScalarWhereInput!]
+  adminId: IntFilter
+  id: IntFilter
+  name: StringFilter
+}
+
+input ClubScalarWhereWithAggregatesInput {
+  AND: [ClubScalarWhereWithAggregatesInput!]
+  NOT: [ClubScalarWhereWithAggregatesInput!]
+  OR: [ClubScalarWhereWithAggregatesInput!]
+  adminId: IntWithAggregatesFilter
+  id: IntWithAggregatesFilter
+  name: StringWithAggregatesFilter
+}
+
+type ClubSumAggregate {
+  adminId: Int
+  id: Int
+}
+
+input ClubSumOrderByAggregateInput {
+  adminId: SortOrder
+  id: SortOrder
+}
+
+input ClubUpdateInput {
+  ClubMember: ClubMemberUpdateManyWithoutClubInput
+  admin: UserUpdateOneRequiredWithoutClubInput
+  name: StringFieldUpdateOperationsInput
+}
+
+input ClubUpdateManyMutationInput {
+  name: StringFieldUpdateOperationsInput
+}
+
+input ClubUpdateManyWithWhereWithoutAdminInput {
+  data: ClubUpdateManyMutationInput!
+  where: ClubScalarWhereInput!
+}
+
+input ClubUpdateManyWithoutAdminInput {
+  connect: [ClubWhereUniqueInput!]
+  connectOrCreate: [ClubCreateOrConnectWithoutAdminInput!]
+  create: [ClubCreateWithoutAdminInput!]
+  createMany: ClubCreateManyAdminInputEnvelope
+  delete: [ClubWhereUniqueInput!]
+  deleteMany: [ClubScalarWhereInput!]
+  disconnect: [ClubWhereUniqueInput!]
+  set: [ClubWhereUniqueInput!]
+  update: [ClubUpdateWithWhereUniqueWithoutAdminInput!]
+  updateMany: [ClubUpdateManyWithWhereWithoutAdminInput!]
+  upsert: [ClubUpsertWithWhereUniqueWithoutAdminInput!]
+}
+
+input ClubUpdateOneRequiredWithoutClubMemberInput {
+  connect: ClubWhereUniqueInput
+  connectOrCreate: ClubCreateOrConnectWithoutClubMemberInput
+  create: ClubCreateWithoutClubMemberInput
+  update: ClubUpdateWithoutClubMemberInput
+  upsert: ClubUpsertWithoutClubMemberInput
+}
+
+input ClubUpdateWithWhereUniqueWithoutAdminInput {
+  data: ClubUpdateWithoutAdminInput!
+  where: ClubWhereUniqueInput!
+}
+
+input ClubUpdateWithoutAdminInput {
+  ClubMember: ClubMemberUpdateManyWithoutClubInput
+  name: StringFieldUpdateOperationsInput
+}
+
+input ClubUpdateWithoutClubMemberInput {
+  admin: UserUpdateOneRequiredWithoutClubInput
+  name: StringFieldUpdateOperationsInput
+}
+
+input ClubUpsertWithWhereUniqueWithoutAdminInput {
+  create: ClubCreateWithoutAdminInput!
+  update: ClubUpdateWithoutAdminInput!
+  where: ClubWhereUniqueInput!
+}
+
+input ClubUpsertWithoutClubMemberInput {
+  create: ClubCreateWithoutClubMemberInput!
+  update: ClubUpdateWithoutClubMemberInput!
+}
+
+input ClubWhereInput {
+  AND: [ClubWhereInput!]
+  ClubMember: ClubMemberListRelationFilter
+  NOT: [ClubWhereInput!]
+  OR: [ClubWhereInput!]
+  admin: UserRelationFilter
+  adminId: IntFilter
+  id: IntFilter
+  name: StringFilter
+}
+
+input ClubWhereUniqueInput {
+  id: Int
+}
+
+"""
+The javascript `Date` as string. Type represents date and time as the ISO Date string.
+"""
+scalar DateTime
+
+input DateTimeFieldUpdateOperationsInput {
+  set: DateTime
+}
+
+input DateTimeFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeFilter
+  notIn: [DateTime!]
+}
+
+input DateTimeWithAggregatesFilter {
+  _count: NestedIntFilter
+  _max: NestedDateTimeFilter
+  _min: NestedDateTimeFilter
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeWithAggregatesFilter
+  notIn: [DateTime!]
+}
+
+input EnumGameStateFieldUpdateOperationsInput {
+  set: GameState
+}
+
+input EnumGameStateFilter {
+  equals: GameState
+  in: [GameState!]
+  not: NestedEnumGameStateFilter
+  notIn: [GameState!]
+}
+
+input EnumGameStateWithAggregatesFilter {
+  _count: NestedIntFilter
+  _max: NestedEnumGameStateFilter
+  _min: NestedEnumGameStateFilter
+  equals: GameState
+  in: [GameState!]
+  not: NestedEnumGameStateWithAggregatesFilter
+  notIn: [GameState!]
+}
+
+input EnumMoveTypeFieldUpdateOperationsInput {
+  set: MoveType
+}
+
+input EnumMoveTypeFilter {
+  equals: MoveType
+  in: [MoveType!]
+  not: NestedEnumMoveTypeFilter
+  notIn: [MoveType!]
+}
+
+input EnumMoveTypeWithAggregatesFilter {
+  _count: NestedIntFilter
+  _max: NestedEnumMoveTypeFilter
+  _min: NestedEnumMoveTypeFilter
+  equals: MoveType
+  in: [MoveType!]
+  not: NestedEnumMoveTypeWithAggregatesFilter
+  notIn: [MoveType!]
+}
+
 input EnumRoleNullableListFilter {
   equals: [Role!]
   has: Role
@@ -56,246 +803,1098 @@ input EnumRoleNullableListFilter {
   isEmpty: Boolean
 }
 
-type FederatedCredentials {
-  User: User!
+type Game {
+  GamePlayer(cursor: GamePlayerWhereUniqueInput, distinct: [GamePlayerScalarFieldEnum!], orderBy: [GamePlayerOrderByWithRelationInput!], skip: Int, take: Int, where: GamePlayerWhereInput): [GamePlayer!]!
+  _count: GameCount
+  currJoker: String!
+  deck: [String!]!
   id: Int!
-  provider: String!
-  subject: String!
-  userId: Int!
+  openCard: String
+  openPile: [String!]!
+  state: GameState!
+  turnPlayer: GamePlayer!
+  turnPlayerId: Int!
 }
 
-type FederatedCredentialsAvgAggregate {
+type GameAvgAggregate {
   id: Float
-  userId: Float
+  turnPlayerId: Float
 }
 
-input FederatedCredentialsAvgOrderByAggregateInput {
+input GameAvgOrderByAggregateInput {
   id: SortOrder
-  userId: SortOrder
+  turnPlayerId: SortOrder
 }
 
-type FederatedCredentialsCountAggregate {
+type GameCount {
+  GamePlayer: Int!
+}
+
+type GameCountAggregate {
   _all: Int!
+  currJoker: Int!
+  deck: Int!
   id: Int!
-  provider: Int!
-  subject: Int!
-  userId: Int!
+  openCard: Int!
+  openPile: Int!
+  state: Int!
+  turnPlayerId: Int!
 }
 
-input FederatedCredentialsCountOrderByAggregateInput {
+input GameCountOrderByAggregateInput {
+  currJoker: SortOrder
+  deck: SortOrder
   id: SortOrder
-  provider: SortOrder
-  subject: SortOrder
-  userId: SortOrder
+  openCard: SortOrder
+  openPile: SortOrder
+  state: SortOrder
+  turnPlayerId: SortOrder
 }
 
-input FederatedCredentialsCreateInput {
-  User: UserCreateNestedOneWithoutFederatedCredentialsInput!
-  provider: String!
-  subject: String!
+input GameCreateInput {
+  GamePlayer: GamePlayerCreateNestedManyWithoutGameInput
+  currJoker: String!
+  deck: GameCreatedeckInput
+  openCard: String
+  openPile: GameCreateopenPileInput
+  state: GameState!
+  turnPlayer: GamePlayerCreateNestedOneWithoutTurnInGameInput!
 }
 
-input FederatedCredentialsCreateManyInput {
+input GameCreateManyInput {
+  currJoker: String!
+  deck: GameCreatedeckInput
   id: Int
-  provider: String!
-  subject: String!
-  userId: Int!
+  openCard: String
+  openPile: GameCreateopenPileInput
+  state: GameState!
+  turnPlayerId: Int!
 }
 
-input FederatedCredentialsCreateManyUserInput {
+input GameCreateManyTurnPlayerInput {
+  currJoker: String!
+  deck: GameCreatedeckInput
   id: Int
-  provider: String!
-  subject: String!
+  openCard: String
+  openPile: GameCreateopenPileInput
+  state: GameState!
 }
 
-input FederatedCredentialsCreateManyUserInputEnvelope {
-  data: [FederatedCredentialsCreateManyUserInput!]!
+input GameCreateManyTurnPlayerInputEnvelope {
+  data: [GameCreateManyTurnPlayerInput!]!
   skipDuplicates: Boolean
 }
 
-input FederatedCredentialsCreateNestedManyWithoutUserInput {
-  connect: [FederatedCredentialsWhereUniqueInput!]
-  connectOrCreate: [FederatedCredentialsCreateOrConnectWithoutUserInput!]
-  create: [FederatedCredentialsCreateWithoutUserInput!]
-  createMany: FederatedCredentialsCreateManyUserInputEnvelope
+input GameCreateNestedManyWithoutTurnPlayerInput {
+  connect: [GameWhereUniqueInput!]
+  connectOrCreate: [GameCreateOrConnectWithoutTurnPlayerInput!]
+  create: [GameCreateWithoutTurnPlayerInput!]
+  createMany: GameCreateManyTurnPlayerInputEnvelope
 }
 
-input FederatedCredentialsCreateOrConnectWithoutUserInput {
-  create: FederatedCredentialsCreateWithoutUserInput!
-  where: FederatedCredentialsWhereUniqueInput!
+input GameCreateNestedOneWithoutGamePlayerInput {
+  connect: GameWhereUniqueInput
+  connectOrCreate: GameCreateOrConnectWithoutGamePlayerInput
+  create: GameCreateWithoutGamePlayerInput
 }
 
-input FederatedCredentialsCreateWithoutUserInput {
-  provider: String!
-  subject: String!
+input GameCreateOrConnectWithoutGamePlayerInput {
+  create: GameCreateWithoutGamePlayerInput!
+  where: GameWhereUniqueInput!
 }
 
-type FederatedCredentialsGroupBy {
-  _avg: FederatedCredentialsAvgAggregate
-  _count: FederatedCredentialsCountAggregate
-  _max: FederatedCredentialsMaxAggregate
-  _min: FederatedCredentialsMinAggregate
-  _sum: FederatedCredentialsSumAggregate
+input GameCreateOrConnectWithoutTurnPlayerInput {
+  create: GameCreateWithoutTurnPlayerInput!
+  where: GameWhereUniqueInput!
+}
+
+input GameCreateWithoutGamePlayerInput {
+  currJoker: String!
+  deck: GameCreatedeckInput
+  openCard: String
+  openPile: GameCreateopenPileInput
+  state: GameState!
+  turnPlayer: GamePlayerCreateNestedOneWithoutTurnInGameInput!
+}
+
+input GameCreateWithoutTurnPlayerInput {
+  GamePlayer: GamePlayerCreateNestedManyWithoutGameInput
+  currJoker: String!
+  deck: GameCreatedeckInput
+  openCard: String
+  openPile: GameCreateopenPileInput
+  state: GameState!
+}
+
+input GameCreatedeckInput {
+  set: [String!]!
+}
+
+input GameCreateopenPileInput {
+  set: [String!]!
+}
+
+type GameGroupBy {
+  _avg: GameAvgAggregate
+  _count: GameCountAggregate
+  _max: GameMaxAggregate
+  _min: GameMinAggregate
+  _sum: GameSumAggregate
+  currJoker: String!
+  deck: [String!]
   id: Int!
-  provider: String!
-  subject: String!
-  userId: Int!
+  openCard: String
+  openPile: [String!]
+  state: GameState!
+  turnPlayerId: Int!
 }
 
-input FederatedCredentialsListRelationFilter {
-  every: FederatedCredentialsWhereInput
-  none: FederatedCredentialsWhereInput
-  some: FederatedCredentialsWhereInput
+input GameListRelationFilter {
+  every: GameWhereInput
+  none: GameWhereInput
+  some: GameWhereInput
 }
 
-type FederatedCredentialsMaxAggregate {
+type GameMaxAggregate {
+  currJoker: String
   id: Int
-  provider: String
-  subject: String
-  userId: Int
+  openCard: String
+  state: GameState
+  turnPlayerId: Int
 }
 
-input FederatedCredentialsMaxOrderByAggregateInput {
+input GameMaxOrderByAggregateInput {
+  currJoker: SortOrder
   id: SortOrder
-  provider: SortOrder
-  subject: SortOrder
-  userId: SortOrder
+  openCard: SortOrder
+  state: SortOrder
+  turnPlayerId: SortOrder
 }
 
-type FederatedCredentialsMinAggregate {
+type GameMinAggregate {
+  currJoker: String
   id: Int
-  provider: String
-  subject: String
-  userId: Int
+  openCard: String
+  state: GameState
+  turnPlayerId: Int
 }
 
-input FederatedCredentialsMinOrderByAggregateInput {
+input GameMinOrderByAggregateInput {
+  currJoker: SortOrder
   id: SortOrder
-  provider: SortOrder
-  subject: SortOrder
-  userId: SortOrder
+  openCard: SortOrder
+  state: SortOrder
+  turnPlayerId: SortOrder
 }
 
-input FederatedCredentialsOrderByRelationAggregateInput {
+input GameOrderByRelationAggregateInput {
   _count: SortOrder
 }
 
-input FederatedCredentialsOrderByWithAggregationInput {
-  _avg: FederatedCredentialsAvgOrderByAggregateInput
-  _count: FederatedCredentialsCountOrderByAggregateInput
-  _max: FederatedCredentialsMaxOrderByAggregateInput
-  _min: FederatedCredentialsMinOrderByAggregateInput
-  _sum: FederatedCredentialsSumOrderByAggregateInput
+input GameOrderByWithAggregationInput {
+  _avg: GameAvgOrderByAggregateInput
+  _count: GameCountOrderByAggregateInput
+  _max: GameMaxOrderByAggregateInput
+  _min: GameMinOrderByAggregateInput
+  _sum: GameSumOrderByAggregateInput
+  currJoker: SortOrder
+  deck: SortOrder
   id: SortOrder
-  provider: SortOrder
-  subject: SortOrder
+  openCard: SortOrder
+  openPile: SortOrder
+  state: SortOrder
+  turnPlayerId: SortOrder
+}
+
+input GameOrderByWithRelationInput {
+  GamePlayer: GamePlayerOrderByRelationAggregateInput
+  currJoker: SortOrder
+  deck: SortOrder
+  id: SortOrder
+  openCard: SortOrder
+  openPile: SortOrder
+  state: SortOrder
+  turnPlayer: GamePlayerOrderByWithRelationInput
+  turnPlayerId: SortOrder
+}
+
+type GamePlayer {
+  Meld(cursor: MeldWhereUniqueInput, distinct: [MeldScalarFieldEnum!], orderBy: [MeldOrderByWithRelationInput!], skip: Int, take: Int, where: MeldWhereInput): [Meld!]!
+  MeldMove(cursor: MeldMoveWhereUniqueInput, distinct: [MeldMoveScalarFieldEnum!], orderBy: [MeldMoveOrderByWithRelationInput!], skip: Int, take: Int, where: MeldMoveWhereInput): [MeldMove!]!
+  ReturnCardMove(cursor: ReturnCardMoveWhereUniqueInput, distinct: [ReturnCardMoveScalarFieldEnum!], orderBy: [ReturnCardMoveOrderByWithRelationInput!], skip: Int, take: Int, where: ReturnCardMoveWhereInput): [ReturnCardMove!]!
+  ShowMove(cursor: ShowMoveWhereUniqueInput, distinct: [ShowMoveScalarFieldEnum!], orderBy: [ShowMoveOrderByWithRelationInput!], skip: Int, take: Int, where: ShowMoveWhereInput): [ShowMove!]!
+  SimpleMove(cursor: SimpleMoveWhereUniqueInput, distinct: [SimpleMoveScalarFieldEnum!], orderBy: [SimpleMoveOrderByWithRelationInput!], skip: Int, take: Int, where: SimpleMoveWhereInput): [SimpleMove!]!
+  TurnInGame(cursor: GameWhereUniqueInput, distinct: [GameScalarFieldEnum!], orderBy: [GameOrderByWithRelationInput!], skip: Int, take: Int, where: GameWhereInput): [Game!]!
+  _count: GamePlayerCount
+  game: Game!
+  gameId: Int!
+  hand: [String!]!
+  id: Int!
+  playerIdx: Int!
+  user: User!
+  userId: Int!
+}
+
+type GamePlayerAvgAggregate {
+  gameId: Float
+  id: Float
+  playerIdx: Float
+  userId: Float
+}
+
+input GamePlayerAvgOrderByAggregateInput {
+  gameId: SortOrder
+  id: SortOrder
+  playerIdx: SortOrder
   userId: SortOrder
 }
 
-input FederatedCredentialsOrderByWithRelationInput {
-  User: UserOrderByWithRelationInput
+type GamePlayerCount {
+  Meld: Int!
+  MeldMove: Int!
+  ReturnCardMove: Int!
+  ShowMove: Int!
+  SimpleMove: Int!
+  TurnInGame: Int!
+}
+
+type GamePlayerCountAggregate {
+  _all: Int!
+  gameId: Int!
+  hand: Int!
+  id: Int!
+  playerIdx: Int!
+  userId: Int!
+}
+
+input GamePlayerCountOrderByAggregateInput {
+  gameId: SortOrder
+  hand: SortOrder
   id: SortOrder
-  provider: SortOrder
-  subject: SortOrder
+  playerIdx: SortOrder
   userId: SortOrder
 }
 
-enum FederatedCredentialsScalarFieldEnum {
-  id
-  provider
-  subject
-  userId
+input GamePlayerCreateInput {
+  Meld: MeldCreateNestedManyWithoutGamePlayerInput
+  MeldMove: MeldMoveCreateNestedManyWithoutGamePlayerInput
+  ReturnCardMove: ReturnCardMoveCreateNestedManyWithoutGamePlayerInput
+  ShowMove: ShowMoveCreateNestedManyWithoutGamePlayerInput
+  SimpleMove: SimpleMoveCreateNestedManyWithoutGamePlayerInput
+  TurnInGame: GameCreateNestedManyWithoutTurnPlayerInput
+  game: GameCreateNestedOneWithoutGamePlayerInput!
+  hand: GamePlayerCreatehandInput
+  playerIdx: Int!
+  user: UserCreateNestedOneWithoutGamePlayerInput!
 }
 
-input FederatedCredentialsScalarWhereInput {
-  AND: [FederatedCredentialsScalarWhereInput!]
-  NOT: [FederatedCredentialsScalarWhereInput!]
-  OR: [FederatedCredentialsScalarWhereInput!]
-  id: IntFilter
-  provider: StringFilter
-  subject: StringFilter
-  userId: IntFilter
-}
-
-input FederatedCredentialsScalarWhereWithAggregatesInput {
-  AND: [FederatedCredentialsScalarWhereWithAggregatesInput!]
-  NOT: [FederatedCredentialsScalarWhereWithAggregatesInput!]
-  OR: [FederatedCredentialsScalarWhereWithAggregatesInput!]
-  id: IntWithAggregatesFilter
-  provider: StringWithAggregatesFilter
-  subject: StringWithAggregatesFilter
-  userId: IntWithAggregatesFilter
-}
-
-type FederatedCredentialsSumAggregate {
+input GamePlayerCreateManyGameInput {
+  hand: GamePlayerCreatehandInput
   id: Int
+  playerIdx: Int!
+  userId: Int!
+}
+
+input GamePlayerCreateManyGameInputEnvelope {
+  data: [GamePlayerCreateManyGameInput!]!
+  skipDuplicates: Boolean
+}
+
+input GamePlayerCreateManyInput {
+  gameId: Int!
+  hand: GamePlayerCreatehandInput
+  id: Int
+  playerIdx: Int!
+  userId: Int!
+}
+
+input GamePlayerCreateManyUserInput {
+  gameId: Int!
+  hand: GamePlayerCreatehandInput
+  id: Int
+  playerIdx: Int!
+}
+
+input GamePlayerCreateManyUserInputEnvelope {
+  data: [GamePlayerCreateManyUserInput!]!
+  skipDuplicates: Boolean
+}
+
+input GamePlayerCreateNestedManyWithoutGameInput {
+  connect: [GamePlayerWhereUniqueInput!]
+  connectOrCreate: [GamePlayerCreateOrConnectWithoutGameInput!]
+  create: [GamePlayerCreateWithoutGameInput!]
+  createMany: GamePlayerCreateManyGameInputEnvelope
+}
+
+input GamePlayerCreateNestedManyWithoutUserInput {
+  connect: [GamePlayerWhereUniqueInput!]
+  connectOrCreate: [GamePlayerCreateOrConnectWithoutUserInput!]
+  create: [GamePlayerCreateWithoutUserInput!]
+  createMany: GamePlayerCreateManyUserInputEnvelope
+}
+
+input GamePlayerCreateNestedOneWithoutMeldInput {
+  connect: GamePlayerWhereUniqueInput
+  connectOrCreate: GamePlayerCreateOrConnectWithoutMeldInput
+  create: GamePlayerCreateWithoutMeldInput
+}
+
+input GamePlayerCreateNestedOneWithoutMeldMoveInput {
+  connect: GamePlayerWhereUniqueInput
+  connectOrCreate: GamePlayerCreateOrConnectWithoutMeldMoveInput
+  create: GamePlayerCreateWithoutMeldMoveInput
+}
+
+input GamePlayerCreateNestedOneWithoutReturnCardMoveInput {
+  connect: GamePlayerWhereUniqueInput
+  connectOrCreate: GamePlayerCreateOrConnectWithoutReturnCardMoveInput
+  create: GamePlayerCreateWithoutReturnCardMoveInput
+}
+
+input GamePlayerCreateNestedOneWithoutShowMoveInput {
+  connect: GamePlayerWhereUniqueInput
+  connectOrCreate: GamePlayerCreateOrConnectWithoutShowMoveInput
+  create: GamePlayerCreateWithoutShowMoveInput
+}
+
+input GamePlayerCreateNestedOneWithoutSimpleMoveInput {
+  connect: GamePlayerWhereUniqueInput
+  connectOrCreate: GamePlayerCreateOrConnectWithoutSimpleMoveInput
+  create: GamePlayerCreateWithoutSimpleMoveInput
+}
+
+input GamePlayerCreateNestedOneWithoutTurnInGameInput {
+  connect: GamePlayerWhereUniqueInput
+  connectOrCreate: GamePlayerCreateOrConnectWithoutTurnInGameInput
+  create: GamePlayerCreateWithoutTurnInGameInput
+}
+
+input GamePlayerCreateOrConnectWithoutGameInput {
+  create: GamePlayerCreateWithoutGameInput!
+  where: GamePlayerWhereUniqueInput!
+}
+
+input GamePlayerCreateOrConnectWithoutMeldInput {
+  create: GamePlayerCreateWithoutMeldInput!
+  where: GamePlayerWhereUniqueInput!
+}
+
+input GamePlayerCreateOrConnectWithoutMeldMoveInput {
+  create: GamePlayerCreateWithoutMeldMoveInput!
+  where: GamePlayerWhereUniqueInput!
+}
+
+input GamePlayerCreateOrConnectWithoutReturnCardMoveInput {
+  create: GamePlayerCreateWithoutReturnCardMoveInput!
+  where: GamePlayerWhereUniqueInput!
+}
+
+input GamePlayerCreateOrConnectWithoutShowMoveInput {
+  create: GamePlayerCreateWithoutShowMoveInput!
+  where: GamePlayerWhereUniqueInput!
+}
+
+input GamePlayerCreateOrConnectWithoutSimpleMoveInput {
+  create: GamePlayerCreateWithoutSimpleMoveInput!
+  where: GamePlayerWhereUniqueInput!
+}
+
+input GamePlayerCreateOrConnectWithoutTurnInGameInput {
+  create: GamePlayerCreateWithoutTurnInGameInput!
+  where: GamePlayerWhereUniqueInput!
+}
+
+input GamePlayerCreateOrConnectWithoutUserInput {
+  create: GamePlayerCreateWithoutUserInput!
+  where: GamePlayerWhereUniqueInput!
+}
+
+input GamePlayerCreateWithoutGameInput {
+  Meld: MeldCreateNestedManyWithoutGamePlayerInput
+  MeldMove: MeldMoveCreateNestedManyWithoutGamePlayerInput
+  ReturnCardMove: ReturnCardMoveCreateNestedManyWithoutGamePlayerInput
+  ShowMove: ShowMoveCreateNestedManyWithoutGamePlayerInput
+  SimpleMove: SimpleMoveCreateNestedManyWithoutGamePlayerInput
+  TurnInGame: GameCreateNestedManyWithoutTurnPlayerInput
+  hand: GamePlayerCreatehandInput
+  playerIdx: Int!
+  user: UserCreateNestedOneWithoutGamePlayerInput!
+}
+
+input GamePlayerCreateWithoutMeldInput {
+  MeldMove: MeldMoveCreateNestedManyWithoutGamePlayerInput
+  ReturnCardMove: ReturnCardMoveCreateNestedManyWithoutGamePlayerInput
+  ShowMove: ShowMoveCreateNestedManyWithoutGamePlayerInput
+  SimpleMove: SimpleMoveCreateNestedManyWithoutGamePlayerInput
+  TurnInGame: GameCreateNestedManyWithoutTurnPlayerInput
+  game: GameCreateNestedOneWithoutGamePlayerInput!
+  hand: GamePlayerCreatehandInput
+  playerIdx: Int!
+  user: UserCreateNestedOneWithoutGamePlayerInput!
+}
+
+input GamePlayerCreateWithoutMeldMoveInput {
+  Meld: MeldCreateNestedManyWithoutGamePlayerInput
+  ReturnCardMove: ReturnCardMoveCreateNestedManyWithoutGamePlayerInput
+  ShowMove: ShowMoveCreateNestedManyWithoutGamePlayerInput
+  SimpleMove: SimpleMoveCreateNestedManyWithoutGamePlayerInput
+  TurnInGame: GameCreateNestedManyWithoutTurnPlayerInput
+  game: GameCreateNestedOneWithoutGamePlayerInput!
+  hand: GamePlayerCreatehandInput
+  playerIdx: Int!
+  user: UserCreateNestedOneWithoutGamePlayerInput!
+}
+
+input GamePlayerCreateWithoutReturnCardMoveInput {
+  Meld: MeldCreateNestedManyWithoutGamePlayerInput
+  MeldMove: MeldMoveCreateNestedManyWithoutGamePlayerInput
+  ShowMove: ShowMoveCreateNestedManyWithoutGamePlayerInput
+  SimpleMove: SimpleMoveCreateNestedManyWithoutGamePlayerInput
+  TurnInGame: GameCreateNestedManyWithoutTurnPlayerInput
+  game: GameCreateNestedOneWithoutGamePlayerInput!
+  hand: GamePlayerCreatehandInput
+  playerIdx: Int!
+  user: UserCreateNestedOneWithoutGamePlayerInput!
+}
+
+input GamePlayerCreateWithoutShowMoveInput {
+  Meld: MeldCreateNestedManyWithoutGamePlayerInput
+  MeldMove: MeldMoveCreateNestedManyWithoutGamePlayerInput
+  ReturnCardMove: ReturnCardMoveCreateNestedManyWithoutGamePlayerInput
+  SimpleMove: SimpleMoveCreateNestedManyWithoutGamePlayerInput
+  TurnInGame: GameCreateNestedManyWithoutTurnPlayerInput
+  game: GameCreateNestedOneWithoutGamePlayerInput!
+  hand: GamePlayerCreatehandInput
+  playerIdx: Int!
+  user: UserCreateNestedOneWithoutGamePlayerInput!
+}
+
+input GamePlayerCreateWithoutSimpleMoveInput {
+  Meld: MeldCreateNestedManyWithoutGamePlayerInput
+  MeldMove: MeldMoveCreateNestedManyWithoutGamePlayerInput
+  ReturnCardMove: ReturnCardMoveCreateNestedManyWithoutGamePlayerInput
+  ShowMove: ShowMoveCreateNestedManyWithoutGamePlayerInput
+  TurnInGame: GameCreateNestedManyWithoutTurnPlayerInput
+  game: GameCreateNestedOneWithoutGamePlayerInput!
+  hand: GamePlayerCreatehandInput
+  playerIdx: Int!
+  user: UserCreateNestedOneWithoutGamePlayerInput!
+}
+
+input GamePlayerCreateWithoutTurnInGameInput {
+  Meld: MeldCreateNestedManyWithoutGamePlayerInput
+  MeldMove: MeldMoveCreateNestedManyWithoutGamePlayerInput
+  ReturnCardMove: ReturnCardMoveCreateNestedManyWithoutGamePlayerInput
+  ShowMove: ShowMoveCreateNestedManyWithoutGamePlayerInput
+  SimpleMove: SimpleMoveCreateNestedManyWithoutGamePlayerInput
+  game: GameCreateNestedOneWithoutGamePlayerInput!
+  hand: GamePlayerCreatehandInput
+  playerIdx: Int!
+  user: UserCreateNestedOneWithoutGamePlayerInput!
+}
+
+input GamePlayerCreateWithoutUserInput {
+  Meld: MeldCreateNestedManyWithoutGamePlayerInput
+  MeldMove: MeldMoveCreateNestedManyWithoutGamePlayerInput
+  ReturnCardMove: ReturnCardMoveCreateNestedManyWithoutGamePlayerInput
+  ShowMove: ShowMoveCreateNestedManyWithoutGamePlayerInput
+  SimpleMove: SimpleMoveCreateNestedManyWithoutGamePlayerInput
+  TurnInGame: GameCreateNestedManyWithoutTurnPlayerInput
+  game: GameCreateNestedOneWithoutGamePlayerInput!
+  hand: GamePlayerCreatehandInput
+  playerIdx: Int!
+}
+
+input GamePlayerCreatehandInput {
+  set: [String!]!
+}
+
+input GamePlayerGameIdPlayerIdxCompoundUniqueInput {
+  gameId: Int!
+  playerIdx: Int!
+}
+
+type GamePlayerGroupBy {
+  _avg: GamePlayerAvgAggregate
+  _count: GamePlayerCountAggregate
+  _max: GamePlayerMaxAggregate
+  _min: GamePlayerMinAggregate
+  _sum: GamePlayerSumAggregate
+  gameId: Int!
+  hand: [String!]
+  id: Int!
+  playerIdx: Int!
+  userId: Int!
+}
+
+input GamePlayerListRelationFilter {
+  every: GamePlayerWhereInput
+  none: GamePlayerWhereInput
+  some: GamePlayerWhereInput
+}
+
+type GamePlayerMaxAggregate {
+  gameId: Int
+  id: Int
+  playerIdx: Int
   userId: Int
 }
 
-input FederatedCredentialsSumOrderByAggregateInput {
+input GamePlayerMaxOrderByAggregateInput {
+  gameId: SortOrder
   id: SortOrder
+  playerIdx: SortOrder
   userId: SortOrder
 }
 
-input FederatedCredentialsUpdateInput {
-  User: UserUpdateOneRequiredWithoutFederatedCredentialsInput
-  provider: StringFieldUpdateOperationsInput
-  subject: StringFieldUpdateOperationsInput
+type GamePlayerMinAggregate {
+  gameId: Int
+  id: Int
+  playerIdx: Int
+  userId: Int
 }
 
-input FederatedCredentialsUpdateManyMutationInput {
-  provider: StringFieldUpdateOperationsInput
-  subject: StringFieldUpdateOperationsInput
+input GamePlayerMinOrderByAggregateInput {
+  gameId: SortOrder
+  id: SortOrder
+  playerIdx: SortOrder
+  userId: SortOrder
 }
 
-input FederatedCredentialsUpdateManyWithWhereWithoutUserInput {
-  data: FederatedCredentialsUpdateManyMutationInput!
-  where: FederatedCredentialsScalarWhereInput!
+input GamePlayerOrderByRelationAggregateInput {
+  _count: SortOrder
 }
 
-input FederatedCredentialsUpdateManyWithoutUserInput {
-  connect: [FederatedCredentialsWhereUniqueInput!]
-  connectOrCreate: [FederatedCredentialsCreateOrConnectWithoutUserInput!]
-  create: [FederatedCredentialsCreateWithoutUserInput!]
-  createMany: FederatedCredentialsCreateManyUserInputEnvelope
-  delete: [FederatedCredentialsWhereUniqueInput!]
-  deleteMany: [FederatedCredentialsScalarWhereInput!]
-  disconnect: [FederatedCredentialsWhereUniqueInput!]
-  set: [FederatedCredentialsWhereUniqueInput!]
-  update: [FederatedCredentialsUpdateWithWhereUniqueWithoutUserInput!]
-  updateMany: [FederatedCredentialsUpdateManyWithWhereWithoutUserInput!]
-  upsert: [FederatedCredentialsUpsertWithWhereUniqueWithoutUserInput!]
+input GamePlayerOrderByWithAggregationInput {
+  _avg: GamePlayerAvgOrderByAggregateInput
+  _count: GamePlayerCountOrderByAggregateInput
+  _max: GamePlayerMaxOrderByAggregateInput
+  _min: GamePlayerMinOrderByAggregateInput
+  _sum: GamePlayerSumOrderByAggregateInput
+  gameId: SortOrder
+  hand: SortOrder
+  id: SortOrder
+  playerIdx: SortOrder
+  userId: SortOrder
 }
 
-input FederatedCredentialsUpdateWithWhereUniqueWithoutUserInput {
-  data: FederatedCredentialsUpdateWithoutUserInput!
-  where: FederatedCredentialsWhereUniqueInput!
+input GamePlayerOrderByWithRelationInput {
+  Meld: MeldOrderByRelationAggregateInput
+  MeldMove: MeldMoveOrderByRelationAggregateInput
+  ReturnCardMove: ReturnCardMoveOrderByRelationAggregateInput
+  ShowMove: ShowMoveOrderByRelationAggregateInput
+  SimpleMove: SimpleMoveOrderByRelationAggregateInput
+  TurnInGame: GameOrderByRelationAggregateInput
+  game: GameOrderByWithRelationInput
+  gameId: SortOrder
+  hand: SortOrder
+  id: SortOrder
+  playerIdx: SortOrder
+  user: UserOrderByWithRelationInput
+  userId: SortOrder
 }
 
-input FederatedCredentialsUpdateWithoutUserInput {
-  provider: StringFieldUpdateOperationsInput
-  subject: StringFieldUpdateOperationsInput
+input GamePlayerRelationFilter {
+  is: GamePlayerWhereInput
+  isNot: GamePlayerWhereInput
 }
 
-input FederatedCredentialsUpsertWithWhereUniqueWithoutUserInput {
-  create: FederatedCredentialsCreateWithoutUserInput!
-  update: FederatedCredentialsUpdateWithoutUserInput!
-  where: FederatedCredentialsWhereUniqueInput!
+enum GamePlayerScalarFieldEnum {
+  gameId
+  hand
+  id
+  playerIdx
+  userId
 }
 
-input FederatedCredentialsWhereInput {
-  AND: [FederatedCredentialsWhereInput!]
-  NOT: [FederatedCredentialsWhereInput!]
-  OR: [FederatedCredentialsWhereInput!]
-  User: UserRelationFilter
+input GamePlayerScalarWhereInput {
+  AND: [GamePlayerScalarWhereInput!]
+  NOT: [GamePlayerScalarWhereInput!]
+  OR: [GamePlayerScalarWhereInput!]
+  gameId: IntFilter
+  hand: StringNullableListFilter
   id: IntFilter
-  provider: StringFilter
-  subject: StringFilter
+  playerIdx: IntFilter
   userId: IntFilter
 }
 
-input FederatedCredentialsWhereUniqueInput {
+input GamePlayerScalarWhereWithAggregatesInput {
+  AND: [GamePlayerScalarWhereWithAggregatesInput!]
+  NOT: [GamePlayerScalarWhereWithAggregatesInput!]
+  OR: [GamePlayerScalarWhereWithAggregatesInput!]
+  gameId: IntWithAggregatesFilter
+  hand: StringNullableListFilter
+  id: IntWithAggregatesFilter
+  playerIdx: IntWithAggregatesFilter
+  userId: IntWithAggregatesFilter
+}
+
+type GamePlayerSumAggregate {
+  gameId: Int
   id: Int
+  playerIdx: Int
+  userId: Int
+}
+
+input GamePlayerSumOrderByAggregateInput {
+  gameId: SortOrder
+  id: SortOrder
+  playerIdx: SortOrder
+  userId: SortOrder
+}
+
+input GamePlayerUpdateInput {
+  Meld: MeldUpdateManyWithoutGamePlayerInput
+  MeldMove: MeldMoveUpdateManyWithoutGamePlayerInput
+  ReturnCardMove: ReturnCardMoveUpdateManyWithoutGamePlayerInput
+  ShowMove: ShowMoveUpdateManyWithoutGamePlayerInput
+  SimpleMove: SimpleMoveUpdateManyWithoutGamePlayerInput
+  TurnInGame: GameUpdateManyWithoutTurnPlayerInput
+  game: GameUpdateOneRequiredWithoutGamePlayerInput
+  hand: GamePlayerUpdatehandInput
+  playerIdx: IntFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutGamePlayerInput
+}
+
+input GamePlayerUpdateManyMutationInput {
+  hand: GamePlayerUpdatehandInput
+  playerIdx: IntFieldUpdateOperationsInput
+}
+
+input GamePlayerUpdateManyWithWhereWithoutGameInput {
+  data: GamePlayerUpdateManyMutationInput!
+  where: GamePlayerScalarWhereInput!
+}
+
+input GamePlayerUpdateManyWithWhereWithoutUserInput {
+  data: GamePlayerUpdateManyMutationInput!
+  where: GamePlayerScalarWhereInput!
+}
+
+input GamePlayerUpdateManyWithoutGameInput {
+  connect: [GamePlayerWhereUniqueInput!]
+  connectOrCreate: [GamePlayerCreateOrConnectWithoutGameInput!]
+  create: [GamePlayerCreateWithoutGameInput!]
+  createMany: GamePlayerCreateManyGameInputEnvelope
+  delete: [GamePlayerWhereUniqueInput!]
+  deleteMany: [GamePlayerScalarWhereInput!]
+  disconnect: [GamePlayerWhereUniqueInput!]
+  set: [GamePlayerWhereUniqueInput!]
+  update: [GamePlayerUpdateWithWhereUniqueWithoutGameInput!]
+  updateMany: [GamePlayerUpdateManyWithWhereWithoutGameInput!]
+  upsert: [GamePlayerUpsertWithWhereUniqueWithoutGameInput!]
+}
+
+input GamePlayerUpdateManyWithoutUserInput {
+  connect: [GamePlayerWhereUniqueInput!]
+  connectOrCreate: [GamePlayerCreateOrConnectWithoutUserInput!]
+  create: [GamePlayerCreateWithoutUserInput!]
+  createMany: GamePlayerCreateManyUserInputEnvelope
+  delete: [GamePlayerWhereUniqueInput!]
+  deleteMany: [GamePlayerScalarWhereInput!]
+  disconnect: [GamePlayerWhereUniqueInput!]
+  set: [GamePlayerWhereUniqueInput!]
+  update: [GamePlayerUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [GamePlayerUpdateManyWithWhereWithoutUserInput!]
+  upsert: [GamePlayerUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input GamePlayerUpdateOneRequiredWithoutMeldInput {
+  connect: GamePlayerWhereUniqueInput
+  connectOrCreate: GamePlayerCreateOrConnectWithoutMeldInput
+  create: GamePlayerCreateWithoutMeldInput
+  update: GamePlayerUpdateWithoutMeldInput
+  upsert: GamePlayerUpsertWithoutMeldInput
+}
+
+input GamePlayerUpdateOneRequiredWithoutMeldMoveInput {
+  connect: GamePlayerWhereUniqueInput
+  connectOrCreate: GamePlayerCreateOrConnectWithoutMeldMoveInput
+  create: GamePlayerCreateWithoutMeldMoveInput
+  update: GamePlayerUpdateWithoutMeldMoveInput
+  upsert: GamePlayerUpsertWithoutMeldMoveInput
+}
+
+input GamePlayerUpdateOneRequiredWithoutReturnCardMoveInput {
+  connect: GamePlayerWhereUniqueInput
+  connectOrCreate: GamePlayerCreateOrConnectWithoutReturnCardMoveInput
+  create: GamePlayerCreateWithoutReturnCardMoveInput
+  update: GamePlayerUpdateWithoutReturnCardMoveInput
+  upsert: GamePlayerUpsertWithoutReturnCardMoveInput
+}
+
+input GamePlayerUpdateOneRequiredWithoutShowMoveInput {
+  connect: GamePlayerWhereUniqueInput
+  connectOrCreate: GamePlayerCreateOrConnectWithoutShowMoveInput
+  create: GamePlayerCreateWithoutShowMoveInput
+  update: GamePlayerUpdateWithoutShowMoveInput
+  upsert: GamePlayerUpsertWithoutShowMoveInput
+}
+
+input GamePlayerUpdateOneRequiredWithoutSimpleMoveInput {
+  connect: GamePlayerWhereUniqueInput
+  connectOrCreate: GamePlayerCreateOrConnectWithoutSimpleMoveInput
+  create: GamePlayerCreateWithoutSimpleMoveInput
+  update: GamePlayerUpdateWithoutSimpleMoveInput
+  upsert: GamePlayerUpsertWithoutSimpleMoveInput
+}
+
+input GamePlayerUpdateOneRequiredWithoutTurnInGameInput {
+  connect: GamePlayerWhereUniqueInput
+  connectOrCreate: GamePlayerCreateOrConnectWithoutTurnInGameInput
+  create: GamePlayerCreateWithoutTurnInGameInput
+  update: GamePlayerUpdateWithoutTurnInGameInput
+  upsert: GamePlayerUpsertWithoutTurnInGameInput
+}
+
+input GamePlayerUpdateWithWhereUniqueWithoutGameInput {
+  data: GamePlayerUpdateWithoutGameInput!
+  where: GamePlayerWhereUniqueInput!
+}
+
+input GamePlayerUpdateWithWhereUniqueWithoutUserInput {
+  data: GamePlayerUpdateWithoutUserInput!
+  where: GamePlayerWhereUniqueInput!
+}
+
+input GamePlayerUpdateWithoutGameInput {
+  Meld: MeldUpdateManyWithoutGamePlayerInput
+  MeldMove: MeldMoveUpdateManyWithoutGamePlayerInput
+  ReturnCardMove: ReturnCardMoveUpdateManyWithoutGamePlayerInput
+  ShowMove: ShowMoveUpdateManyWithoutGamePlayerInput
+  SimpleMove: SimpleMoveUpdateManyWithoutGamePlayerInput
+  TurnInGame: GameUpdateManyWithoutTurnPlayerInput
+  hand: GamePlayerUpdatehandInput
+  playerIdx: IntFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutGamePlayerInput
+}
+
+input GamePlayerUpdateWithoutMeldInput {
+  MeldMove: MeldMoveUpdateManyWithoutGamePlayerInput
+  ReturnCardMove: ReturnCardMoveUpdateManyWithoutGamePlayerInput
+  ShowMove: ShowMoveUpdateManyWithoutGamePlayerInput
+  SimpleMove: SimpleMoveUpdateManyWithoutGamePlayerInput
+  TurnInGame: GameUpdateManyWithoutTurnPlayerInput
+  game: GameUpdateOneRequiredWithoutGamePlayerInput
+  hand: GamePlayerUpdatehandInput
+  playerIdx: IntFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutGamePlayerInput
+}
+
+input GamePlayerUpdateWithoutMeldMoveInput {
+  Meld: MeldUpdateManyWithoutGamePlayerInput
+  ReturnCardMove: ReturnCardMoveUpdateManyWithoutGamePlayerInput
+  ShowMove: ShowMoveUpdateManyWithoutGamePlayerInput
+  SimpleMove: SimpleMoveUpdateManyWithoutGamePlayerInput
+  TurnInGame: GameUpdateManyWithoutTurnPlayerInput
+  game: GameUpdateOneRequiredWithoutGamePlayerInput
+  hand: GamePlayerUpdatehandInput
+  playerIdx: IntFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutGamePlayerInput
+}
+
+input GamePlayerUpdateWithoutReturnCardMoveInput {
+  Meld: MeldUpdateManyWithoutGamePlayerInput
+  MeldMove: MeldMoveUpdateManyWithoutGamePlayerInput
+  ShowMove: ShowMoveUpdateManyWithoutGamePlayerInput
+  SimpleMove: SimpleMoveUpdateManyWithoutGamePlayerInput
+  TurnInGame: GameUpdateManyWithoutTurnPlayerInput
+  game: GameUpdateOneRequiredWithoutGamePlayerInput
+  hand: GamePlayerUpdatehandInput
+  playerIdx: IntFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutGamePlayerInput
+}
+
+input GamePlayerUpdateWithoutShowMoveInput {
+  Meld: MeldUpdateManyWithoutGamePlayerInput
+  MeldMove: MeldMoveUpdateManyWithoutGamePlayerInput
+  ReturnCardMove: ReturnCardMoveUpdateManyWithoutGamePlayerInput
+  SimpleMove: SimpleMoveUpdateManyWithoutGamePlayerInput
+  TurnInGame: GameUpdateManyWithoutTurnPlayerInput
+  game: GameUpdateOneRequiredWithoutGamePlayerInput
+  hand: GamePlayerUpdatehandInput
+  playerIdx: IntFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutGamePlayerInput
+}
+
+input GamePlayerUpdateWithoutSimpleMoveInput {
+  Meld: MeldUpdateManyWithoutGamePlayerInput
+  MeldMove: MeldMoveUpdateManyWithoutGamePlayerInput
+  ReturnCardMove: ReturnCardMoveUpdateManyWithoutGamePlayerInput
+  ShowMove: ShowMoveUpdateManyWithoutGamePlayerInput
+  TurnInGame: GameUpdateManyWithoutTurnPlayerInput
+  game: GameUpdateOneRequiredWithoutGamePlayerInput
+  hand: GamePlayerUpdatehandInput
+  playerIdx: IntFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutGamePlayerInput
+}
+
+input GamePlayerUpdateWithoutTurnInGameInput {
+  Meld: MeldUpdateManyWithoutGamePlayerInput
+  MeldMove: MeldMoveUpdateManyWithoutGamePlayerInput
+  ReturnCardMove: ReturnCardMoveUpdateManyWithoutGamePlayerInput
+  ShowMove: ShowMoveUpdateManyWithoutGamePlayerInput
+  SimpleMove: SimpleMoveUpdateManyWithoutGamePlayerInput
+  game: GameUpdateOneRequiredWithoutGamePlayerInput
+  hand: GamePlayerUpdatehandInput
+  playerIdx: IntFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutGamePlayerInput
+}
+
+input GamePlayerUpdateWithoutUserInput {
+  Meld: MeldUpdateManyWithoutGamePlayerInput
+  MeldMove: MeldMoveUpdateManyWithoutGamePlayerInput
+  ReturnCardMove: ReturnCardMoveUpdateManyWithoutGamePlayerInput
+  ShowMove: ShowMoveUpdateManyWithoutGamePlayerInput
+  SimpleMove: SimpleMoveUpdateManyWithoutGamePlayerInput
+  TurnInGame: GameUpdateManyWithoutTurnPlayerInput
+  game: GameUpdateOneRequiredWithoutGamePlayerInput
+  hand: GamePlayerUpdatehandInput
+  playerIdx: IntFieldUpdateOperationsInput
+}
+
+input GamePlayerUpdatehandInput {
+  push: [String!]
+  set: [String!]
+}
+
+input GamePlayerUpsertWithWhereUniqueWithoutGameInput {
+  create: GamePlayerCreateWithoutGameInput!
+  update: GamePlayerUpdateWithoutGameInput!
+  where: GamePlayerWhereUniqueInput!
+}
+
+input GamePlayerUpsertWithWhereUniqueWithoutUserInput {
+  create: GamePlayerCreateWithoutUserInput!
+  update: GamePlayerUpdateWithoutUserInput!
+  where: GamePlayerWhereUniqueInput!
+}
+
+input GamePlayerUpsertWithoutMeldInput {
+  create: GamePlayerCreateWithoutMeldInput!
+  update: GamePlayerUpdateWithoutMeldInput!
+}
+
+input GamePlayerUpsertWithoutMeldMoveInput {
+  create: GamePlayerCreateWithoutMeldMoveInput!
+  update: GamePlayerUpdateWithoutMeldMoveInput!
+}
+
+input GamePlayerUpsertWithoutReturnCardMoveInput {
+  create: GamePlayerCreateWithoutReturnCardMoveInput!
+  update: GamePlayerUpdateWithoutReturnCardMoveInput!
+}
+
+input GamePlayerUpsertWithoutShowMoveInput {
+  create: GamePlayerCreateWithoutShowMoveInput!
+  update: GamePlayerUpdateWithoutShowMoveInput!
+}
+
+input GamePlayerUpsertWithoutSimpleMoveInput {
+  create: GamePlayerCreateWithoutSimpleMoveInput!
+  update: GamePlayerUpdateWithoutSimpleMoveInput!
+}
+
+input GamePlayerUpsertWithoutTurnInGameInput {
+  create: GamePlayerCreateWithoutTurnInGameInput!
+  update: GamePlayerUpdateWithoutTurnInGameInput!
+}
+
+input GamePlayerWhereInput {
+  AND: [GamePlayerWhereInput!]
+  Meld: MeldListRelationFilter
+  MeldMove: MeldMoveListRelationFilter
+  NOT: [GamePlayerWhereInput!]
+  OR: [GamePlayerWhereInput!]
+  ReturnCardMove: ReturnCardMoveListRelationFilter
+  ShowMove: ShowMoveListRelationFilter
+  SimpleMove: SimpleMoveListRelationFilter
+  TurnInGame: GameListRelationFilter
+  game: GameRelationFilter
+  gameId: IntFilter
+  hand: StringNullableListFilter
+  id: IntFilter
+  playerIdx: IntFilter
+  user: UserRelationFilter
+  userId: IntFilter
+}
+
+input GamePlayerWhereUniqueInput {
+  gameId_playerIdx: GamePlayerGameIdPlayerIdxCompoundUniqueInput
+  id: Int
+}
+
+input GameRelationFilter {
+  is: GameWhereInput
+  isNot: GameWhereInput
+}
+
+enum GameScalarFieldEnum {
+  currJoker
+  deck
+  id
+  openCard
+  openPile
+  state
+  turnPlayerId
+}
+
+input GameScalarWhereInput {
+  AND: [GameScalarWhereInput!]
+  NOT: [GameScalarWhereInput!]
+  OR: [GameScalarWhereInput!]
+  currJoker: StringFilter
+  deck: StringNullableListFilter
+  id: IntFilter
+  openCard: StringNullableFilter
+  openPile: StringNullableListFilter
+  state: EnumGameStateFilter
+  turnPlayerId: IntFilter
+}
+
+input GameScalarWhereWithAggregatesInput {
+  AND: [GameScalarWhereWithAggregatesInput!]
+  NOT: [GameScalarWhereWithAggregatesInput!]
+  OR: [GameScalarWhereWithAggregatesInput!]
+  currJoker: StringWithAggregatesFilter
+  deck: StringNullableListFilter
+  id: IntWithAggregatesFilter
+  openCard: StringNullableWithAggregatesFilter
+  openPile: StringNullableListFilter
+  state: EnumGameStateWithAggregatesFilter
+  turnPlayerId: IntWithAggregatesFilter
+}
+
+enum GameState {
+  Active
+  Finished
+}
+
+type GameSumAggregate {
+  id: Int
+  turnPlayerId: Int
+}
+
+input GameSumOrderByAggregateInput {
+  id: SortOrder
+  turnPlayerId: SortOrder
+}
+
+input GameUpdateInput {
+  GamePlayer: GamePlayerUpdateManyWithoutGameInput
+  currJoker: StringFieldUpdateOperationsInput
+  deck: GameUpdatedeckInput
+  openCard: NullableStringFieldUpdateOperationsInput
+  openPile: GameUpdateopenPileInput
+  state: EnumGameStateFieldUpdateOperationsInput
+  turnPlayer: GamePlayerUpdateOneRequiredWithoutTurnInGameInput
+}
+
+input GameUpdateManyMutationInput {
+  currJoker: StringFieldUpdateOperationsInput
+  deck: GameUpdatedeckInput
+  openCard: NullableStringFieldUpdateOperationsInput
+  openPile: GameUpdateopenPileInput
+  state: EnumGameStateFieldUpdateOperationsInput
+}
+
+input GameUpdateManyWithWhereWithoutTurnPlayerInput {
+  data: GameUpdateManyMutationInput!
+  where: GameScalarWhereInput!
+}
+
+input GameUpdateManyWithoutTurnPlayerInput {
+  connect: [GameWhereUniqueInput!]
+  connectOrCreate: [GameCreateOrConnectWithoutTurnPlayerInput!]
+  create: [GameCreateWithoutTurnPlayerInput!]
+  createMany: GameCreateManyTurnPlayerInputEnvelope
+  delete: [GameWhereUniqueInput!]
+  deleteMany: [GameScalarWhereInput!]
+  disconnect: [GameWhereUniqueInput!]
+  set: [GameWhereUniqueInput!]
+  update: [GameUpdateWithWhereUniqueWithoutTurnPlayerInput!]
+  updateMany: [GameUpdateManyWithWhereWithoutTurnPlayerInput!]
+  upsert: [GameUpsertWithWhereUniqueWithoutTurnPlayerInput!]
+}
+
+input GameUpdateOneRequiredWithoutGamePlayerInput {
+  connect: GameWhereUniqueInput
+  connectOrCreate: GameCreateOrConnectWithoutGamePlayerInput
+  create: GameCreateWithoutGamePlayerInput
+  update: GameUpdateWithoutGamePlayerInput
+  upsert: GameUpsertWithoutGamePlayerInput
+}
+
+input GameUpdateWithWhereUniqueWithoutTurnPlayerInput {
+  data: GameUpdateWithoutTurnPlayerInput!
+  where: GameWhereUniqueInput!
+}
+
+input GameUpdateWithoutGamePlayerInput {
+  currJoker: StringFieldUpdateOperationsInput
+  deck: GameUpdatedeckInput
+  openCard: NullableStringFieldUpdateOperationsInput
+  openPile: GameUpdateopenPileInput
+  state: EnumGameStateFieldUpdateOperationsInput
+  turnPlayer: GamePlayerUpdateOneRequiredWithoutTurnInGameInput
+}
+
+input GameUpdateWithoutTurnPlayerInput {
+  GamePlayer: GamePlayerUpdateManyWithoutGameInput
+  currJoker: StringFieldUpdateOperationsInput
+  deck: GameUpdatedeckInput
+  openCard: NullableStringFieldUpdateOperationsInput
+  openPile: GameUpdateopenPileInput
+  state: EnumGameStateFieldUpdateOperationsInput
+}
+
+input GameUpdatedeckInput {
+  push: [String!]
+  set: [String!]
+}
+
+input GameUpdateopenPileInput {
+  push: [String!]
+  set: [String!]
+}
+
+input GameUpsertWithWhereUniqueWithoutTurnPlayerInput {
+  create: GameCreateWithoutTurnPlayerInput!
+  update: GameUpdateWithoutTurnPlayerInput!
+  where: GameWhereUniqueInput!
+}
+
+input GameUpsertWithoutGamePlayerInput {
+  create: GameCreateWithoutGamePlayerInput!
+  update: GameUpdateWithoutGamePlayerInput!
+}
+
+input GameWhereInput {
+  AND: [GameWhereInput!]
+  GamePlayer: GamePlayerListRelationFilter
+  NOT: [GameWhereInput!]
+  OR: [GameWhereInput!]
+  currJoker: StringFilter
+  deck: StringNullableListFilter
+  id: IntFilter
+  openCard: StringNullableFilter
+  openPile: StringNullableListFilter
+  state: EnumGameStateFilter
+  turnPlayer: GamePlayerRelationFilter
+  turnPlayerId: IntFilter
+}
+
+input GameWhereUniqueInput {
+  id: Int
+}
+
+input IntFieldUpdateOperationsInput {
+  decrement: Int
+  divide: Int
+  increment: Int
+  multiply: Int
+  set: Int
 }
 
 input IntFilter {
@@ -306,33 +1905,6 @@ input IntFilter {
   lt: Int
   lte: Int
   not: NestedIntFilter
-  notIn: [Int!]
-}
-
-input IntNullableFilter {
-  equals: Int
-  gt: Int
-  gte: Int
-  in: [Int!]
-  lt: Int
-  lte: Int
-  not: NestedIntNullableFilter
-  notIn: [Int!]
-}
-
-input IntNullableWithAggregatesFilter {
-  _avg: NestedFloatNullableFilter
-  _count: NestedIntNullableFilter
-  _max: NestedIntNullableFilter
-  _min: NestedIntNullableFilter
-  _sum: NestedIntNullableFilter
-  equals: Int
-  gt: Int
-  gte: Int
-  in: [Int!]
-  lt: Int
-  lte: Int
-  not: NestedIntNullableWithAggregatesFilter
   notIn: [Int!]
 }
 
@@ -352,32 +1924,1178 @@ input IntWithAggregatesFilter {
   notIn: [Int!]
 }
 
+type Life {
+  id: Int!
+  meld: Meld!
+  meldId: Int!
+  ranks: [String!]!
+  suit: String!
+}
+
+type LifeAvgAggregate {
+  id: Float
+  meldId: Float
+}
+
+input LifeAvgOrderByAggregateInput {
+  id: SortOrder
+  meldId: SortOrder
+}
+
+type LifeCountAggregate {
+  _all: Int!
+  id: Int!
+  meldId: Int!
+  ranks: Int!
+  suit: Int!
+}
+
+input LifeCountOrderByAggregateInput {
+  id: SortOrder
+  meldId: SortOrder
+  ranks: SortOrder
+  suit: SortOrder
+}
+
+input LifeCreateInput {
+  meld: MeldCreateNestedOneWithoutLifeInput!
+  ranks: LifeCreateranksInput
+  suit: String!
+}
+
+input LifeCreateManyInput {
+  id: Int
+  meldId: Int!
+  ranks: LifeCreateranksInput
+  suit: String!
+}
+
+input LifeCreateManyMeldInput {
+  id: Int
+  ranks: LifeCreateranksInput
+  suit: String!
+}
+
+input LifeCreateManyMeldInputEnvelope {
+  data: [LifeCreateManyMeldInput!]!
+  skipDuplicates: Boolean
+}
+
+input LifeCreateNestedManyWithoutMeldInput {
+  connect: [LifeWhereUniqueInput!]
+  connectOrCreate: [LifeCreateOrConnectWithoutMeldInput!]
+  create: [LifeCreateWithoutMeldInput!]
+  createMany: LifeCreateManyMeldInputEnvelope
+}
+
+input LifeCreateOrConnectWithoutMeldInput {
+  create: LifeCreateWithoutMeldInput!
+  where: LifeWhereUniqueInput!
+}
+
+input LifeCreateWithoutMeldInput {
+  ranks: LifeCreateranksInput
+  suit: String!
+}
+
+input LifeCreateranksInput {
+  set: [String!]!
+}
+
+type LifeGroupBy {
+  _avg: LifeAvgAggregate
+  _count: LifeCountAggregate
+  _max: LifeMaxAggregate
+  _min: LifeMinAggregate
+  _sum: LifeSumAggregate
+  id: Int!
+  meldId: Int!
+  ranks: [String!]
+  suit: String!
+}
+
+input LifeListRelationFilter {
+  every: LifeWhereInput
+  none: LifeWhereInput
+  some: LifeWhereInput
+}
+
+type LifeMaxAggregate {
+  id: Int
+  meldId: Int
+  suit: String
+}
+
+input LifeMaxOrderByAggregateInput {
+  id: SortOrder
+  meldId: SortOrder
+  suit: SortOrder
+}
+
+type LifeMinAggregate {
+  id: Int
+  meldId: Int
+  suit: String
+}
+
+input LifeMinOrderByAggregateInput {
+  id: SortOrder
+  meldId: SortOrder
+  suit: SortOrder
+}
+
+input LifeOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input LifeOrderByWithAggregationInput {
+  _avg: LifeAvgOrderByAggregateInput
+  _count: LifeCountOrderByAggregateInput
+  _max: LifeMaxOrderByAggregateInput
+  _min: LifeMinOrderByAggregateInput
+  _sum: LifeSumOrderByAggregateInput
+  id: SortOrder
+  meldId: SortOrder
+  ranks: SortOrder
+  suit: SortOrder
+}
+
+input LifeOrderByWithRelationInput {
+  id: SortOrder
+  meld: MeldOrderByWithRelationInput
+  meldId: SortOrder
+  ranks: SortOrder
+  suit: SortOrder
+}
+
+enum LifeScalarFieldEnum {
+  id
+  meldId
+  ranks
+  suit
+}
+
+input LifeScalarWhereInput {
+  AND: [LifeScalarWhereInput!]
+  NOT: [LifeScalarWhereInput!]
+  OR: [LifeScalarWhereInput!]
+  id: IntFilter
+  meldId: IntFilter
+  ranks: StringNullableListFilter
+  suit: StringFilter
+}
+
+input LifeScalarWhereWithAggregatesInput {
+  AND: [LifeScalarWhereWithAggregatesInput!]
+  NOT: [LifeScalarWhereWithAggregatesInput!]
+  OR: [LifeScalarWhereWithAggregatesInput!]
+  id: IntWithAggregatesFilter
+  meldId: IntWithAggregatesFilter
+  ranks: StringNullableListFilter
+  suit: StringWithAggregatesFilter
+}
+
+type LifeSumAggregate {
+  id: Int
+  meldId: Int
+}
+
+input LifeSumOrderByAggregateInput {
+  id: SortOrder
+  meldId: SortOrder
+}
+
+input LifeUpdateInput {
+  meld: MeldUpdateOneRequiredWithoutLifeInput
+  ranks: LifeUpdateranksInput
+  suit: StringFieldUpdateOperationsInput
+}
+
+input LifeUpdateManyMutationInput {
+  ranks: LifeUpdateranksInput
+  suit: StringFieldUpdateOperationsInput
+}
+
+input LifeUpdateManyWithWhereWithoutMeldInput {
+  data: LifeUpdateManyMutationInput!
+  where: LifeScalarWhereInput!
+}
+
+input LifeUpdateManyWithoutMeldInput {
+  connect: [LifeWhereUniqueInput!]
+  connectOrCreate: [LifeCreateOrConnectWithoutMeldInput!]
+  create: [LifeCreateWithoutMeldInput!]
+  createMany: LifeCreateManyMeldInputEnvelope
+  delete: [LifeWhereUniqueInput!]
+  deleteMany: [LifeScalarWhereInput!]
+  disconnect: [LifeWhereUniqueInput!]
+  set: [LifeWhereUniqueInput!]
+  update: [LifeUpdateWithWhereUniqueWithoutMeldInput!]
+  updateMany: [LifeUpdateManyWithWhereWithoutMeldInput!]
+  upsert: [LifeUpsertWithWhereUniqueWithoutMeldInput!]
+}
+
+input LifeUpdateWithWhereUniqueWithoutMeldInput {
+  data: LifeUpdateWithoutMeldInput!
+  where: LifeWhereUniqueInput!
+}
+
+input LifeUpdateWithoutMeldInput {
+  ranks: LifeUpdateranksInput
+  suit: StringFieldUpdateOperationsInput
+}
+
+input LifeUpdateranksInput {
+  push: [String!]
+  set: [String!]
+}
+
+input LifeUpsertWithWhereUniqueWithoutMeldInput {
+  create: LifeCreateWithoutMeldInput!
+  update: LifeUpdateWithoutMeldInput!
+  where: LifeWhereUniqueInput!
+}
+
+input LifeWhereInput {
+  AND: [LifeWhereInput!]
+  NOT: [LifeWhereInput!]
+  OR: [LifeWhereInput!]
+  id: IntFilter
+  meld: MeldRelationFilter
+  meldId: IntFilter
+  ranks: StringNullableListFilter
+  suit: StringFilter
+}
+
+input LifeWhereUniqueInput {
+  id: Int
+}
+
+type Meld {
+  Life(cursor: LifeWhereUniqueInput, distinct: [LifeScalarFieldEnum!], orderBy: [LifeOrderByWithRelationInput!], skip: Int, take: Int, where: LifeWhereInput): [Life!]!
+  MeldMove(cursor: MeldMoveWhereUniqueInput, distinct: [MeldMoveScalarFieldEnum!], orderBy: [MeldMoveOrderByWithRelationInput!], skip: Int, take: Int, where: MeldMoveWhereInput): [MeldMove!]!
+  Sequence(cursor: SequenceWhereUniqueInput, distinct: [SequenceScalarFieldEnum!], orderBy: [SequenceOrderByWithRelationInput!], skip: Int, take: Int, where: SequenceWhereInput): [Sequence!]!
+  ShowMove(cursor: ShowMoveWhereUniqueInput, distinct: [ShowMoveScalarFieldEnum!], orderBy: [ShowMoveOrderByWithRelationInput!], skip: Int, take: Int, where: ShowMoveWhereInput): [ShowMove!]!
+  Triplet(cursor: TripletWhereUniqueInput, distinct: [TripletScalarFieldEnum!], orderBy: [TripletOrderByWithRelationInput!], skip: Int, take: Int, where: TripletWhereInput): [Triplet!]!
+  _count: MeldCount
+  createdAt: DateTime!
+  gamePlayer: GamePlayer!
+  gamePlayerId: Int!
+  id: Int!
+}
+
+type MeldAvgAggregate {
+  gamePlayerId: Float
+  id: Float
+}
+
+input MeldAvgOrderByAggregateInput {
+  gamePlayerId: SortOrder
+  id: SortOrder
+}
+
+type MeldCount {
+  Life: Int!
+  MeldMove: Int!
+  Sequence: Int!
+  ShowMove: Int!
+  Triplet: Int!
+}
+
+type MeldCountAggregate {
+  _all: Int!
+  createdAt: Int!
+  gamePlayerId: Int!
+  id: Int!
+}
+
+input MeldCountOrderByAggregateInput {
+  createdAt: SortOrder
+  gamePlayerId: SortOrder
+  id: SortOrder
+}
+
+input MeldCreateInput {
+  Life: LifeCreateNestedManyWithoutMeldInput
+  MeldMove: MeldMoveCreateNestedManyWithoutMeldInput
+  Sequence: SequenceCreateNestedManyWithoutMeldInput
+  ShowMove: ShowMoveCreateNestedManyWithoutMeldInput
+  Triplet: TripletCreateNestedManyWithoutMeldInput
+  createdAt: DateTime!
+  gamePlayer: GamePlayerCreateNestedOneWithoutMeldInput!
+}
+
+input MeldCreateManyGamePlayerInput {
+  createdAt: DateTime!
+  id: Int
+}
+
+input MeldCreateManyGamePlayerInputEnvelope {
+  data: [MeldCreateManyGamePlayerInput!]!
+  skipDuplicates: Boolean
+}
+
+input MeldCreateManyInput {
+  createdAt: DateTime!
+  gamePlayerId: Int!
+  id: Int
+}
+
+input MeldCreateNestedManyWithoutGamePlayerInput {
+  connect: [MeldWhereUniqueInput!]
+  connectOrCreate: [MeldCreateOrConnectWithoutGamePlayerInput!]
+  create: [MeldCreateWithoutGamePlayerInput!]
+  createMany: MeldCreateManyGamePlayerInputEnvelope
+}
+
+input MeldCreateNestedOneWithoutLifeInput {
+  connect: MeldWhereUniqueInput
+  connectOrCreate: MeldCreateOrConnectWithoutLifeInput
+  create: MeldCreateWithoutLifeInput
+}
+
+input MeldCreateNestedOneWithoutMeldMoveInput {
+  connect: MeldWhereUniqueInput
+  connectOrCreate: MeldCreateOrConnectWithoutMeldMoveInput
+  create: MeldCreateWithoutMeldMoveInput
+}
+
+input MeldCreateNestedOneWithoutSequenceInput {
+  connect: MeldWhereUniqueInput
+  connectOrCreate: MeldCreateOrConnectWithoutSequenceInput
+  create: MeldCreateWithoutSequenceInput
+}
+
+input MeldCreateNestedOneWithoutShowMoveInput {
+  connect: MeldWhereUniqueInput
+  connectOrCreate: MeldCreateOrConnectWithoutShowMoveInput
+  create: MeldCreateWithoutShowMoveInput
+}
+
+input MeldCreateNestedOneWithoutTripletInput {
+  connect: MeldWhereUniqueInput
+  connectOrCreate: MeldCreateOrConnectWithoutTripletInput
+  create: MeldCreateWithoutTripletInput
+}
+
+input MeldCreateOrConnectWithoutGamePlayerInput {
+  create: MeldCreateWithoutGamePlayerInput!
+  where: MeldWhereUniqueInput!
+}
+
+input MeldCreateOrConnectWithoutLifeInput {
+  create: MeldCreateWithoutLifeInput!
+  where: MeldWhereUniqueInput!
+}
+
+input MeldCreateOrConnectWithoutMeldMoveInput {
+  create: MeldCreateWithoutMeldMoveInput!
+  where: MeldWhereUniqueInput!
+}
+
+input MeldCreateOrConnectWithoutSequenceInput {
+  create: MeldCreateWithoutSequenceInput!
+  where: MeldWhereUniqueInput!
+}
+
+input MeldCreateOrConnectWithoutShowMoveInput {
+  create: MeldCreateWithoutShowMoveInput!
+  where: MeldWhereUniqueInput!
+}
+
+input MeldCreateOrConnectWithoutTripletInput {
+  create: MeldCreateWithoutTripletInput!
+  where: MeldWhereUniqueInput!
+}
+
+input MeldCreateWithoutGamePlayerInput {
+  Life: LifeCreateNestedManyWithoutMeldInput
+  MeldMove: MeldMoveCreateNestedManyWithoutMeldInput
+  Sequence: SequenceCreateNestedManyWithoutMeldInput
+  ShowMove: ShowMoveCreateNestedManyWithoutMeldInput
+  Triplet: TripletCreateNestedManyWithoutMeldInput
+  createdAt: DateTime!
+}
+
+input MeldCreateWithoutLifeInput {
+  MeldMove: MeldMoveCreateNestedManyWithoutMeldInput
+  Sequence: SequenceCreateNestedManyWithoutMeldInput
+  ShowMove: ShowMoveCreateNestedManyWithoutMeldInput
+  Triplet: TripletCreateNestedManyWithoutMeldInput
+  createdAt: DateTime!
+  gamePlayer: GamePlayerCreateNestedOneWithoutMeldInput!
+}
+
+input MeldCreateWithoutMeldMoveInput {
+  Life: LifeCreateNestedManyWithoutMeldInput
+  Sequence: SequenceCreateNestedManyWithoutMeldInput
+  ShowMove: ShowMoveCreateNestedManyWithoutMeldInput
+  Triplet: TripletCreateNestedManyWithoutMeldInput
+  createdAt: DateTime!
+  gamePlayer: GamePlayerCreateNestedOneWithoutMeldInput!
+}
+
+input MeldCreateWithoutSequenceInput {
+  Life: LifeCreateNestedManyWithoutMeldInput
+  MeldMove: MeldMoveCreateNestedManyWithoutMeldInput
+  ShowMove: ShowMoveCreateNestedManyWithoutMeldInput
+  Triplet: TripletCreateNestedManyWithoutMeldInput
+  createdAt: DateTime!
+  gamePlayer: GamePlayerCreateNestedOneWithoutMeldInput!
+}
+
+input MeldCreateWithoutShowMoveInput {
+  Life: LifeCreateNestedManyWithoutMeldInput
+  MeldMove: MeldMoveCreateNestedManyWithoutMeldInput
+  Sequence: SequenceCreateNestedManyWithoutMeldInput
+  Triplet: TripletCreateNestedManyWithoutMeldInput
+  createdAt: DateTime!
+  gamePlayer: GamePlayerCreateNestedOneWithoutMeldInput!
+}
+
+input MeldCreateWithoutTripletInput {
+  Life: LifeCreateNestedManyWithoutMeldInput
+  MeldMove: MeldMoveCreateNestedManyWithoutMeldInput
+  Sequence: SequenceCreateNestedManyWithoutMeldInput
+  ShowMove: ShowMoveCreateNestedManyWithoutMeldInput
+  createdAt: DateTime!
+  gamePlayer: GamePlayerCreateNestedOneWithoutMeldInput!
+}
+
+type MeldGroupBy {
+  _avg: MeldAvgAggregate
+  _count: MeldCountAggregate
+  _max: MeldMaxAggregate
+  _min: MeldMinAggregate
+  _sum: MeldSumAggregate
+  createdAt: DateTime!
+  gamePlayerId: Int!
+  id: Int!
+}
+
+input MeldListRelationFilter {
+  every: MeldWhereInput
+  none: MeldWhereInput
+  some: MeldWhereInput
+}
+
+type MeldMaxAggregate {
+  createdAt: DateTime
+  gamePlayerId: Int
+  id: Int
+}
+
+input MeldMaxOrderByAggregateInput {
+  createdAt: SortOrder
+  gamePlayerId: SortOrder
+  id: SortOrder
+}
+
+type MeldMinAggregate {
+  createdAt: DateTime
+  gamePlayerId: Int
+  id: Int
+}
+
+input MeldMinOrderByAggregateInput {
+  createdAt: SortOrder
+  gamePlayerId: SortOrder
+  id: SortOrder
+}
+
+type MeldMove {
+  gamePlayer: GamePlayer!
+  gamePlayerId: Int!
+  id: Int!
+  meld: Meld!
+  meldId: Int!
+  moveNum: Int!
+  moveType: MoveType!
+}
+
+type MeldMoveAvgAggregate {
+  gamePlayerId: Float
+  id: Float
+  meldId: Float
+  moveNum: Float
+}
+
+input MeldMoveAvgOrderByAggregateInput {
+  gamePlayerId: SortOrder
+  id: SortOrder
+  meldId: SortOrder
+  moveNum: SortOrder
+}
+
+type MeldMoveCountAggregate {
+  _all: Int!
+  gamePlayerId: Int!
+  id: Int!
+  meldId: Int!
+  moveNum: Int!
+  moveType: Int!
+}
+
+input MeldMoveCountOrderByAggregateInput {
+  gamePlayerId: SortOrder
+  id: SortOrder
+  meldId: SortOrder
+  moveNum: SortOrder
+  moveType: SortOrder
+}
+
+input MeldMoveCreateInput {
+  gamePlayer: GamePlayerCreateNestedOneWithoutMeldMoveInput!
+  meld: MeldCreateNestedOneWithoutMeldMoveInput!
+  moveNum: Int!
+  moveType: MoveType!
+}
+
+input MeldMoveCreateManyGamePlayerInput {
+  id: Int
+  meldId: Int!
+  moveNum: Int!
+  moveType: MoveType!
+}
+
+input MeldMoveCreateManyGamePlayerInputEnvelope {
+  data: [MeldMoveCreateManyGamePlayerInput!]!
+  skipDuplicates: Boolean
+}
+
+input MeldMoveCreateManyInput {
+  gamePlayerId: Int!
+  id: Int
+  meldId: Int!
+  moveNum: Int!
+  moveType: MoveType!
+}
+
+input MeldMoveCreateManyMeldInput {
+  gamePlayerId: Int!
+  id: Int
+  moveNum: Int!
+  moveType: MoveType!
+}
+
+input MeldMoveCreateManyMeldInputEnvelope {
+  data: [MeldMoveCreateManyMeldInput!]!
+  skipDuplicates: Boolean
+}
+
+input MeldMoveCreateNestedManyWithoutGamePlayerInput {
+  connect: [MeldMoveWhereUniqueInput!]
+  connectOrCreate: [MeldMoveCreateOrConnectWithoutGamePlayerInput!]
+  create: [MeldMoveCreateWithoutGamePlayerInput!]
+  createMany: MeldMoveCreateManyGamePlayerInputEnvelope
+}
+
+input MeldMoveCreateNestedManyWithoutMeldInput {
+  connect: [MeldMoveWhereUniqueInput!]
+  connectOrCreate: [MeldMoveCreateOrConnectWithoutMeldInput!]
+  create: [MeldMoveCreateWithoutMeldInput!]
+  createMany: MeldMoveCreateManyMeldInputEnvelope
+}
+
+input MeldMoveCreateOrConnectWithoutGamePlayerInput {
+  create: MeldMoveCreateWithoutGamePlayerInput!
+  where: MeldMoveWhereUniqueInput!
+}
+
+input MeldMoveCreateOrConnectWithoutMeldInput {
+  create: MeldMoveCreateWithoutMeldInput!
+  where: MeldMoveWhereUniqueInput!
+}
+
+input MeldMoveCreateWithoutGamePlayerInput {
+  meld: MeldCreateNestedOneWithoutMeldMoveInput!
+  moveNum: Int!
+  moveType: MoveType!
+}
+
+input MeldMoveCreateWithoutMeldInput {
+  gamePlayer: GamePlayerCreateNestedOneWithoutMeldMoveInput!
+  moveNum: Int!
+  moveType: MoveType!
+}
+
+type MeldMoveGroupBy {
+  _avg: MeldMoveAvgAggregate
+  _count: MeldMoveCountAggregate
+  _max: MeldMoveMaxAggregate
+  _min: MeldMoveMinAggregate
+  _sum: MeldMoveSumAggregate
+  gamePlayerId: Int!
+  id: Int!
+  meldId: Int!
+  moveNum: Int!
+  moveType: MoveType!
+}
+
+input MeldMoveListRelationFilter {
+  every: MeldMoveWhereInput
+  none: MeldMoveWhereInput
+  some: MeldMoveWhereInput
+}
+
+type MeldMoveMaxAggregate {
+  gamePlayerId: Int
+  id: Int
+  meldId: Int
+  moveNum: Int
+  moveType: MoveType
+}
+
+input MeldMoveMaxOrderByAggregateInput {
+  gamePlayerId: SortOrder
+  id: SortOrder
+  meldId: SortOrder
+  moveNum: SortOrder
+  moveType: SortOrder
+}
+
+type MeldMoveMinAggregate {
+  gamePlayerId: Int
+  id: Int
+  meldId: Int
+  moveNum: Int
+  moveType: MoveType
+}
+
+input MeldMoveMinOrderByAggregateInput {
+  gamePlayerId: SortOrder
+  id: SortOrder
+  meldId: SortOrder
+  moveNum: SortOrder
+  moveType: SortOrder
+}
+
+input MeldMoveOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input MeldMoveOrderByWithAggregationInput {
+  _avg: MeldMoveAvgOrderByAggregateInput
+  _count: MeldMoveCountOrderByAggregateInput
+  _max: MeldMoveMaxOrderByAggregateInput
+  _min: MeldMoveMinOrderByAggregateInput
+  _sum: MeldMoveSumOrderByAggregateInput
+  gamePlayerId: SortOrder
+  id: SortOrder
+  meldId: SortOrder
+  moveNum: SortOrder
+  moveType: SortOrder
+}
+
+input MeldMoveOrderByWithRelationInput {
+  gamePlayer: GamePlayerOrderByWithRelationInput
+  gamePlayerId: SortOrder
+  id: SortOrder
+  meld: MeldOrderByWithRelationInput
+  meldId: SortOrder
+  moveNum: SortOrder
+  moveType: SortOrder
+}
+
+enum MeldMoveScalarFieldEnum {
+  gamePlayerId
+  id
+  meldId
+  moveNum
+  moveType
+}
+
+input MeldMoveScalarWhereInput {
+  AND: [MeldMoveScalarWhereInput!]
+  NOT: [MeldMoveScalarWhereInput!]
+  OR: [MeldMoveScalarWhereInput!]
+  gamePlayerId: IntFilter
+  id: IntFilter
+  meldId: IntFilter
+  moveNum: IntFilter
+  moveType: EnumMoveTypeFilter
+}
+
+input MeldMoveScalarWhereWithAggregatesInput {
+  AND: [MeldMoveScalarWhereWithAggregatesInput!]
+  NOT: [MeldMoveScalarWhereWithAggregatesInput!]
+  OR: [MeldMoveScalarWhereWithAggregatesInput!]
+  gamePlayerId: IntWithAggregatesFilter
+  id: IntWithAggregatesFilter
+  meldId: IntWithAggregatesFilter
+  moveNum: IntWithAggregatesFilter
+  moveType: EnumMoveTypeWithAggregatesFilter
+}
+
+type MeldMoveSumAggregate {
+  gamePlayerId: Int
+  id: Int
+  meldId: Int
+  moveNum: Int
+}
+
+input MeldMoveSumOrderByAggregateInput {
+  gamePlayerId: SortOrder
+  id: SortOrder
+  meldId: SortOrder
+  moveNum: SortOrder
+}
+
+input MeldMoveUpdateInput {
+  gamePlayer: GamePlayerUpdateOneRequiredWithoutMeldMoveInput
+  meld: MeldUpdateOneRequiredWithoutMeldMoveInput
+  moveNum: IntFieldUpdateOperationsInput
+  moveType: EnumMoveTypeFieldUpdateOperationsInput
+}
+
+input MeldMoveUpdateManyMutationInput {
+  moveNum: IntFieldUpdateOperationsInput
+  moveType: EnumMoveTypeFieldUpdateOperationsInput
+}
+
+input MeldMoveUpdateManyWithWhereWithoutGamePlayerInput {
+  data: MeldMoveUpdateManyMutationInput!
+  where: MeldMoveScalarWhereInput!
+}
+
+input MeldMoveUpdateManyWithWhereWithoutMeldInput {
+  data: MeldMoveUpdateManyMutationInput!
+  where: MeldMoveScalarWhereInput!
+}
+
+input MeldMoveUpdateManyWithoutGamePlayerInput {
+  connect: [MeldMoveWhereUniqueInput!]
+  connectOrCreate: [MeldMoveCreateOrConnectWithoutGamePlayerInput!]
+  create: [MeldMoveCreateWithoutGamePlayerInput!]
+  createMany: MeldMoveCreateManyGamePlayerInputEnvelope
+  delete: [MeldMoveWhereUniqueInput!]
+  deleteMany: [MeldMoveScalarWhereInput!]
+  disconnect: [MeldMoveWhereUniqueInput!]
+  set: [MeldMoveWhereUniqueInput!]
+  update: [MeldMoveUpdateWithWhereUniqueWithoutGamePlayerInput!]
+  updateMany: [MeldMoveUpdateManyWithWhereWithoutGamePlayerInput!]
+  upsert: [MeldMoveUpsertWithWhereUniqueWithoutGamePlayerInput!]
+}
+
+input MeldMoveUpdateManyWithoutMeldInput {
+  connect: [MeldMoveWhereUniqueInput!]
+  connectOrCreate: [MeldMoveCreateOrConnectWithoutMeldInput!]
+  create: [MeldMoveCreateWithoutMeldInput!]
+  createMany: MeldMoveCreateManyMeldInputEnvelope
+  delete: [MeldMoveWhereUniqueInput!]
+  deleteMany: [MeldMoveScalarWhereInput!]
+  disconnect: [MeldMoveWhereUniqueInput!]
+  set: [MeldMoveWhereUniqueInput!]
+  update: [MeldMoveUpdateWithWhereUniqueWithoutMeldInput!]
+  updateMany: [MeldMoveUpdateManyWithWhereWithoutMeldInput!]
+  upsert: [MeldMoveUpsertWithWhereUniqueWithoutMeldInput!]
+}
+
+input MeldMoveUpdateWithWhereUniqueWithoutGamePlayerInput {
+  data: MeldMoveUpdateWithoutGamePlayerInput!
+  where: MeldMoveWhereUniqueInput!
+}
+
+input MeldMoveUpdateWithWhereUniqueWithoutMeldInput {
+  data: MeldMoveUpdateWithoutMeldInput!
+  where: MeldMoveWhereUniqueInput!
+}
+
+input MeldMoveUpdateWithoutGamePlayerInput {
+  meld: MeldUpdateOneRequiredWithoutMeldMoveInput
+  moveNum: IntFieldUpdateOperationsInput
+  moveType: EnumMoveTypeFieldUpdateOperationsInput
+}
+
+input MeldMoveUpdateWithoutMeldInput {
+  gamePlayer: GamePlayerUpdateOneRequiredWithoutMeldMoveInput
+  moveNum: IntFieldUpdateOperationsInput
+  moveType: EnumMoveTypeFieldUpdateOperationsInput
+}
+
+input MeldMoveUpsertWithWhereUniqueWithoutGamePlayerInput {
+  create: MeldMoveCreateWithoutGamePlayerInput!
+  update: MeldMoveUpdateWithoutGamePlayerInput!
+  where: MeldMoveWhereUniqueInput!
+}
+
+input MeldMoveUpsertWithWhereUniqueWithoutMeldInput {
+  create: MeldMoveCreateWithoutMeldInput!
+  update: MeldMoveUpdateWithoutMeldInput!
+  where: MeldMoveWhereUniqueInput!
+}
+
+input MeldMoveWhereInput {
+  AND: [MeldMoveWhereInput!]
+  NOT: [MeldMoveWhereInput!]
+  OR: [MeldMoveWhereInput!]
+  gamePlayer: GamePlayerRelationFilter
+  gamePlayerId: IntFilter
+  id: IntFilter
+  meld: MeldRelationFilter
+  meldId: IntFilter
+  moveNum: IntFilter
+  moveType: EnumMoveTypeFilter
+}
+
+input MeldMoveWhereUniqueInput {
+  id: Int
+}
+
+input MeldOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input MeldOrderByWithAggregationInput {
+  _avg: MeldAvgOrderByAggregateInput
+  _count: MeldCountOrderByAggregateInput
+  _max: MeldMaxOrderByAggregateInput
+  _min: MeldMinOrderByAggregateInput
+  _sum: MeldSumOrderByAggregateInput
+  createdAt: SortOrder
+  gamePlayerId: SortOrder
+  id: SortOrder
+}
+
+input MeldOrderByWithRelationInput {
+  Life: LifeOrderByRelationAggregateInput
+  MeldMove: MeldMoveOrderByRelationAggregateInput
+  Sequence: SequenceOrderByRelationAggregateInput
+  ShowMove: ShowMoveOrderByRelationAggregateInput
+  Triplet: TripletOrderByRelationAggregateInput
+  createdAt: SortOrder
+  gamePlayer: GamePlayerOrderByWithRelationInput
+  gamePlayerId: SortOrder
+  id: SortOrder
+}
+
+input MeldRelationFilter {
+  is: MeldWhereInput
+  isNot: MeldWhereInput
+}
+
+enum MeldScalarFieldEnum {
+  createdAt
+  gamePlayerId
+  id
+}
+
+input MeldScalarWhereInput {
+  AND: [MeldScalarWhereInput!]
+  NOT: [MeldScalarWhereInput!]
+  OR: [MeldScalarWhereInput!]
+  createdAt: DateTimeFilter
+  gamePlayerId: IntFilter
+  id: IntFilter
+}
+
+input MeldScalarWhereWithAggregatesInput {
+  AND: [MeldScalarWhereWithAggregatesInput!]
+  NOT: [MeldScalarWhereWithAggregatesInput!]
+  OR: [MeldScalarWhereWithAggregatesInput!]
+  createdAt: DateTimeWithAggregatesFilter
+  gamePlayerId: IntWithAggregatesFilter
+  id: IntWithAggregatesFilter
+}
+
+type MeldSumAggregate {
+  gamePlayerId: Int
+  id: Int
+}
+
+input MeldSumOrderByAggregateInput {
+  gamePlayerId: SortOrder
+  id: SortOrder
+}
+
+input MeldUpdateInput {
+  Life: LifeUpdateManyWithoutMeldInput
+  MeldMove: MeldMoveUpdateManyWithoutMeldInput
+  Sequence: SequenceUpdateManyWithoutMeldInput
+  ShowMove: ShowMoveUpdateManyWithoutMeldInput
+  Triplet: TripletUpdateManyWithoutMeldInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  gamePlayer: GamePlayerUpdateOneRequiredWithoutMeldInput
+}
+
+input MeldUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+}
+
+input MeldUpdateManyWithWhereWithoutGamePlayerInput {
+  data: MeldUpdateManyMutationInput!
+  where: MeldScalarWhereInput!
+}
+
+input MeldUpdateManyWithoutGamePlayerInput {
+  connect: [MeldWhereUniqueInput!]
+  connectOrCreate: [MeldCreateOrConnectWithoutGamePlayerInput!]
+  create: [MeldCreateWithoutGamePlayerInput!]
+  createMany: MeldCreateManyGamePlayerInputEnvelope
+  delete: [MeldWhereUniqueInput!]
+  deleteMany: [MeldScalarWhereInput!]
+  disconnect: [MeldWhereUniqueInput!]
+  set: [MeldWhereUniqueInput!]
+  update: [MeldUpdateWithWhereUniqueWithoutGamePlayerInput!]
+  updateMany: [MeldUpdateManyWithWhereWithoutGamePlayerInput!]
+  upsert: [MeldUpsertWithWhereUniqueWithoutGamePlayerInput!]
+}
+
+input MeldUpdateOneRequiredWithoutLifeInput {
+  connect: MeldWhereUniqueInput
+  connectOrCreate: MeldCreateOrConnectWithoutLifeInput
+  create: MeldCreateWithoutLifeInput
+  update: MeldUpdateWithoutLifeInput
+  upsert: MeldUpsertWithoutLifeInput
+}
+
+input MeldUpdateOneRequiredWithoutMeldMoveInput {
+  connect: MeldWhereUniqueInput
+  connectOrCreate: MeldCreateOrConnectWithoutMeldMoveInput
+  create: MeldCreateWithoutMeldMoveInput
+  update: MeldUpdateWithoutMeldMoveInput
+  upsert: MeldUpsertWithoutMeldMoveInput
+}
+
+input MeldUpdateOneRequiredWithoutSequenceInput {
+  connect: MeldWhereUniqueInput
+  connectOrCreate: MeldCreateOrConnectWithoutSequenceInput
+  create: MeldCreateWithoutSequenceInput
+  update: MeldUpdateWithoutSequenceInput
+  upsert: MeldUpsertWithoutSequenceInput
+}
+
+input MeldUpdateOneRequiredWithoutShowMoveInput {
+  connect: MeldWhereUniqueInput
+  connectOrCreate: MeldCreateOrConnectWithoutShowMoveInput
+  create: MeldCreateWithoutShowMoveInput
+  update: MeldUpdateWithoutShowMoveInput
+  upsert: MeldUpsertWithoutShowMoveInput
+}
+
+input MeldUpdateOneRequiredWithoutTripletInput {
+  connect: MeldWhereUniqueInput
+  connectOrCreate: MeldCreateOrConnectWithoutTripletInput
+  create: MeldCreateWithoutTripletInput
+  update: MeldUpdateWithoutTripletInput
+  upsert: MeldUpsertWithoutTripletInput
+}
+
+input MeldUpdateWithWhereUniqueWithoutGamePlayerInput {
+  data: MeldUpdateWithoutGamePlayerInput!
+  where: MeldWhereUniqueInput!
+}
+
+input MeldUpdateWithoutGamePlayerInput {
+  Life: LifeUpdateManyWithoutMeldInput
+  MeldMove: MeldMoveUpdateManyWithoutMeldInput
+  Sequence: SequenceUpdateManyWithoutMeldInput
+  ShowMove: ShowMoveUpdateManyWithoutMeldInput
+  Triplet: TripletUpdateManyWithoutMeldInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+}
+
+input MeldUpdateWithoutLifeInput {
+  MeldMove: MeldMoveUpdateManyWithoutMeldInput
+  Sequence: SequenceUpdateManyWithoutMeldInput
+  ShowMove: ShowMoveUpdateManyWithoutMeldInput
+  Triplet: TripletUpdateManyWithoutMeldInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  gamePlayer: GamePlayerUpdateOneRequiredWithoutMeldInput
+}
+
+input MeldUpdateWithoutMeldMoveInput {
+  Life: LifeUpdateManyWithoutMeldInput
+  Sequence: SequenceUpdateManyWithoutMeldInput
+  ShowMove: ShowMoveUpdateManyWithoutMeldInput
+  Triplet: TripletUpdateManyWithoutMeldInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  gamePlayer: GamePlayerUpdateOneRequiredWithoutMeldInput
+}
+
+input MeldUpdateWithoutSequenceInput {
+  Life: LifeUpdateManyWithoutMeldInput
+  MeldMove: MeldMoveUpdateManyWithoutMeldInput
+  ShowMove: ShowMoveUpdateManyWithoutMeldInput
+  Triplet: TripletUpdateManyWithoutMeldInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  gamePlayer: GamePlayerUpdateOneRequiredWithoutMeldInput
+}
+
+input MeldUpdateWithoutShowMoveInput {
+  Life: LifeUpdateManyWithoutMeldInput
+  MeldMove: MeldMoveUpdateManyWithoutMeldInput
+  Sequence: SequenceUpdateManyWithoutMeldInput
+  Triplet: TripletUpdateManyWithoutMeldInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  gamePlayer: GamePlayerUpdateOneRequiredWithoutMeldInput
+}
+
+input MeldUpdateWithoutTripletInput {
+  Life: LifeUpdateManyWithoutMeldInput
+  MeldMove: MeldMoveUpdateManyWithoutMeldInput
+  Sequence: SequenceUpdateManyWithoutMeldInput
+  ShowMove: ShowMoveUpdateManyWithoutMeldInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  gamePlayer: GamePlayerUpdateOneRequiredWithoutMeldInput
+}
+
+input MeldUpsertWithWhereUniqueWithoutGamePlayerInput {
+  create: MeldCreateWithoutGamePlayerInput!
+  update: MeldUpdateWithoutGamePlayerInput!
+  where: MeldWhereUniqueInput!
+}
+
+input MeldUpsertWithoutLifeInput {
+  create: MeldCreateWithoutLifeInput!
+  update: MeldUpdateWithoutLifeInput!
+}
+
+input MeldUpsertWithoutMeldMoveInput {
+  create: MeldCreateWithoutMeldMoveInput!
+  update: MeldUpdateWithoutMeldMoveInput!
+}
+
+input MeldUpsertWithoutSequenceInput {
+  create: MeldCreateWithoutSequenceInput!
+  update: MeldUpdateWithoutSequenceInput!
+}
+
+input MeldUpsertWithoutShowMoveInput {
+  create: MeldCreateWithoutShowMoveInput!
+  update: MeldUpdateWithoutShowMoveInput!
+}
+
+input MeldUpsertWithoutTripletInput {
+  create: MeldCreateWithoutTripletInput!
+  update: MeldUpdateWithoutTripletInput!
+}
+
+input MeldWhereInput {
+  AND: [MeldWhereInput!]
+  Life: LifeListRelationFilter
+  MeldMove: MeldMoveListRelationFilter
+  NOT: [MeldWhereInput!]
+  OR: [MeldWhereInput!]
+  Sequence: SequenceListRelationFilter
+  ShowMove: ShowMoveListRelationFilter
+  Triplet: TripletListRelationFilter
+  createdAt: DateTimeFilter
+  gamePlayer: GamePlayerRelationFilter
+  gamePlayerId: IntFilter
+  id: IntFilter
+}
+
+input MeldWhereUniqueInput {
+  gamePlayerId: Int
+  id: Int
+}
+
 input MessageInput {
   message: String!
 }
 
+enum MoveType {
+  Finish
+  Meld
+  ReturnExtraCard
+  Show
+  TakeFromDeck
+  TakeOpen
+}
+
 type Mutation {
   addNewMessage(message: MessageInput!): Boolean!
-  createFederatedCredentials(data: FederatedCredentialsCreateInput!): FederatedCredentials!
-  createManyFederatedCredentials(data: [FederatedCredentialsCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
-  createManyTodo(data: [TodoCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createClub(data: ClubCreateInput!): Club!
+  createClubMember(data: ClubMemberCreateInput!): ClubMember!
+  createGame(data: GameCreateInput!): Game!
+  createGamePlayer(data: GamePlayerCreateInput!): GamePlayer!
+  createLife(data: LifeCreateInput!): Life!
+  createManyClub(data: [ClubCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyClubMember(data: [ClubMemberCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyGame(data: [GameCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyGamePlayer(data: [GamePlayerCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyLife(data: [LifeCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyMeld(data: [MeldCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyMeldMove(data: [MeldMoveCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyReturnCardMove(data: [ReturnCardMoveCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManySequence(data: [SequenceCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyShowMove(data: [ShowMoveCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManySimpleMove(data: [SimpleMoveCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyTriplet(data: [TripletCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
   createManyUser(data: [UserCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
-  createTodo(data: TodoCreateInput!): Todo!
+  createMeld(data: MeldCreateInput!): Meld!
+  createMeldMove(data: MeldMoveCreateInput!): MeldMove!
+  createReturnCardMove(data: ReturnCardMoveCreateInput!): ReturnCardMove!
+  createSequence(data: SequenceCreateInput!): Sequence!
+  createShowMove(data: ShowMoveCreateInput!): ShowMove!
+  createSimpleMove(data: SimpleMoveCreateInput!): SimpleMove!
+  createTriplet(data: TripletCreateInput!): Triplet!
   createUser(data: UserCreateInput!): User!
-  deleteFederatedCredentials(where: FederatedCredentialsWhereUniqueInput!): FederatedCredentials
-  deleteManyFederatedCredentials(where: FederatedCredentialsWhereInput): AffectedRowsOutput!
-  deleteManyTodo(where: TodoWhereInput): AffectedRowsOutput!
+  deleteClub(where: ClubWhereUniqueInput!): Club
+  deleteClubMember(where: ClubMemberWhereUniqueInput!): ClubMember
+  deleteGame(where: GameWhereUniqueInput!): Game
+  deleteGamePlayer(where: GamePlayerWhereUniqueInput!): GamePlayer
+  deleteLife(where: LifeWhereUniqueInput!): Life
+  deleteManyClub(where: ClubWhereInput): AffectedRowsOutput!
+  deleteManyClubMember(where: ClubMemberWhereInput): AffectedRowsOutput!
+  deleteManyGame(where: GameWhereInput): AffectedRowsOutput!
+  deleteManyGamePlayer(where: GamePlayerWhereInput): AffectedRowsOutput!
+  deleteManyLife(where: LifeWhereInput): AffectedRowsOutput!
+  deleteManyMeld(where: MeldWhereInput): AffectedRowsOutput!
+  deleteManyMeldMove(where: MeldMoveWhereInput): AffectedRowsOutput!
+  deleteManyReturnCardMove(where: ReturnCardMoveWhereInput): AffectedRowsOutput!
+  deleteManySequence(where: SequenceWhereInput): AffectedRowsOutput!
+  deleteManyShowMove(where: ShowMoveWhereInput): AffectedRowsOutput!
+  deleteManySimpleMove(where: SimpleMoveWhereInput): AffectedRowsOutput!
+  deleteManyTriplet(where: TripletWhereInput): AffectedRowsOutput!
   deleteManyUser(where: UserWhereInput): AffectedRowsOutput!
-  deleteTodo(where: TodoWhereUniqueInput!): Todo
+  deleteMeld(where: MeldWhereUniqueInput!): Meld
+  deleteMeldMove(where: MeldMoveWhereUniqueInput!): MeldMove
+  deleteReturnCardMove(where: ReturnCardMoveWhereUniqueInput!): ReturnCardMove
+  deleteSequence(where: SequenceWhereUniqueInput!): Sequence
+  deleteShowMove(where: ShowMoveWhereUniqueInput!): ShowMove
+  deleteSimpleMove(where: SimpleMoveWhereUniqueInput!): SimpleMove
+  deleteTriplet(where: TripletWhereUniqueInput!): Triplet
   deleteUser(where: UserWhereUniqueInput!): User
-  updateFederatedCredentials(data: FederatedCredentialsUpdateInput!, where: FederatedCredentialsWhereUniqueInput!): FederatedCredentials
-  updateManyFederatedCredentials(data: FederatedCredentialsUpdateManyMutationInput!, where: FederatedCredentialsWhereInput): AffectedRowsOutput!
-  updateManyTodo(data: TodoUpdateManyMutationInput!, where: TodoWhereInput): AffectedRowsOutput!
+  updateClub(data: ClubUpdateInput!, where: ClubWhereUniqueInput!): Club
+  updateClubMember(data: ClubMemberUpdateInput!, where: ClubMemberWhereUniqueInput!): ClubMember
+  updateGame(data: GameUpdateInput!, where: GameWhereUniqueInput!): Game
+  updateGamePlayer(data: GamePlayerUpdateInput!, where: GamePlayerWhereUniqueInput!): GamePlayer
+  updateLife(data: LifeUpdateInput!, where: LifeWhereUniqueInput!): Life
+  updateManyClub(data: ClubUpdateManyMutationInput!, where: ClubWhereInput): AffectedRowsOutput!
+  updateManyClubMember(data: ClubMemberUpdateManyMutationInput!, where: ClubMemberWhereInput): AffectedRowsOutput!
+  updateManyGame(data: GameUpdateManyMutationInput!, where: GameWhereInput): AffectedRowsOutput!
+  updateManyGamePlayer(data: GamePlayerUpdateManyMutationInput!, where: GamePlayerWhereInput): AffectedRowsOutput!
+  updateManyLife(data: LifeUpdateManyMutationInput!, where: LifeWhereInput): AffectedRowsOutput!
+  updateManyMeld(data: MeldUpdateManyMutationInput!, where: MeldWhereInput): AffectedRowsOutput!
+  updateManyMeldMove(data: MeldMoveUpdateManyMutationInput!, where: MeldMoveWhereInput): AffectedRowsOutput!
+  updateManyReturnCardMove(data: ReturnCardMoveUpdateManyMutationInput!, where: ReturnCardMoveWhereInput): AffectedRowsOutput!
+  updateManySequence(data: SequenceUpdateManyMutationInput!, where: SequenceWhereInput): AffectedRowsOutput!
+  updateManyShowMove(data: ShowMoveUpdateManyMutationInput!, where: ShowMoveWhereInput): AffectedRowsOutput!
+  updateManySimpleMove(data: SimpleMoveUpdateManyMutationInput!, where: SimpleMoveWhereInput): AffectedRowsOutput!
+  updateManyTriplet(data: TripletUpdateManyMutationInput!, where: TripletWhereInput): AffectedRowsOutput!
   updateManyUser(data: UserUpdateManyMutationInput!, where: UserWhereInput): AffectedRowsOutput!
-  updateTodo(data: TodoUpdateInput!, where: TodoWhereUniqueInput!): Todo
+  updateMeld(data: MeldUpdateInput!, where: MeldWhereUniqueInput!): Meld
+  updateMeldMove(data: MeldMoveUpdateInput!, where: MeldMoveWhereUniqueInput!): MeldMove
+  updateReturnCardMove(data: ReturnCardMoveUpdateInput!, where: ReturnCardMoveWhereUniqueInput!): ReturnCardMove
+  updateSequence(data: SequenceUpdateInput!, where: SequenceWhereUniqueInput!): Sequence
+  updateShowMove(data: ShowMoveUpdateInput!, where: ShowMoveWhereUniqueInput!): ShowMove
+  updateSimpleMove(data: SimpleMoveUpdateInput!, where: SimpleMoveWhereUniqueInput!): SimpleMove
+  updateTriplet(data: TripletUpdateInput!, where: TripletWhereUniqueInput!): Triplet
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  upsertFederatedCredentials(create: FederatedCredentialsCreateInput!, update: FederatedCredentialsUpdateInput!, where: FederatedCredentialsWhereUniqueInput!): FederatedCredentials!
-  upsertTodo(create: TodoCreateInput!, update: TodoUpdateInput!, where: TodoWhereUniqueInput!): Todo!
+  upsertClub(create: ClubCreateInput!, update: ClubUpdateInput!, where: ClubWhereUniqueInput!): Club!
+  upsertClubMember(create: ClubMemberCreateInput!, update: ClubMemberUpdateInput!, where: ClubMemberWhereUniqueInput!): ClubMember!
+  upsertGame(create: GameCreateInput!, update: GameUpdateInput!, where: GameWhereUniqueInput!): Game!
+  upsertGamePlayer(create: GamePlayerCreateInput!, update: GamePlayerUpdateInput!, where: GamePlayerWhereUniqueInput!): GamePlayer!
+  upsertLife(create: LifeCreateInput!, update: LifeUpdateInput!, where: LifeWhereUniqueInput!): Life!
+  upsertMeld(create: MeldCreateInput!, update: MeldUpdateInput!, where: MeldWhereUniqueInput!): Meld!
+  upsertMeldMove(create: MeldMoveCreateInput!, update: MeldMoveUpdateInput!, where: MeldMoveWhereUniqueInput!): MeldMove!
+  upsertReturnCardMove(create: ReturnCardMoveCreateInput!, update: ReturnCardMoveUpdateInput!, where: ReturnCardMoveWhereUniqueInput!): ReturnCardMove!
+  upsertSequence(create: SequenceCreateInput!, update: SequenceUpdateInput!, where: SequenceWhereUniqueInput!): Sequence!
+  upsertShowMove(create: ShowMoveCreateInput!, update: ShowMoveUpdateInput!, where: ShowMoveWhereUniqueInput!): ShowMove!
+  upsertSimpleMove(create: SimpleMoveCreateInput!, update: SimpleMoveUpdateInput!, where: SimpleMoveWhereUniqueInput!): SimpleMove!
+  upsertTriplet(create: TripletCreateInput!, update: TripletUpdateInput!, where: TripletWhereUniqueInput!): Triplet!
   upsertUser(create: UserCreateInput!, update: UserUpdateInput!, where: UserWhereUniqueInput!): User!
 }
 
@@ -394,6 +3112,65 @@ input NestedBoolWithAggregatesFilter {
   not: NestedBoolWithAggregatesFilter
 }
 
+input NestedDateTimeFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeFilter
+  notIn: [DateTime!]
+}
+
+input NestedDateTimeWithAggregatesFilter {
+  _count: NestedIntFilter
+  _max: NestedDateTimeFilter
+  _min: NestedDateTimeFilter
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeWithAggregatesFilter
+  notIn: [DateTime!]
+}
+
+input NestedEnumGameStateFilter {
+  equals: GameState
+  in: [GameState!]
+  not: NestedEnumGameStateFilter
+  notIn: [GameState!]
+}
+
+input NestedEnumGameStateWithAggregatesFilter {
+  _count: NestedIntFilter
+  _max: NestedEnumGameStateFilter
+  _min: NestedEnumGameStateFilter
+  equals: GameState
+  in: [GameState!]
+  not: NestedEnumGameStateWithAggregatesFilter
+  notIn: [GameState!]
+}
+
+input NestedEnumMoveTypeFilter {
+  equals: MoveType
+  in: [MoveType!]
+  not: NestedEnumMoveTypeFilter
+  notIn: [MoveType!]
+}
+
+input NestedEnumMoveTypeWithAggregatesFilter {
+  _count: NestedIntFilter
+  _max: NestedEnumMoveTypeFilter
+  _min: NestedEnumMoveTypeFilter
+  equals: MoveType
+  in: [MoveType!]
+  not: NestedEnumMoveTypeWithAggregatesFilter
+  notIn: [MoveType!]
+}
+
 input NestedFloatFilter {
   equals: Float
   gt: Float
@@ -402,17 +3179,6 @@ input NestedFloatFilter {
   lt: Float
   lte: Float
   not: NestedFloatFilter
-  notIn: [Float!]
-}
-
-input NestedFloatNullableFilter {
-  equals: Float
-  gt: Float
-  gte: Float
-  in: [Float!]
-  lt: Float
-  lte: Float
-  not: NestedFloatNullableFilter
   notIn: [Float!]
 }
 
@@ -435,22 +3201,6 @@ input NestedIntNullableFilter {
   lt: Int
   lte: Int
   not: NestedIntNullableFilter
-  notIn: [Int!]
-}
-
-input NestedIntNullableWithAggregatesFilter {
-  _avg: NestedFloatNullableFilter
-  _count: NestedIntNullableFilter
-  _max: NestedIntNullableFilter
-  _min: NestedIntNullableFilter
-  _sum: NestedIntNullableFilter
-  equals: Int
-  gt: Int
-  gte: Int
-  in: [Int!]
-  lt: Int
-  lte: Int
-  not: NestedIntNullableWithAggregatesFilter
   notIn: [Int!]
 }
 
@@ -542,20 +3292,70 @@ input NullableStringFieldUpdateOperationsInput {
 }
 
 type Query {
-  aggregateFederatedCredentials(cursor: FederatedCredentialsWhereUniqueInput, orderBy: [FederatedCredentialsOrderByWithRelationInput!], skip: Int, take: Int, where: FederatedCredentialsWhereInput): AggregateFederatedCredentials!
-  aggregateTodo(cursor: TodoWhereUniqueInput, orderBy: [TodoOrderByWithRelationInput!], skip: Int, take: Int, where: TodoWhereInput): AggregateTodo!
+  aggregateClub(cursor: ClubWhereUniqueInput, orderBy: [ClubOrderByWithRelationInput!], skip: Int, take: Int, where: ClubWhereInput): AggregateClub!
+  aggregateClubMember(cursor: ClubMemberWhereUniqueInput, orderBy: [ClubMemberOrderByWithRelationInput!], skip: Int, take: Int, where: ClubMemberWhereInput): AggregateClubMember!
+  aggregateGame(cursor: GameWhereUniqueInput, orderBy: [GameOrderByWithRelationInput!], skip: Int, take: Int, where: GameWhereInput): AggregateGame!
+  aggregateGamePlayer(cursor: GamePlayerWhereUniqueInput, orderBy: [GamePlayerOrderByWithRelationInput!], skip: Int, take: Int, where: GamePlayerWhereInput): AggregateGamePlayer!
+  aggregateLife(cursor: LifeWhereUniqueInput, orderBy: [LifeOrderByWithRelationInput!], skip: Int, take: Int, where: LifeWhereInput): AggregateLife!
+  aggregateMeld(cursor: MeldWhereUniqueInput, orderBy: [MeldOrderByWithRelationInput!], skip: Int, take: Int, where: MeldWhereInput): AggregateMeld!
+  aggregateMeldMove(cursor: MeldMoveWhereUniqueInput, orderBy: [MeldMoveOrderByWithRelationInput!], skip: Int, take: Int, where: MeldMoveWhereInput): AggregateMeldMove!
+  aggregateReturnCardMove(cursor: ReturnCardMoveWhereUniqueInput, orderBy: [ReturnCardMoveOrderByWithRelationInput!], skip: Int, take: Int, where: ReturnCardMoveWhereInput): AggregateReturnCardMove!
+  aggregateSequence(cursor: SequenceWhereUniqueInput, orderBy: [SequenceOrderByWithRelationInput!], skip: Int, take: Int, where: SequenceWhereInput): AggregateSequence!
+  aggregateShowMove(cursor: ShowMoveWhereUniqueInput, orderBy: [ShowMoveOrderByWithRelationInput!], skip: Int, take: Int, where: ShowMoveWhereInput): AggregateShowMove!
+  aggregateSimpleMove(cursor: SimpleMoveWhereUniqueInput, orderBy: [SimpleMoveOrderByWithRelationInput!], skip: Int, take: Int, where: SimpleMoveWhereInput): AggregateSimpleMove!
+  aggregateTriplet(cursor: TripletWhereUniqueInput, orderBy: [TripletOrderByWithRelationInput!], skip: Int, take: Int, where: TripletWhereInput): AggregateTriplet!
   aggregateUser(cursor: UserWhereUniqueInput, orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): AggregateUser!
-  findFirstFederatedCredentials(cursor: FederatedCredentialsWhereUniqueInput, distinct: [FederatedCredentialsScalarFieldEnum!], orderBy: [FederatedCredentialsOrderByWithRelationInput!], skip: Int, take: Int, where: FederatedCredentialsWhereInput): FederatedCredentials
-  findFirstTodo(cursor: TodoWhereUniqueInput, distinct: [TodoScalarFieldEnum!], orderBy: [TodoOrderByWithRelationInput!], skip: Int, take: Int, where: TodoWhereInput): Todo
+  club(where: ClubWhereUniqueInput!): Club
+  clubMember(where: ClubMemberWhereUniqueInput!): ClubMember
+  clubMembers(cursor: ClubMemberWhereUniqueInput, distinct: [ClubMemberScalarFieldEnum!], orderBy: [ClubMemberOrderByWithRelationInput!], skip: Int, take: Int, where: ClubMemberWhereInput): [ClubMember!]!
+  clubs(cursor: ClubWhereUniqueInput, distinct: [ClubScalarFieldEnum!], orderBy: [ClubOrderByWithRelationInput!], skip: Int, take: Int, where: ClubWhereInput): [Club!]!
+  findFirstClub(cursor: ClubWhereUniqueInput, distinct: [ClubScalarFieldEnum!], orderBy: [ClubOrderByWithRelationInput!], skip: Int, take: Int, where: ClubWhereInput): Club
+  findFirstClubMember(cursor: ClubMemberWhereUniqueInput, distinct: [ClubMemberScalarFieldEnum!], orderBy: [ClubMemberOrderByWithRelationInput!], skip: Int, take: Int, where: ClubMemberWhereInput): ClubMember
+  findFirstGame(cursor: GameWhereUniqueInput, distinct: [GameScalarFieldEnum!], orderBy: [GameOrderByWithRelationInput!], skip: Int, take: Int, where: GameWhereInput): Game
+  findFirstGamePlayer(cursor: GamePlayerWhereUniqueInput, distinct: [GamePlayerScalarFieldEnum!], orderBy: [GamePlayerOrderByWithRelationInput!], skip: Int, take: Int, where: GamePlayerWhereInput): GamePlayer
+  findFirstLife(cursor: LifeWhereUniqueInput, distinct: [LifeScalarFieldEnum!], orderBy: [LifeOrderByWithRelationInput!], skip: Int, take: Int, where: LifeWhereInput): Life
+  findFirstMeld(cursor: MeldWhereUniqueInput, distinct: [MeldScalarFieldEnum!], orderBy: [MeldOrderByWithRelationInput!], skip: Int, take: Int, where: MeldWhereInput): Meld
+  findFirstMeldMove(cursor: MeldMoveWhereUniqueInput, distinct: [MeldMoveScalarFieldEnum!], orderBy: [MeldMoveOrderByWithRelationInput!], skip: Int, take: Int, where: MeldMoveWhereInput): MeldMove
+  findFirstReturnCardMove(cursor: ReturnCardMoveWhereUniqueInput, distinct: [ReturnCardMoveScalarFieldEnum!], orderBy: [ReturnCardMoveOrderByWithRelationInput!], skip: Int, take: Int, where: ReturnCardMoveWhereInput): ReturnCardMove
+  findFirstSequence(cursor: SequenceWhereUniqueInput, distinct: [SequenceScalarFieldEnum!], orderBy: [SequenceOrderByWithRelationInput!], skip: Int, take: Int, where: SequenceWhereInput): Sequence
+  findFirstShowMove(cursor: ShowMoveWhereUniqueInput, distinct: [ShowMoveScalarFieldEnum!], orderBy: [ShowMoveOrderByWithRelationInput!], skip: Int, take: Int, where: ShowMoveWhereInput): ShowMove
+  findFirstSimpleMove(cursor: SimpleMoveWhereUniqueInput, distinct: [SimpleMoveScalarFieldEnum!], orderBy: [SimpleMoveOrderByWithRelationInput!], skip: Int, take: Int, where: SimpleMoveWhereInput): SimpleMove
+  findFirstTriplet(cursor: TripletWhereUniqueInput, distinct: [TripletScalarFieldEnum!], orderBy: [TripletOrderByWithRelationInput!], skip: Int, take: Int, where: TripletWhereInput): Triplet
   findFirstUser(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): User
-  findManyFederatedCredentials(cursor: FederatedCredentialsWhereUniqueInput, distinct: [FederatedCredentialsScalarFieldEnum!], orderBy: [FederatedCredentialsOrderByWithRelationInput!], skip: Int, take: Int, where: FederatedCredentialsWhereInput): [FederatedCredentials!]!
-  findUniqueFederatedCredentials(where: FederatedCredentialsWhereUniqueInput!): FederatedCredentials
+  game(where: GameWhereUniqueInput!): Game
+  gamePlayer(where: GamePlayerWhereUniqueInput!): GamePlayer
+  gamePlayers(cursor: GamePlayerWhereUniqueInput, distinct: [GamePlayerScalarFieldEnum!], orderBy: [GamePlayerOrderByWithRelationInput!], skip: Int, take: Int, where: GamePlayerWhereInput): [GamePlayer!]!
+  games(cursor: GameWhereUniqueInput, distinct: [GameScalarFieldEnum!], orderBy: [GameOrderByWithRelationInput!], skip: Int, take: Int, where: GameWhereInput): [Game!]!
   getJwt: String
-  groupByFederatedCredentials(by: [FederatedCredentialsScalarFieldEnum!]!, having: FederatedCredentialsScalarWhereWithAggregatesInput, orderBy: [FederatedCredentialsOrderByWithAggregationInput!], skip: Int, take: Int, where: FederatedCredentialsWhereInput): [FederatedCredentialsGroupBy!]!
-  groupByTodo(by: [TodoScalarFieldEnum!]!, having: TodoScalarWhereWithAggregatesInput, orderBy: [TodoOrderByWithAggregationInput!], skip: Int, take: Int, where: TodoWhereInput): [TodoGroupBy!]!
+  groupByClub(by: [ClubScalarFieldEnum!]!, having: ClubScalarWhereWithAggregatesInput, orderBy: [ClubOrderByWithAggregationInput!], skip: Int, take: Int, where: ClubWhereInput): [ClubGroupBy!]!
+  groupByClubMember(by: [ClubMemberScalarFieldEnum!]!, having: ClubMemberScalarWhereWithAggregatesInput, orderBy: [ClubMemberOrderByWithAggregationInput!], skip: Int, take: Int, where: ClubMemberWhereInput): [ClubMemberGroupBy!]!
+  groupByGame(by: [GameScalarFieldEnum!]!, having: GameScalarWhereWithAggregatesInput, orderBy: [GameOrderByWithAggregationInput!], skip: Int, take: Int, where: GameWhereInput): [GameGroupBy!]!
+  groupByGamePlayer(by: [GamePlayerScalarFieldEnum!]!, having: GamePlayerScalarWhereWithAggregatesInput, orderBy: [GamePlayerOrderByWithAggregationInput!], skip: Int, take: Int, where: GamePlayerWhereInput): [GamePlayerGroupBy!]!
+  groupByLife(by: [LifeScalarFieldEnum!]!, having: LifeScalarWhereWithAggregatesInput, orderBy: [LifeOrderByWithAggregationInput!], skip: Int, take: Int, where: LifeWhereInput): [LifeGroupBy!]!
+  groupByMeld(by: [MeldScalarFieldEnum!]!, having: MeldScalarWhereWithAggregatesInput, orderBy: [MeldOrderByWithAggregationInput!], skip: Int, take: Int, where: MeldWhereInput): [MeldGroupBy!]!
+  groupByMeldMove(by: [MeldMoveScalarFieldEnum!]!, having: MeldMoveScalarWhereWithAggregatesInput, orderBy: [MeldMoveOrderByWithAggregationInput!], skip: Int, take: Int, where: MeldMoveWhereInput): [MeldMoveGroupBy!]!
+  groupByReturnCardMove(by: [ReturnCardMoveScalarFieldEnum!]!, having: ReturnCardMoveScalarWhereWithAggregatesInput, orderBy: [ReturnCardMoveOrderByWithAggregationInput!], skip: Int, take: Int, where: ReturnCardMoveWhereInput): [ReturnCardMoveGroupBy!]!
+  groupBySequence(by: [SequenceScalarFieldEnum!]!, having: SequenceScalarWhereWithAggregatesInput, orderBy: [SequenceOrderByWithAggregationInput!], skip: Int, take: Int, where: SequenceWhereInput): [SequenceGroupBy!]!
+  groupByShowMove(by: [ShowMoveScalarFieldEnum!]!, having: ShowMoveScalarWhereWithAggregatesInput, orderBy: [ShowMoveOrderByWithAggregationInput!], skip: Int, take: Int, where: ShowMoveWhereInput): [ShowMoveGroupBy!]!
+  groupBySimpleMove(by: [SimpleMoveScalarFieldEnum!]!, having: SimpleMoveScalarWhereWithAggregatesInput, orderBy: [SimpleMoveOrderByWithAggregationInput!], skip: Int, take: Int, where: SimpleMoveWhereInput): [SimpleMoveGroupBy!]!
+  groupByTriplet(by: [TripletScalarFieldEnum!]!, having: TripletScalarWhereWithAggregatesInput, orderBy: [TripletOrderByWithAggregationInput!], skip: Int, take: Int, where: TripletWhereInput): [TripletGroupBy!]!
   groupByUser(by: [UserScalarFieldEnum!]!, having: UserScalarWhereWithAggregatesInput, orderBy: [UserOrderByWithAggregationInput!], skip: Int, take: Int, where: UserWhereInput): [UserGroupBy!]!
-  todo(where: TodoWhereUniqueInput!): Todo
-  todos(cursor: TodoWhereUniqueInput, distinct: [TodoScalarFieldEnum!], orderBy: [TodoOrderByWithRelationInput!], skip: Int, take: Int, where: TodoWhereInput): [Todo!]!
+  life(where: LifeWhereUniqueInput!): Life
+  lives(cursor: LifeWhereUniqueInput, distinct: [LifeScalarFieldEnum!], orderBy: [LifeOrderByWithRelationInput!], skip: Int, take: Int, where: LifeWhereInput): [Life!]!
+  meld(where: MeldWhereUniqueInput!): Meld
+  meldMove(where: MeldMoveWhereUniqueInput!): MeldMove
+  meldMoves(cursor: MeldMoveWhereUniqueInput, distinct: [MeldMoveScalarFieldEnum!], orderBy: [MeldMoveOrderByWithRelationInput!], skip: Int, take: Int, where: MeldMoveWhereInput): [MeldMove!]!
+  melds(cursor: MeldWhereUniqueInput, distinct: [MeldScalarFieldEnum!], orderBy: [MeldOrderByWithRelationInput!], skip: Int, take: Int, where: MeldWhereInput): [Meld!]!
+  returnCardMove(where: ReturnCardMoveWhereUniqueInput!): ReturnCardMove
+  returnCardMoves(cursor: ReturnCardMoveWhereUniqueInput, distinct: [ReturnCardMoveScalarFieldEnum!], orderBy: [ReturnCardMoveOrderByWithRelationInput!], skip: Int, take: Int, where: ReturnCardMoveWhereInput): [ReturnCardMove!]!
+  sequence(where: SequenceWhereUniqueInput!): Sequence
+  sequences(cursor: SequenceWhereUniqueInput, distinct: [SequenceScalarFieldEnum!], orderBy: [SequenceOrderByWithRelationInput!], skip: Int, take: Int, where: SequenceWhereInput): [Sequence!]!
+  showMove(where: ShowMoveWhereUniqueInput!): ShowMove
+  showMoves(cursor: ShowMoveWhereUniqueInput, distinct: [ShowMoveScalarFieldEnum!], orderBy: [ShowMoveOrderByWithRelationInput!], skip: Int, take: Int, where: ShowMoveWhereInput): [ShowMove!]!
+  simpleMove(where: SimpleMoveWhereUniqueInput!): SimpleMove
+  simpleMoves(cursor: SimpleMoveWhereUniqueInput, distinct: [SimpleMoveScalarFieldEnum!], orderBy: [SimpleMoveOrderByWithRelationInput!], skip: Int, take: Int, where: SimpleMoveWhereInput): [SimpleMove!]!
+  triplet(where: TripletWhereUniqueInput!): Triplet
+  triplets(cursor: TripletWhereUniqueInput, distinct: [TripletScalarFieldEnum!], orderBy: [TripletOrderByWithRelationInput!], skip: Int, take: Int, where: TripletWhereInput): [Triplet!]!
   user(where: UserWhereUniqueInput!): User
   users(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): [User!]!
 }
@@ -565,11 +3365,1135 @@ enum QueryMode {
   insensitive
 }
 
+type ReturnCardMove {
+  card: String!
+  gamePlayer: GamePlayer!
+  gamePlayerId: Int!
+  id: Int!
+  moveNum: Int!
+  moveType: MoveType!
+}
+
+type ReturnCardMoveAvgAggregate {
+  gamePlayerId: Float
+  id: Float
+  moveNum: Float
+}
+
+input ReturnCardMoveAvgOrderByAggregateInput {
+  gamePlayerId: SortOrder
+  id: SortOrder
+  moveNum: SortOrder
+}
+
+type ReturnCardMoveCountAggregate {
+  _all: Int!
+  card: Int!
+  gamePlayerId: Int!
+  id: Int!
+  moveNum: Int!
+  moveType: Int!
+}
+
+input ReturnCardMoveCountOrderByAggregateInput {
+  card: SortOrder
+  gamePlayerId: SortOrder
+  id: SortOrder
+  moveNum: SortOrder
+  moveType: SortOrder
+}
+
+input ReturnCardMoveCreateInput {
+  card: String!
+  gamePlayer: GamePlayerCreateNestedOneWithoutReturnCardMoveInput!
+  moveNum: Int!
+  moveType: MoveType!
+}
+
+input ReturnCardMoveCreateManyGamePlayerInput {
+  card: String!
+  id: Int
+  moveNum: Int!
+  moveType: MoveType!
+}
+
+input ReturnCardMoveCreateManyGamePlayerInputEnvelope {
+  data: [ReturnCardMoveCreateManyGamePlayerInput!]!
+  skipDuplicates: Boolean
+}
+
+input ReturnCardMoveCreateManyInput {
+  card: String!
+  gamePlayerId: Int!
+  id: Int
+  moveNum: Int!
+  moveType: MoveType!
+}
+
+input ReturnCardMoveCreateNestedManyWithoutGamePlayerInput {
+  connect: [ReturnCardMoveWhereUniqueInput!]
+  connectOrCreate: [ReturnCardMoveCreateOrConnectWithoutGamePlayerInput!]
+  create: [ReturnCardMoveCreateWithoutGamePlayerInput!]
+  createMany: ReturnCardMoveCreateManyGamePlayerInputEnvelope
+}
+
+input ReturnCardMoveCreateOrConnectWithoutGamePlayerInput {
+  create: ReturnCardMoveCreateWithoutGamePlayerInput!
+  where: ReturnCardMoveWhereUniqueInput!
+}
+
+input ReturnCardMoveCreateWithoutGamePlayerInput {
+  card: String!
+  moveNum: Int!
+  moveType: MoveType!
+}
+
+type ReturnCardMoveGroupBy {
+  _avg: ReturnCardMoveAvgAggregate
+  _count: ReturnCardMoveCountAggregate
+  _max: ReturnCardMoveMaxAggregate
+  _min: ReturnCardMoveMinAggregate
+  _sum: ReturnCardMoveSumAggregate
+  card: String!
+  gamePlayerId: Int!
+  id: Int!
+  moveNum: Int!
+  moveType: MoveType!
+}
+
+input ReturnCardMoveListRelationFilter {
+  every: ReturnCardMoveWhereInput
+  none: ReturnCardMoveWhereInput
+  some: ReturnCardMoveWhereInput
+}
+
+type ReturnCardMoveMaxAggregate {
+  card: String
+  gamePlayerId: Int
+  id: Int
+  moveNum: Int
+  moveType: MoveType
+}
+
+input ReturnCardMoveMaxOrderByAggregateInput {
+  card: SortOrder
+  gamePlayerId: SortOrder
+  id: SortOrder
+  moveNum: SortOrder
+  moveType: SortOrder
+}
+
+type ReturnCardMoveMinAggregate {
+  card: String
+  gamePlayerId: Int
+  id: Int
+  moveNum: Int
+  moveType: MoveType
+}
+
+input ReturnCardMoveMinOrderByAggregateInput {
+  card: SortOrder
+  gamePlayerId: SortOrder
+  id: SortOrder
+  moveNum: SortOrder
+  moveType: SortOrder
+}
+
+input ReturnCardMoveOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input ReturnCardMoveOrderByWithAggregationInput {
+  _avg: ReturnCardMoveAvgOrderByAggregateInput
+  _count: ReturnCardMoveCountOrderByAggregateInput
+  _max: ReturnCardMoveMaxOrderByAggregateInput
+  _min: ReturnCardMoveMinOrderByAggregateInput
+  _sum: ReturnCardMoveSumOrderByAggregateInput
+  card: SortOrder
+  gamePlayerId: SortOrder
+  id: SortOrder
+  moveNum: SortOrder
+  moveType: SortOrder
+}
+
+input ReturnCardMoveOrderByWithRelationInput {
+  card: SortOrder
+  gamePlayer: GamePlayerOrderByWithRelationInput
+  gamePlayerId: SortOrder
+  id: SortOrder
+  moveNum: SortOrder
+  moveType: SortOrder
+}
+
+enum ReturnCardMoveScalarFieldEnum {
+  card
+  gamePlayerId
+  id
+  moveNum
+  moveType
+}
+
+input ReturnCardMoveScalarWhereInput {
+  AND: [ReturnCardMoveScalarWhereInput!]
+  NOT: [ReturnCardMoveScalarWhereInput!]
+  OR: [ReturnCardMoveScalarWhereInput!]
+  card: StringFilter
+  gamePlayerId: IntFilter
+  id: IntFilter
+  moveNum: IntFilter
+  moveType: EnumMoveTypeFilter
+}
+
+input ReturnCardMoveScalarWhereWithAggregatesInput {
+  AND: [ReturnCardMoveScalarWhereWithAggregatesInput!]
+  NOT: [ReturnCardMoveScalarWhereWithAggregatesInput!]
+  OR: [ReturnCardMoveScalarWhereWithAggregatesInput!]
+  card: StringWithAggregatesFilter
+  gamePlayerId: IntWithAggregatesFilter
+  id: IntWithAggregatesFilter
+  moveNum: IntWithAggregatesFilter
+  moveType: EnumMoveTypeWithAggregatesFilter
+}
+
+type ReturnCardMoveSumAggregate {
+  gamePlayerId: Int
+  id: Int
+  moveNum: Int
+}
+
+input ReturnCardMoveSumOrderByAggregateInput {
+  gamePlayerId: SortOrder
+  id: SortOrder
+  moveNum: SortOrder
+}
+
+input ReturnCardMoveUpdateInput {
+  card: StringFieldUpdateOperationsInput
+  gamePlayer: GamePlayerUpdateOneRequiredWithoutReturnCardMoveInput
+  moveNum: IntFieldUpdateOperationsInput
+  moveType: EnumMoveTypeFieldUpdateOperationsInput
+}
+
+input ReturnCardMoveUpdateManyMutationInput {
+  card: StringFieldUpdateOperationsInput
+  moveNum: IntFieldUpdateOperationsInput
+  moveType: EnumMoveTypeFieldUpdateOperationsInput
+}
+
+input ReturnCardMoveUpdateManyWithWhereWithoutGamePlayerInput {
+  data: ReturnCardMoveUpdateManyMutationInput!
+  where: ReturnCardMoveScalarWhereInput!
+}
+
+input ReturnCardMoveUpdateManyWithoutGamePlayerInput {
+  connect: [ReturnCardMoveWhereUniqueInput!]
+  connectOrCreate: [ReturnCardMoveCreateOrConnectWithoutGamePlayerInput!]
+  create: [ReturnCardMoveCreateWithoutGamePlayerInput!]
+  createMany: ReturnCardMoveCreateManyGamePlayerInputEnvelope
+  delete: [ReturnCardMoveWhereUniqueInput!]
+  deleteMany: [ReturnCardMoveScalarWhereInput!]
+  disconnect: [ReturnCardMoveWhereUniqueInput!]
+  set: [ReturnCardMoveWhereUniqueInput!]
+  update: [ReturnCardMoveUpdateWithWhereUniqueWithoutGamePlayerInput!]
+  updateMany: [ReturnCardMoveUpdateManyWithWhereWithoutGamePlayerInput!]
+  upsert: [ReturnCardMoveUpsertWithWhereUniqueWithoutGamePlayerInput!]
+}
+
+input ReturnCardMoveUpdateWithWhereUniqueWithoutGamePlayerInput {
+  data: ReturnCardMoveUpdateWithoutGamePlayerInput!
+  where: ReturnCardMoveWhereUniqueInput!
+}
+
+input ReturnCardMoveUpdateWithoutGamePlayerInput {
+  card: StringFieldUpdateOperationsInput
+  moveNum: IntFieldUpdateOperationsInput
+  moveType: EnumMoveTypeFieldUpdateOperationsInput
+}
+
+input ReturnCardMoveUpsertWithWhereUniqueWithoutGamePlayerInput {
+  create: ReturnCardMoveCreateWithoutGamePlayerInput!
+  update: ReturnCardMoveUpdateWithoutGamePlayerInput!
+  where: ReturnCardMoveWhereUniqueInput!
+}
+
+input ReturnCardMoveWhereInput {
+  AND: [ReturnCardMoveWhereInput!]
+  NOT: [ReturnCardMoveWhereInput!]
+  OR: [ReturnCardMoveWhereInput!]
+  card: StringFilter
+  gamePlayer: GamePlayerRelationFilter
+  gamePlayerId: IntFilter
+  id: IntFilter
+  moveNum: IntFilter
+  moveType: EnumMoveTypeFilter
+}
+
+input ReturnCardMoveWhereUniqueInput {
+  id: Int
+}
+
 enum Role {
   ADMIN
   CAPTAIN
   OWNER
   USER
+}
+
+type Sequence {
+  id: Int!
+  meld: Meld!
+  meldId: Int!
+  numJokers: Int!
+  rank: String!
+  suits: [String!]!
+}
+
+type SequenceAvgAggregate {
+  id: Float
+  meldId: Float
+  numJokers: Float
+}
+
+input SequenceAvgOrderByAggregateInput {
+  id: SortOrder
+  meldId: SortOrder
+  numJokers: SortOrder
+}
+
+type SequenceCountAggregate {
+  _all: Int!
+  id: Int!
+  meldId: Int!
+  numJokers: Int!
+  rank: Int!
+  suits: Int!
+}
+
+input SequenceCountOrderByAggregateInput {
+  id: SortOrder
+  meldId: SortOrder
+  numJokers: SortOrder
+  rank: SortOrder
+  suits: SortOrder
+}
+
+input SequenceCreateInput {
+  meld: MeldCreateNestedOneWithoutSequenceInput!
+  numJokers: Int!
+  rank: String!
+  suits: SequenceCreatesuitsInput
+}
+
+input SequenceCreateManyInput {
+  id: Int
+  meldId: Int!
+  numJokers: Int!
+  rank: String!
+  suits: SequenceCreatesuitsInput
+}
+
+input SequenceCreateManyMeldInput {
+  id: Int
+  numJokers: Int!
+  rank: String!
+  suits: SequenceCreatesuitsInput
+}
+
+input SequenceCreateManyMeldInputEnvelope {
+  data: [SequenceCreateManyMeldInput!]!
+  skipDuplicates: Boolean
+}
+
+input SequenceCreateNestedManyWithoutMeldInput {
+  connect: [SequenceWhereUniqueInput!]
+  connectOrCreate: [SequenceCreateOrConnectWithoutMeldInput!]
+  create: [SequenceCreateWithoutMeldInput!]
+  createMany: SequenceCreateManyMeldInputEnvelope
+}
+
+input SequenceCreateOrConnectWithoutMeldInput {
+  create: SequenceCreateWithoutMeldInput!
+  where: SequenceWhereUniqueInput!
+}
+
+input SequenceCreateWithoutMeldInput {
+  numJokers: Int!
+  rank: String!
+  suits: SequenceCreatesuitsInput
+}
+
+input SequenceCreatesuitsInput {
+  set: [String!]!
+}
+
+type SequenceGroupBy {
+  _avg: SequenceAvgAggregate
+  _count: SequenceCountAggregate
+  _max: SequenceMaxAggregate
+  _min: SequenceMinAggregate
+  _sum: SequenceSumAggregate
+  id: Int!
+  meldId: Int!
+  numJokers: Int!
+  rank: String!
+  suits: [String!]
+}
+
+input SequenceListRelationFilter {
+  every: SequenceWhereInput
+  none: SequenceWhereInput
+  some: SequenceWhereInput
+}
+
+type SequenceMaxAggregate {
+  id: Int
+  meldId: Int
+  numJokers: Int
+  rank: String
+}
+
+input SequenceMaxOrderByAggregateInput {
+  id: SortOrder
+  meldId: SortOrder
+  numJokers: SortOrder
+  rank: SortOrder
+}
+
+type SequenceMinAggregate {
+  id: Int
+  meldId: Int
+  numJokers: Int
+  rank: String
+}
+
+input SequenceMinOrderByAggregateInput {
+  id: SortOrder
+  meldId: SortOrder
+  numJokers: SortOrder
+  rank: SortOrder
+}
+
+input SequenceOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input SequenceOrderByWithAggregationInput {
+  _avg: SequenceAvgOrderByAggregateInput
+  _count: SequenceCountOrderByAggregateInput
+  _max: SequenceMaxOrderByAggregateInput
+  _min: SequenceMinOrderByAggregateInput
+  _sum: SequenceSumOrderByAggregateInput
+  id: SortOrder
+  meldId: SortOrder
+  numJokers: SortOrder
+  rank: SortOrder
+  suits: SortOrder
+}
+
+input SequenceOrderByWithRelationInput {
+  id: SortOrder
+  meld: MeldOrderByWithRelationInput
+  meldId: SortOrder
+  numJokers: SortOrder
+  rank: SortOrder
+  suits: SortOrder
+}
+
+enum SequenceScalarFieldEnum {
+  id
+  meldId
+  numJokers
+  rank
+  suits
+}
+
+input SequenceScalarWhereInput {
+  AND: [SequenceScalarWhereInput!]
+  NOT: [SequenceScalarWhereInput!]
+  OR: [SequenceScalarWhereInput!]
+  id: IntFilter
+  meldId: IntFilter
+  numJokers: IntFilter
+  rank: StringFilter
+  suits: StringNullableListFilter
+}
+
+input SequenceScalarWhereWithAggregatesInput {
+  AND: [SequenceScalarWhereWithAggregatesInput!]
+  NOT: [SequenceScalarWhereWithAggregatesInput!]
+  OR: [SequenceScalarWhereWithAggregatesInput!]
+  id: IntWithAggregatesFilter
+  meldId: IntWithAggregatesFilter
+  numJokers: IntWithAggregatesFilter
+  rank: StringWithAggregatesFilter
+  suits: StringNullableListFilter
+}
+
+type SequenceSumAggregate {
+  id: Int
+  meldId: Int
+  numJokers: Int
+}
+
+input SequenceSumOrderByAggregateInput {
+  id: SortOrder
+  meldId: SortOrder
+  numJokers: SortOrder
+}
+
+input SequenceUpdateInput {
+  meld: MeldUpdateOneRequiredWithoutSequenceInput
+  numJokers: IntFieldUpdateOperationsInput
+  rank: StringFieldUpdateOperationsInput
+  suits: SequenceUpdatesuitsInput
+}
+
+input SequenceUpdateManyMutationInput {
+  numJokers: IntFieldUpdateOperationsInput
+  rank: StringFieldUpdateOperationsInput
+  suits: SequenceUpdatesuitsInput
+}
+
+input SequenceUpdateManyWithWhereWithoutMeldInput {
+  data: SequenceUpdateManyMutationInput!
+  where: SequenceScalarWhereInput!
+}
+
+input SequenceUpdateManyWithoutMeldInput {
+  connect: [SequenceWhereUniqueInput!]
+  connectOrCreate: [SequenceCreateOrConnectWithoutMeldInput!]
+  create: [SequenceCreateWithoutMeldInput!]
+  createMany: SequenceCreateManyMeldInputEnvelope
+  delete: [SequenceWhereUniqueInput!]
+  deleteMany: [SequenceScalarWhereInput!]
+  disconnect: [SequenceWhereUniqueInput!]
+  set: [SequenceWhereUniqueInput!]
+  update: [SequenceUpdateWithWhereUniqueWithoutMeldInput!]
+  updateMany: [SequenceUpdateManyWithWhereWithoutMeldInput!]
+  upsert: [SequenceUpsertWithWhereUniqueWithoutMeldInput!]
+}
+
+input SequenceUpdateWithWhereUniqueWithoutMeldInput {
+  data: SequenceUpdateWithoutMeldInput!
+  where: SequenceWhereUniqueInput!
+}
+
+input SequenceUpdateWithoutMeldInput {
+  numJokers: IntFieldUpdateOperationsInput
+  rank: StringFieldUpdateOperationsInput
+  suits: SequenceUpdatesuitsInput
+}
+
+input SequenceUpdatesuitsInput {
+  push: [String!]
+  set: [String!]
+}
+
+input SequenceUpsertWithWhereUniqueWithoutMeldInput {
+  create: SequenceCreateWithoutMeldInput!
+  update: SequenceUpdateWithoutMeldInput!
+  where: SequenceWhereUniqueInput!
+}
+
+input SequenceWhereInput {
+  AND: [SequenceWhereInput!]
+  NOT: [SequenceWhereInput!]
+  OR: [SequenceWhereInput!]
+  id: IntFilter
+  meld: MeldRelationFilter
+  meldId: IntFilter
+  numJokers: IntFilter
+  rank: StringFilter
+  suits: StringNullableListFilter
+}
+
+input SequenceWhereUniqueInput {
+  id: Int
+}
+
+type ShowMove {
+  gamePlayer: GamePlayer!
+  gamePlayerId: Int!
+  id: Int!
+  meld: Meld!
+  meldId: Int!
+  moveNum: Int!
+  moveType: MoveType!
+}
+
+type ShowMoveAvgAggregate {
+  gamePlayerId: Float
+  id: Float
+  meldId: Float
+  moveNum: Float
+}
+
+input ShowMoveAvgOrderByAggregateInput {
+  gamePlayerId: SortOrder
+  id: SortOrder
+  meldId: SortOrder
+  moveNum: SortOrder
+}
+
+type ShowMoveCountAggregate {
+  _all: Int!
+  gamePlayerId: Int!
+  id: Int!
+  meldId: Int!
+  moveNum: Int!
+  moveType: Int!
+}
+
+input ShowMoveCountOrderByAggregateInput {
+  gamePlayerId: SortOrder
+  id: SortOrder
+  meldId: SortOrder
+  moveNum: SortOrder
+  moveType: SortOrder
+}
+
+input ShowMoveCreateInput {
+  gamePlayer: GamePlayerCreateNestedOneWithoutShowMoveInput!
+  meld: MeldCreateNestedOneWithoutShowMoveInput!
+  moveNum: Int!
+  moveType: MoveType!
+}
+
+input ShowMoveCreateManyGamePlayerInput {
+  id: Int
+  meldId: Int!
+  moveNum: Int!
+  moveType: MoveType!
+}
+
+input ShowMoveCreateManyGamePlayerInputEnvelope {
+  data: [ShowMoveCreateManyGamePlayerInput!]!
+  skipDuplicates: Boolean
+}
+
+input ShowMoveCreateManyInput {
+  gamePlayerId: Int!
+  id: Int
+  meldId: Int!
+  moveNum: Int!
+  moveType: MoveType!
+}
+
+input ShowMoveCreateManyMeldInput {
+  gamePlayerId: Int!
+  id: Int
+  moveNum: Int!
+  moveType: MoveType!
+}
+
+input ShowMoveCreateManyMeldInputEnvelope {
+  data: [ShowMoveCreateManyMeldInput!]!
+  skipDuplicates: Boolean
+}
+
+input ShowMoveCreateNestedManyWithoutGamePlayerInput {
+  connect: [ShowMoveWhereUniqueInput!]
+  connectOrCreate: [ShowMoveCreateOrConnectWithoutGamePlayerInput!]
+  create: [ShowMoveCreateWithoutGamePlayerInput!]
+  createMany: ShowMoveCreateManyGamePlayerInputEnvelope
+}
+
+input ShowMoveCreateNestedManyWithoutMeldInput {
+  connect: [ShowMoveWhereUniqueInput!]
+  connectOrCreate: [ShowMoveCreateOrConnectWithoutMeldInput!]
+  create: [ShowMoveCreateWithoutMeldInput!]
+  createMany: ShowMoveCreateManyMeldInputEnvelope
+}
+
+input ShowMoveCreateOrConnectWithoutGamePlayerInput {
+  create: ShowMoveCreateWithoutGamePlayerInput!
+  where: ShowMoveWhereUniqueInput!
+}
+
+input ShowMoveCreateOrConnectWithoutMeldInput {
+  create: ShowMoveCreateWithoutMeldInput!
+  where: ShowMoveWhereUniqueInput!
+}
+
+input ShowMoveCreateWithoutGamePlayerInput {
+  meld: MeldCreateNestedOneWithoutShowMoveInput!
+  moveNum: Int!
+  moveType: MoveType!
+}
+
+input ShowMoveCreateWithoutMeldInput {
+  gamePlayer: GamePlayerCreateNestedOneWithoutShowMoveInput!
+  moveNum: Int!
+  moveType: MoveType!
+}
+
+type ShowMoveGroupBy {
+  _avg: ShowMoveAvgAggregate
+  _count: ShowMoveCountAggregate
+  _max: ShowMoveMaxAggregate
+  _min: ShowMoveMinAggregate
+  _sum: ShowMoveSumAggregate
+  gamePlayerId: Int!
+  id: Int!
+  meldId: Int!
+  moveNum: Int!
+  moveType: MoveType!
+}
+
+input ShowMoveListRelationFilter {
+  every: ShowMoveWhereInput
+  none: ShowMoveWhereInput
+  some: ShowMoveWhereInput
+}
+
+type ShowMoveMaxAggregate {
+  gamePlayerId: Int
+  id: Int
+  meldId: Int
+  moveNum: Int
+  moveType: MoveType
+}
+
+input ShowMoveMaxOrderByAggregateInput {
+  gamePlayerId: SortOrder
+  id: SortOrder
+  meldId: SortOrder
+  moveNum: SortOrder
+  moveType: SortOrder
+}
+
+type ShowMoveMinAggregate {
+  gamePlayerId: Int
+  id: Int
+  meldId: Int
+  moveNum: Int
+  moveType: MoveType
+}
+
+input ShowMoveMinOrderByAggregateInput {
+  gamePlayerId: SortOrder
+  id: SortOrder
+  meldId: SortOrder
+  moveNum: SortOrder
+  moveType: SortOrder
+}
+
+input ShowMoveOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input ShowMoveOrderByWithAggregationInput {
+  _avg: ShowMoveAvgOrderByAggregateInput
+  _count: ShowMoveCountOrderByAggregateInput
+  _max: ShowMoveMaxOrderByAggregateInput
+  _min: ShowMoveMinOrderByAggregateInput
+  _sum: ShowMoveSumOrderByAggregateInput
+  gamePlayerId: SortOrder
+  id: SortOrder
+  meldId: SortOrder
+  moveNum: SortOrder
+  moveType: SortOrder
+}
+
+input ShowMoveOrderByWithRelationInput {
+  gamePlayer: GamePlayerOrderByWithRelationInput
+  gamePlayerId: SortOrder
+  id: SortOrder
+  meld: MeldOrderByWithRelationInput
+  meldId: SortOrder
+  moveNum: SortOrder
+  moveType: SortOrder
+}
+
+enum ShowMoveScalarFieldEnum {
+  gamePlayerId
+  id
+  meldId
+  moveNum
+  moveType
+}
+
+input ShowMoveScalarWhereInput {
+  AND: [ShowMoveScalarWhereInput!]
+  NOT: [ShowMoveScalarWhereInput!]
+  OR: [ShowMoveScalarWhereInput!]
+  gamePlayerId: IntFilter
+  id: IntFilter
+  meldId: IntFilter
+  moveNum: IntFilter
+  moveType: EnumMoveTypeFilter
+}
+
+input ShowMoveScalarWhereWithAggregatesInput {
+  AND: [ShowMoveScalarWhereWithAggregatesInput!]
+  NOT: [ShowMoveScalarWhereWithAggregatesInput!]
+  OR: [ShowMoveScalarWhereWithAggregatesInput!]
+  gamePlayerId: IntWithAggregatesFilter
+  id: IntWithAggregatesFilter
+  meldId: IntWithAggregatesFilter
+  moveNum: IntWithAggregatesFilter
+  moveType: EnumMoveTypeWithAggregatesFilter
+}
+
+type ShowMoveSumAggregate {
+  gamePlayerId: Int
+  id: Int
+  meldId: Int
+  moveNum: Int
+}
+
+input ShowMoveSumOrderByAggregateInput {
+  gamePlayerId: SortOrder
+  id: SortOrder
+  meldId: SortOrder
+  moveNum: SortOrder
+}
+
+input ShowMoveUpdateInput {
+  gamePlayer: GamePlayerUpdateOneRequiredWithoutShowMoveInput
+  meld: MeldUpdateOneRequiredWithoutShowMoveInput
+  moveNum: IntFieldUpdateOperationsInput
+  moveType: EnumMoveTypeFieldUpdateOperationsInput
+}
+
+input ShowMoveUpdateManyMutationInput {
+  moveNum: IntFieldUpdateOperationsInput
+  moveType: EnumMoveTypeFieldUpdateOperationsInput
+}
+
+input ShowMoveUpdateManyWithWhereWithoutGamePlayerInput {
+  data: ShowMoveUpdateManyMutationInput!
+  where: ShowMoveScalarWhereInput!
+}
+
+input ShowMoveUpdateManyWithWhereWithoutMeldInput {
+  data: ShowMoveUpdateManyMutationInput!
+  where: ShowMoveScalarWhereInput!
+}
+
+input ShowMoveUpdateManyWithoutGamePlayerInput {
+  connect: [ShowMoveWhereUniqueInput!]
+  connectOrCreate: [ShowMoveCreateOrConnectWithoutGamePlayerInput!]
+  create: [ShowMoveCreateWithoutGamePlayerInput!]
+  createMany: ShowMoveCreateManyGamePlayerInputEnvelope
+  delete: [ShowMoveWhereUniqueInput!]
+  deleteMany: [ShowMoveScalarWhereInput!]
+  disconnect: [ShowMoveWhereUniqueInput!]
+  set: [ShowMoveWhereUniqueInput!]
+  update: [ShowMoveUpdateWithWhereUniqueWithoutGamePlayerInput!]
+  updateMany: [ShowMoveUpdateManyWithWhereWithoutGamePlayerInput!]
+  upsert: [ShowMoveUpsertWithWhereUniqueWithoutGamePlayerInput!]
+}
+
+input ShowMoveUpdateManyWithoutMeldInput {
+  connect: [ShowMoveWhereUniqueInput!]
+  connectOrCreate: [ShowMoveCreateOrConnectWithoutMeldInput!]
+  create: [ShowMoveCreateWithoutMeldInput!]
+  createMany: ShowMoveCreateManyMeldInputEnvelope
+  delete: [ShowMoveWhereUniqueInput!]
+  deleteMany: [ShowMoveScalarWhereInput!]
+  disconnect: [ShowMoveWhereUniqueInput!]
+  set: [ShowMoveWhereUniqueInput!]
+  update: [ShowMoveUpdateWithWhereUniqueWithoutMeldInput!]
+  updateMany: [ShowMoveUpdateManyWithWhereWithoutMeldInput!]
+  upsert: [ShowMoveUpsertWithWhereUniqueWithoutMeldInput!]
+}
+
+input ShowMoveUpdateWithWhereUniqueWithoutGamePlayerInput {
+  data: ShowMoveUpdateWithoutGamePlayerInput!
+  where: ShowMoveWhereUniqueInput!
+}
+
+input ShowMoveUpdateWithWhereUniqueWithoutMeldInput {
+  data: ShowMoveUpdateWithoutMeldInput!
+  where: ShowMoveWhereUniqueInput!
+}
+
+input ShowMoveUpdateWithoutGamePlayerInput {
+  meld: MeldUpdateOneRequiredWithoutShowMoveInput
+  moveNum: IntFieldUpdateOperationsInput
+  moveType: EnumMoveTypeFieldUpdateOperationsInput
+}
+
+input ShowMoveUpdateWithoutMeldInput {
+  gamePlayer: GamePlayerUpdateOneRequiredWithoutShowMoveInput
+  moveNum: IntFieldUpdateOperationsInput
+  moveType: EnumMoveTypeFieldUpdateOperationsInput
+}
+
+input ShowMoveUpsertWithWhereUniqueWithoutGamePlayerInput {
+  create: ShowMoveCreateWithoutGamePlayerInput!
+  update: ShowMoveUpdateWithoutGamePlayerInput!
+  where: ShowMoveWhereUniqueInput!
+}
+
+input ShowMoveUpsertWithWhereUniqueWithoutMeldInput {
+  create: ShowMoveCreateWithoutMeldInput!
+  update: ShowMoveUpdateWithoutMeldInput!
+  where: ShowMoveWhereUniqueInput!
+}
+
+input ShowMoveWhereInput {
+  AND: [ShowMoveWhereInput!]
+  NOT: [ShowMoveWhereInput!]
+  OR: [ShowMoveWhereInput!]
+  gamePlayer: GamePlayerRelationFilter
+  gamePlayerId: IntFilter
+  id: IntFilter
+  meld: MeldRelationFilter
+  meldId: IntFilter
+  moveNum: IntFilter
+  moveType: EnumMoveTypeFilter
+}
+
+input ShowMoveWhereUniqueInput {
+  id: Int
+}
+
+type SimpleMove {
+  gamePlayer: GamePlayer!
+  gamePlayerId: Int!
+  id: Int!
+  moveNum: Int!
+  moveType: MoveType!
+}
+
+type SimpleMoveAvgAggregate {
+  gamePlayerId: Float
+  id: Float
+  moveNum: Float
+}
+
+input SimpleMoveAvgOrderByAggregateInput {
+  gamePlayerId: SortOrder
+  id: SortOrder
+  moveNum: SortOrder
+}
+
+type SimpleMoveCountAggregate {
+  _all: Int!
+  gamePlayerId: Int!
+  id: Int!
+  moveNum: Int!
+  moveType: Int!
+}
+
+input SimpleMoveCountOrderByAggregateInput {
+  gamePlayerId: SortOrder
+  id: SortOrder
+  moveNum: SortOrder
+  moveType: SortOrder
+}
+
+input SimpleMoveCreateInput {
+  gamePlayer: GamePlayerCreateNestedOneWithoutSimpleMoveInput!
+  moveNum: Int!
+  moveType: MoveType!
+}
+
+input SimpleMoveCreateManyGamePlayerInput {
+  id: Int
+  moveNum: Int!
+  moveType: MoveType!
+}
+
+input SimpleMoveCreateManyGamePlayerInputEnvelope {
+  data: [SimpleMoveCreateManyGamePlayerInput!]!
+  skipDuplicates: Boolean
+}
+
+input SimpleMoveCreateManyInput {
+  gamePlayerId: Int!
+  id: Int
+  moveNum: Int!
+  moveType: MoveType!
+}
+
+input SimpleMoveCreateNestedManyWithoutGamePlayerInput {
+  connect: [SimpleMoveWhereUniqueInput!]
+  connectOrCreate: [SimpleMoveCreateOrConnectWithoutGamePlayerInput!]
+  create: [SimpleMoveCreateWithoutGamePlayerInput!]
+  createMany: SimpleMoveCreateManyGamePlayerInputEnvelope
+}
+
+input SimpleMoveCreateOrConnectWithoutGamePlayerInput {
+  create: SimpleMoveCreateWithoutGamePlayerInput!
+  where: SimpleMoveWhereUniqueInput!
+}
+
+input SimpleMoveCreateWithoutGamePlayerInput {
+  moveNum: Int!
+  moveType: MoveType!
+}
+
+type SimpleMoveGroupBy {
+  _avg: SimpleMoveAvgAggregate
+  _count: SimpleMoveCountAggregate
+  _max: SimpleMoveMaxAggregate
+  _min: SimpleMoveMinAggregate
+  _sum: SimpleMoveSumAggregate
+  gamePlayerId: Int!
+  id: Int!
+  moveNum: Int!
+  moveType: MoveType!
+}
+
+input SimpleMoveListRelationFilter {
+  every: SimpleMoveWhereInput
+  none: SimpleMoveWhereInput
+  some: SimpleMoveWhereInput
+}
+
+type SimpleMoveMaxAggregate {
+  gamePlayerId: Int
+  id: Int
+  moveNum: Int
+  moveType: MoveType
+}
+
+input SimpleMoveMaxOrderByAggregateInput {
+  gamePlayerId: SortOrder
+  id: SortOrder
+  moveNum: SortOrder
+  moveType: SortOrder
+}
+
+type SimpleMoveMinAggregate {
+  gamePlayerId: Int
+  id: Int
+  moveNum: Int
+  moveType: MoveType
+}
+
+input SimpleMoveMinOrderByAggregateInput {
+  gamePlayerId: SortOrder
+  id: SortOrder
+  moveNum: SortOrder
+  moveType: SortOrder
+}
+
+input SimpleMoveOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input SimpleMoveOrderByWithAggregationInput {
+  _avg: SimpleMoveAvgOrderByAggregateInput
+  _count: SimpleMoveCountOrderByAggregateInput
+  _max: SimpleMoveMaxOrderByAggregateInput
+  _min: SimpleMoveMinOrderByAggregateInput
+  _sum: SimpleMoveSumOrderByAggregateInput
+  gamePlayerId: SortOrder
+  id: SortOrder
+  moveNum: SortOrder
+  moveType: SortOrder
+}
+
+input SimpleMoveOrderByWithRelationInput {
+  gamePlayer: GamePlayerOrderByWithRelationInput
+  gamePlayerId: SortOrder
+  id: SortOrder
+  moveNum: SortOrder
+  moveType: SortOrder
+}
+
+enum SimpleMoveScalarFieldEnum {
+  gamePlayerId
+  id
+  moveNum
+  moveType
+}
+
+input SimpleMoveScalarWhereInput {
+  AND: [SimpleMoveScalarWhereInput!]
+  NOT: [SimpleMoveScalarWhereInput!]
+  OR: [SimpleMoveScalarWhereInput!]
+  gamePlayerId: IntFilter
+  id: IntFilter
+  moveNum: IntFilter
+  moveType: EnumMoveTypeFilter
+}
+
+input SimpleMoveScalarWhereWithAggregatesInput {
+  AND: [SimpleMoveScalarWhereWithAggregatesInput!]
+  NOT: [SimpleMoveScalarWhereWithAggregatesInput!]
+  OR: [SimpleMoveScalarWhereWithAggregatesInput!]
+  gamePlayerId: IntWithAggregatesFilter
+  id: IntWithAggregatesFilter
+  moveNum: IntWithAggregatesFilter
+  moveType: EnumMoveTypeWithAggregatesFilter
+}
+
+type SimpleMoveSumAggregate {
+  gamePlayerId: Int
+  id: Int
+  moveNum: Int
+}
+
+input SimpleMoveSumOrderByAggregateInput {
+  gamePlayerId: SortOrder
+  id: SortOrder
+  moveNum: SortOrder
+}
+
+input SimpleMoveUpdateInput {
+  gamePlayer: GamePlayerUpdateOneRequiredWithoutSimpleMoveInput
+  moveNum: IntFieldUpdateOperationsInput
+  moveType: EnumMoveTypeFieldUpdateOperationsInput
+}
+
+input SimpleMoveUpdateManyMutationInput {
+  moveNum: IntFieldUpdateOperationsInput
+  moveType: EnumMoveTypeFieldUpdateOperationsInput
+}
+
+input SimpleMoveUpdateManyWithWhereWithoutGamePlayerInput {
+  data: SimpleMoveUpdateManyMutationInput!
+  where: SimpleMoveScalarWhereInput!
+}
+
+input SimpleMoveUpdateManyWithoutGamePlayerInput {
+  connect: [SimpleMoveWhereUniqueInput!]
+  connectOrCreate: [SimpleMoveCreateOrConnectWithoutGamePlayerInput!]
+  create: [SimpleMoveCreateWithoutGamePlayerInput!]
+  createMany: SimpleMoveCreateManyGamePlayerInputEnvelope
+  delete: [SimpleMoveWhereUniqueInput!]
+  deleteMany: [SimpleMoveScalarWhereInput!]
+  disconnect: [SimpleMoveWhereUniqueInput!]
+  set: [SimpleMoveWhereUniqueInput!]
+  update: [SimpleMoveUpdateWithWhereUniqueWithoutGamePlayerInput!]
+  updateMany: [SimpleMoveUpdateManyWithWhereWithoutGamePlayerInput!]
+  upsert: [SimpleMoveUpsertWithWhereUniqueWithoutGamePlayerInput!]
+}
+
+input SimpleMoveUpdateWithWhereUniqueWithoutGamePlayerInput {
+  data: SimpleMoveUpdateWithoutGamePlayerInput!
+  where: SimpleMoveWhereUniqueInput!
+}
+
+input SimpleMoveUpdateWithoutGamePlayerInput {
+  moveNum: IntFieldUpdateOperationsInput
+  moveType: EnumMoveTypeFieldUpdateOperationsInput
+}
+
+input SimpleMoveUpsertWithWhereUniqueWithoutGamePlayerInput {
+  create: SimpleMoveCreateWithoutGamePlayerInput!
+  update: SimpleMoveUpdateWithoutGamePlayerInput!
+  where: SimpleMoveWhereUniqueInput!
+}
+
+input SimpleMoveWhereInput {
+  AND: [SimpleMoveWhereInput!]
+  NOT: [SimpleMoveWhereInput!]
+  OR: [SimpleMoveWhereInput!]
+  gamePlayer: GamePlayerRelationFilter
+  gamePlayerId: IntFilter
+  id: IntFilter
+  moveNum: IntFilter
+  moveType: EnumMoveTypeFilter
+}
+
+input SimpleMoveWhereUniqueInput {
+  id: Int
 }
 
 enum SortOrder {
@@ -609,6 +4533,14 @@ input StringNullableFilter {
   not: NestedStringNullableFilter
   notIn: [String!]
   startsWith: String
+}
+
+input StringNullableListFilter {
+  equals: [String!]
+  has: String
+  hasEvery: [String!]
+  hasSome: [String!]
+  isEmpty: Boolean
 }
 
 input StringNullableWithAggregatesFilter {
@@ -651,257 +4583,288 @@ type Subscription {
   newMessage(id: ID!): NewMessagePayload!
 }
 
-type Todo {
-  User: User
-  completed: Boolean!
+type Triplet {
   id: Int!
-  ownerId: Int
-  title: String!
+  meld: Meld!
+  meldId: Int!
+  numJokers: Int!
+  ranks: [String!]!
+  suit: String!
 }
 
-type TodoAvgAggregate {
+type TripletAvgAggregate {
   id: Float
-  ownerId: Float
+  meldId: Float
+  numJokers: Float
 }
 
-input TodoAvgOrderByAggregateInput {
+input TripletAvgOrderByAggregateInput {
   id: SortOrder
-  ownerId: SortOrder
+  meldId: SortOrder
+  numJokers: SortOrder
 }
 
-type TodoCountAggregate {
+type TripletCountAggregate {
   _all: Int!
-  completed: Int!
   id: Int!
-  ownerId: Int!
-  title: Int!
+  meldId: Int!
+  numJokers: Int!
+  ranks: Int!
+  suit: Int!
 }
 
-input TodoCountOrderByAggregateInput {
-  completed: SortOrder
+input TripletCountOrderByAggregateInput {
   id: SortOrder
-  ownerId: SortOrder
-  title: SortOrder
+  meldId: SortOrder
+  numJokers: SortOrder
+  ranks: SortOrder
+  suit: SortOrder
 }
 
-input TodoCreateInput {
-  User: UserCreateNestedOneWithoutTodosInput
-  completed: Boolean!
-  title: String!
+input TripletCreateInput {
+  meld: MeldCreateNestedOneWithoutTripletInput!
+  numJokers: Int!
+  ranks: TripletCreateranksInput
+  suit: String!
 }
 
-input TodoCreateManyInput {
-  completed: Boolean!
+input TripletCreateManyInput {
   id: Int
-  ownerId: Int
-  title: String!
+  meldId: Int!
+  numJokers: Int!
+  ranks: TripletCreateranksInput
+  suit: String!
 }
 
-input TodoCreateManyUserInput {
-  completed: Boolean!
+input TripletCreateManyMeldInput {
   id: Int
-  title: String!
+  numJokers: Int!
+  ranks: TripletCreateranksInput
+  suit: String!
 }
 
-input TodoCreateManyUserInputEnvelope {
-  data: [TodoCreateManyUserInput!]!
+input TripletCreateManyMeldInputEnvelope {
+  data: [TripletCreateManyMeldInput!]!
   skipDuplicates: Boolean
 }
 
-input TodoCreateNestedManyWithoutUserInput {
-  connect: [TodoWhereUniqueInput!]
-  connectOrCreate: [TodoCreateOrConnectWithoutUserInput!]
-  create: [TodoCreateWithoutUserInput!]
-  createMany: TodoCreateManyUserInputEnvelope
+input TripletCreateNestedManyWithoutMeldInput {
+  connect: [TripletWhereUniqueInput!]
+  connectOrCreate: [TripletCreateOrConnectWithoutMeldInput!]
+  create: [TripletCreateWithoutMeldInput!]
+  createMany: TripletCreateManyMeldInputEnvelope
 }
 
-input TodoCreateOrConnectWithoutUserInput {
-  create: TodoCreateWithoutUserInput!
-  where: TodoWhereUniqueInput!
+input TripletCreateOrConnectWithoutMeldInput {
+  create: TripletCreateWithoutMeldInput!
+  where: TripletWhereUniqueInput!
 }
 
-input TodoCreateWithoutUserInput {
-  completed: Boolean!
-  title: String!
+input TripletCreateWithoutMeldInput {
+  numJokers: Int!
+  ranks: TripletCreateranksInput
+  suit: String!
 }
 
-type TodoGroupBy {
-  _avg: TodoAvgAggregate
-  _count: TodoCountAggregate
-  _max: TodoMaxAggregate
-  _min: TodoMinAggregate
-  _sum: TodoSumAggregate
-  completed: Boolean!
+input TripletCreateranksInput {
+  set: [String!]!
+}
+
+type TripletGroupBy {
+  _avg: TripletAvgAggregate
+  _count: TripletCountAggregate
+  _max: TripletMaxAggregate
+  _min: TripletMinAggregate
+  _sum: TripletSumAggregate
   id: Int!
-  ownerId: Int
-  title: String!
+  meldId: Int!
+  numJokers: Int!
+  ranks: [String!]
+  suit: String!
 }
 
-input TodoListRelationFilter {
-  every: TodoWhereInput
-  none: TodoWhereInput
-  some: TodoWhereInput
+input TripletListRelationFilter {
+  every: TripletWhereInput
+  none: TripletWhereInput
+  some: TripletWhereInput
 }
 
-type TodoMaxAggregate {
-  completed: Boolean
+type TripletMaxAggregate {
   id: Int
-  ownerId: Int
-  title: String
+  meldId: Int
+  numJokers: Int
+  suit: String
 }
 
-input TodoMaxOrderByAggregateInput {
-  completed: SortOrder
+input TripletMaxOrderByAggregateInput {
   id: SortOrder
-  ownerId: SortOrder
-  title: SortOrder
+  meldId: SortOrder
+  numJokers: SortOrder
+  suit: SortOrder
 }
 
-type TodoMinAggregate {
-  completed: Boolean
+type TripletMinAggregate {
   id: Int
-  ownerId: Int
-  title: String
+  meldId: Int
+  numJokers: Int
+  suit: String
 }
 
-input TodoMinOrderByAggregateInput {
-  completed: SortOrder
+input TripletMinOrderByAggregateInput {
   id: SortOrder
-  ownerId: SortOrder
-  title: SortOrder
+  meldId: SortOrder
+  numJokers: SortOrder
+  suit: SortOrder
 }
 
-input TodoOrderByRelationAggregateInput {
+input TripletOrderByRelationAggregateInput {
   _count: SortOrder
 }
 
-input TodoOrderByWithAggregationInput {
-  _avg: TodoAvgOrderByAggregateInput
-  _count: TodoCountOrderByAggregateInput
-  _max: TodoMaxOrderByAggregateInput
-  _min: TodoMinOrderByAggregateInput
-  _sum: TodoSumOrderByAggregateInput
-  completed: SortOrder
+input TripletOrderByWithAggregationInput {
+  _avg: TripletAvgOrderByAggregateInput
+  _count: TripletCountOrderByAggregateInput
+  _max: TripletMaxOrderByAggregateInput
+  _min: TripletMinOrderByAggregateInput
+  _sum: TripletSumOrderByAggregateInput
   id: SortOrder
-  ownerId: SortOrder
-  title: SortOrder
+  meldId: SortOrder
+  numJokers: SortOrder
+  ranks: SortOrder
+  suit: SortOrder
 }
 
-input TodoOrderByWithRelationInput {
-  User: UserOrderByWithRelationInput
-  completed: SortOrder
+input TripletOrderByWithRelationInput {
   id: SortOrder
-  ownerId: SortOrder
-  title: SortOrder
+  meld: MeldOrderByWithRelationInput
+  meldId: SortOrder
+  numJokers: SortOrder
+  ranks: SortOrder
+  suit: SortOrder
 }
 
-enum TodoScalarFieldEnum {
-  completed
+enum TripletScalarFieldEnum {
   id
-  ownerId
-  title
+  meldId
+  numJokers
+  ranks
+  suit
 }
 
-input TodoScalarWhereInput {
-  AND: [TodoScalarWhereInput!]
-  NOT: [TodoScalarWhereInput!]
-  OR: [TodoScalarWhereInput!]
-  completed: BoolFilter
+input TripletScalarWhereInput {
+  AND: [TripletScalarWhereInput!]
+  NOT: [TripletScalarWhereInput!]
+  OR: [TripletScalarWhereInput!]
   id: IntFilter
-  ownerId: IntNullableFilter
-  title: StringFilter
+  meldId: IntFilter
+  numJokers: IntFilter
+  ranks: StringNullableListFilter
+  suit: StringFilter
 }
 
-input TodoScalarWhereWithAggregatesInput {
-  AND: [TodoScalarWhereWithAggregatesInput!]
-  NOT: [TodoScalarWhereWithAggregatesInput!]
-  OR: [TodoScalarWhereWithAggregatesInput!]
-  completed: BoolWithAggregatesFilter
+input TripletScalarWhereWithAggregatesInput {
+  AND: [TripletScalarWhereWithAggregatesInput!]
+  NOT: [TripletScalarWhereWithAggregatesInput!]
+  OR: [TripletScalarWhereWithAggregatesInput!]
   id: IntWithAggregatesFilter
-  ownerId: IntNullableWithAggregatesFilter
-  title: StringWithAggregatesFilter
+  meldId: IntWithAggregatesFilter
+  numJokers: IntWithAggregatesFilter
+  ranks: StringNullableListFilter
+  suit: StringWithAggregatesFilter
 }
 
-type TodoSumAggregate {
+type TripletSumAggregate {
   id: Int
-  ownerId: Int
+  meldId: Int
+  numJokers: Int
 }
 
-input TodoSumOrderByAggregateInput {
+input TripletSumOrderByAggregateInput {
   id: SortOrder
-  ownerId: SortOrder
+  meldId: SortOrder
+  numJokers: SortOrder
 }
 
-input TodoUpdateInput {
-  User: UserUpdateOneWithoutTodosInput
-  completed: BoolFieldUpdateOperationsInput
-  title: StringFieldUpdateOperationsInput
+input TripletUpdateInput {
+  meld: MeldUpdateOneRequiredWithoutTripletInput
+  numJokers: IntFieldUpdateOperationsInput
+  ranks: TripletUpdateranksInput
+  suit: StringFieldUpdateOperationsInput
 }
 
-input TodoUpdateManyMutationInput {
-  completed: BoolFieldUpdateOperationsInput
-  title: StringFieldUpdateOperationsInput
+input TripletUpdateManyMutationInput {
+  numJokers: IntFieldUpdateOperationsInput
+  ranks: TripletUpdateranksInput
+  suit: StringFieldUpdateOperationsInput
 }
 
-input TodoUpdateManyWithWhereWithoutUserInput {
-  data: TodoUpdateManyMutationInput!
-  where: TodoScalarWhereInput!
+input TripletUpdateManyWithWhereWithoutMeldInput {
+  data: TripletUpdateManyMutationInput!
+  where: TripletScalarWhereInput!
 }
 
-input TodoUpdateManyWithoutUserInput {
-  connect: [TodoWhereUniqueInput!]
-  connectOrCreate: [TodoCreateOrConnectWithoutUserInput!]
-  create: [TodoCreateWithoutUserInput!]
-  createMany: TodoCreateManyUserInputEnvelope
-  delete: [TodoWhereUniqueInput!]
-  deleteMany: [TodoScalarWhereInput!]
-  disconnect: [TodoWhereUniqueInput!]
-  set: [TodoWhereUniqueInput!]
-  update: [TodoUpdateWithWhereUniqueWithoutUserInput!]
-  updateMany: [TodoUpdateManyWithWhereWithoutUserInput!]
-  upsert: [TodoUpsertWithWhereUniqueWithoutUserInput!]
+input TripletUpdateManyWithoutMeldInput {
+  connect: [TripletWhereUniqueInput!]
+  connectOrCreate: [TripletCreateOrConnectWithoutMeldInput!]
+  create: [TripletCreateWithoutMeldInput!]
+  createMany: TripletCreateManyMeldInputEnvelope
+  delete: [TripletWhereUniqueInput!]
+  deleteMany: [TripletScalarWhereInput!]
+  disconnect: [TripletWhereUniqueInput!]
+  set: [TripletWhereUniqueInput!]
+  update: [TripletUpdateWithWhereUniqueWithoutMeldInput!]
+  updateMany: [TripletUpdateManyWithWhereWithoutMeldInput!]
+  upsert: [TripletUpsertWithWhereUniqueWithoutMeldInput!]
 }
 
-input TodoUpdateWithWhereUniqueWithoutUserInput {
-  data: TodoUpdateWithoutUserInput!
-  where: TodoWhereUniqueInput!
+input TripletUpdateWithWhereUniqueWithoutMeldInput {
+  data: TripletUpdateWithoutMeldInput!
+  where: TripletWhereUniqueInput!
 }
 
-input TodoUpdateWithoutUserInput {
-  completed: BoolFieldUpdateOperationsInput
-  title: StringFieldUpdateOperationsInput
+input TripletUpdateWithoutMeldInput {
+  numJokers: IntFieldUpdateOperationsInput
+  ranks: TripletUpdateranksInput
+  suit: StringFieldUpdateOperationsInput
 }
 
-input TodoUpsertWithWhereUniqueWithoutUserInput {
-  create: TodoCreateWithoutUserInput!
-  update: TodoUpdateWithoutUserInput!
-  where: TodoWhereUniqueInput!
+input TripletUpdateranksInput {
+  push: [String!]
+  set: [String!]
 }
 
-input TodoWhereInput {
-  AND: [TodoWhereInput!]
-  NOT: [TodoWhereInput!]
-  OR: [TodoWhereInput!]
-  User: UserRelationFilter
-  completed: BoolFilter
+input TripletUpsertWithWhereUniqueWithoutMeldInput {
+  create: TripletCreateWithoutMeldInput!
+  update: TripletUpdateWithoutMeldInput!
+  where: TripletWhereUniqueInput!
+}
+
+input TripletWhereInput {
+  AND: [TripletWhereInput!]
+  NOT: [TripletWhereInput!]
+  OR: [TripletWhereInput!]
   id: IntFilter
-  ownerId: IntNullableFilter
-  title: StringFilter
+  meld: MeldRelationFilter
+  meldId: IntFilter
+  numJokers: IntFilter
+  ranks: StringNullableListFilter
+  suit: StringFilter
 }
 
-input TodoWhereUniqueInput {
+input TripletWhereUniqueInput {
   id: Int
 }
 
 type User {
+  Club(cursor: ClubWhereUniqueInput, distinct: [ClubScalarFieldEnum!], orderBy: [ClubOrderByWithRelationInput!], skip: Int, take: Int, where: ClubWhereInput): [Club!]!
+  ClubMember(cursor: ClubMemberWhereUniqueInput, distinct: [ClubMemberScalarFieldEnum!], orderBy: [ClubMemberOrderByWithRelationInput!], skip: Int, take: Int, where: ClubMemberWhereInput): [ClubMember!]!
+  GamePlayer(cursor: GamePlayerWhereUniqueInput, distinct: [GamePlayerScalarFieldEnum!], orderBy: [GamePlayerOrderByWithRelationInput!], skip: Int, take: Int, where: GamePlayerWhereInput): [GamePlayer!]!
   _count: UserCount
   email: String!
   emailVerified: Boolean!
-  federatedCredentials(cursor: FederatedCredentialsWhereUniqueInput, distinct: [FederatedCredentialsScalarFieldEnum!], orderBy: [FederatedCredentialsOrderByWithRelationInput!], skip: Int, take: Int, where: FederatedCredentialsWhereInput): [FederatedCredentials!]!
   id: Int!
   name: String!
   roles: [Role!]!
-  todos(cursor: TodoWhereUniqueInput, distinct: [TodoScalarFieldEnum!], orderBy: [TodoOrderByWithRelationInput!], skip: Int, take: Int, where: TodoWhereInput): [Todo!]!
   username: String!
 }
 
@@ -914,8 +4877,9 @@ input UserAvgOrderByAggregateInput {
 }
 
 type UserCount {
-  federatedCredentials: Int!
-  todos: Int!
+  Club: Int!
+  ClubMember: Int!
+  GamePlayer: Int!
 }
 
 type UserCountAggregate {
@@ -950,10 +4914,12 @@ input UserCountOrderByAggregateInput {
 }
 
 input UserCreateInput {
+  Club: ClubCreateNestedManyWithoutAdminInput
+  ClubMember: ClubMemberCreateNestedManyWithoutMemberInput
+  GamePlayer: GamePlayerCreateNestedManyWithoutUserInput
   accessToken: String
   email: String!
   emailVerified: Boolean!
-  federatedCredentials: FederatedCredentialsCreateNestedManyWithoutUserInput
   hashedPassword: String
   idToken: String
   jwt: String
@@ -961,7 +4927,6 @@ input UserCreateInput {
   refreshToken: String
   roles: UserCreaterolesInput
   salt: String
-  todos: TodoCreateNestedManyWithoutUserInput
   username: String!
 }
 
@@ -980,29 +4945,42 @@ input UserCreateManyInput {
   username: String!
 }
 
-input UserCreateNestedOneWithoutFederatedCredentialsInput {
+input UserCreateNestedOneWithoutClubInput {
   connect: UserWhereUniqueInput
-  connectOrCreate: UserCreateOrConnectWithoutFederatedCredentialsInput
-  create: UserCreateWithoutFederatedCredentialsInput
+  connectOrCreate: UserCreateOrConnectWithoutClubInput
+  create: UserCreateWithoutClubInput
 }
 
-input UserCreateNestedOneWithoutTodosInput {
+input UserCreateNestedOneWithoutClubMemberInput {
   connect: UserWhereUniqueInput
-  connectOrCreate: UserCreateOrConnectWithoutTodosInput
-  create: UserCreateWithoutTodosInput
+  connectOrCreate: UserCreateOrConnectWithoutClubMemberInput
+  create: UserCreateWithoutClubMemberInput
 }
 
-input UserCreateOrConnectWithoutFederatedCredentialsInput {
-  create: UserCreateWithoutFederatedCredentialsInput!
+input UserCreateNestedOneWithoutGamePlayerInput {
+  connect: UserWhereUniqueInput
+  connectOrCreate: UserCreateOrConnectWithoutGamePlayerInput
+  create: UserCreateWithoutGamePlayerInput
+}
+
+input UserCreateOrConnectWithoutClubInput {
+  create: UserCreateWithoutClubInput!
   where: UserWhereUniqueInput!
 }
 
-input UserCreateOrConnectWithoutTodosInput {
-  create: UserCreateWithoutTodosInput!
+input UserCreateOrConnectWithoutClubMemberInput {
+  create: UserCreateWithoutClubMemberInput!
   where: UserWhereUniqueInput!
 }
 
-input UserCreateWithoutFederatedCredentialsInput {
+input UserCreateOrConnectWithoutGamePlayerInput {
+  create: UserCreateWithoutGamePlayerInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserCreateWithoutClubInput {
+  ClubMember: ClubMemberCreateNestedManyWithoutMemberInput
+  GamePlayer: GamePlayerCreateNestedManyWithoutUserInput
   accessToken: String
   email: String!
   emailVerified: Boolean!
@@ -1013,15 +4991,31 @@ input UserCreateWithoutFederatedCredentialsInput {
   refreshToken: String
   roles: UserCreaterolesInput
   salt: String
-  todos: TodoCreateNestedManyWithoutUserInput
   username: String!
 }
 
-input UserCreateWithoutTodosInput {
+input UserCreateWithoutClubMemberInput {
+  Club: ClubCreateNestedManyWithoutAdminInput
+  GamePlayer: GamePlayerCreateNestedManyWithoutUserInput
   accessToken: String
   email: String!
   emailVerified: Boolean!
-  federatedCredentials: FederatedCredentialsCreateNestedManyWithoutUserInput
+  hashedPassword: String
+  idToken: String
+  jwt: String
+  name: String!
+  refreshToken: String
+  roles: UserCreaterolesInput
+  salt: String
+  username: String!
+}
+
+input UserCreateWithoutGamePlayerInput {
+  Club: ClubCreateNestedManyWithoutAdminInput
+  ClubMember: ClubMemberCreateNestedManyWithoutMemberInput
+  accessToken: String
+  email: String!
+  emailVerified: Boolean!
   hashedPassword: String
   idToken: String
   jwt: String
@@ -1133,10 +5127,12 @@ input UserOrderByWithAggregationInput {
 }
 
 input UserOrderByWithRelationInput {
+  Club: ClubOrderByRelationAggregateInput
+  ClubMember: ClubMemberOrderByRelationAggregateInput
+  GamePlayer: GamePlayerOrderByRelationAggregateInput
   accessToken: SortOrder
   email: SortOrder
   emailVerified: SortOrder
-  federatedCredentials: FederatedCredentialsOrderByRelationAggregateInput
   hashedPassword: SortOrder
   id: SortOrder
   idToken: SortOrder
@@ -1145,7 +5141,6 @@ input UserOrderByWithRelationInput {
   refreshToken: SortOrder
   roles: SortOrder
   salt: SortOrder
-  todos: TodoOrderByRelationAggregateInput
   username: SortOrder
 }
 
@@ -1196,10 +5191,12 @@ input UserSumOrderByAggregateInput {
 }
 
 input UserUpdateInput {
+  Club: ClubUpdateManyWithoutAdminInput
+  ClubMember: ClubMemberUpdateManyWithoutMemberInput
+  GamePlayer: GamePlayerUpdateManyWithoutUserInput
   accessToken: NullableStringFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
   emailVerified: BoolFieldUpdateOperationsInput
-  federatedCredentials: FederatedCredentialsUpdateManyWithoutUserInput
   hashedPassword: NullableStringFieldUpdateOperationsInput
   idToken: NullableStringFieldUpdateOperationsInput
   jwt: NullableStringFieldUpdateOperationsInput
@@ -1207,7 +5204,6 @@ input UserUpdateInput {
   refreshToken: NullableStringFieldUpdateOperationsInput
   roles: UserUpdaterolesInput
   salt: NullableStringFieldUpdateOperationsInput
-  todos: TodoUpdateManyWithoutUserInput
   username: StringFieldUpdateOperationsInput
 }
 
@@ -1225,25 +5221,33 @@ input UserUpdateManyMutationInput {
   username: StringFieldUpdateOperationsInput
 }
 
-input UserUpdateOneRequiredWithoutFederatedCredentialsInput {
+input UserUpdateOneRequiredWithoutClubInput {
   connect: UserWhereUniqueInput
-  connectOrCreate: UserCreateOrConnectWithoutFederatedCredentialsInput
-  create: UserCreateWithoutFederatedCredentialsInput
-  update: UserUpdateWithoutFederatedCredentialsInput
-  upsert: UserUpsertWithoutFederatedCredentialsInput
+  connectOrCreate: UserCreateOrConnectWithoutClubInput
+  create: UserCreateWithoutClubInput
+  update: UserUpdateWithoutClubInput
+  upsert: UserUpsertWithoutClubInput
 }
 
-input UserUpdateOneWithoutTodosInput {
+input UserUpdateOneRequiredWithoutClubMemberInput {
   connect: UserWhereUniqueInput
-  connectOrCreate: UserCreateOrConnectWithoutTodosInput
-  create: UserCreateWithoutTodosInput
-  delete: Boolean
-  disconnect: Boolean
-  update: UserUpdateWithoutTodosInput
-  upsert: UserUpsertWithoutTodosInput
+  connectOrCreate: UserCreateOrConnectWithoutClubMemberInput
+  create: UserCreateWithoutClubMemberInput
+  update: UserUpdateWithoutClubMemberInput
+  upsert: UserUpsertWithoutClubMemberInput
 }
 
-input UserUpdateWithoutFederatedCredentialsInput {
+input UserUpdateOneRequiredWithoutGamePlayerInput {
+  connect: UserWhereUniqueInput
+  connectOrCreate: UserCreateOrConnectWithoutGamePlayerInput
+  create: UserCreateWithoutGamePlayerInput
+  update: UserUpdateWithoutGamePlayerInput
+  upsert: UserUpsertWithoutGamePlayerInput
+}
+
+input UserUpdateWithoutClubInput {
+  ClubMember: ClubMemberUpdateManyWithoutMemberInput
+  GamePlayer: GamePlayerUpdateManyWithoutUserInput
   accessToken: NullableStringFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
   emailVerified: BoolFieldUpdateOperationsInput
@@ -1254,15 +5258,31 @@ input UserUpdateWithoutFederatedCredentialsInput {
   refreshToken: NullableStringFieldUpdateOperationsInput
   roles: UserUpdaterolesInput
   salt: NullableStringFieldUpdateOperationsInput
-  todos: TodoUpdateManyWithoutUserInput
   username: StringFieldUpdateOperationsInput
 }
 
-input UserUpdateWithoutTodosInput {
+input UserUpdateWithoutClubMemberInput {
+  Club: ClubUpdateManyWithoutAdminInput
+  GamePlayer: GamePlayerUpdateManyWithoutUserInput
   accessToken: NullableStringFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
   emailVerified: BoolFieldUpdateOperationsInput
-  federatedCredentials: FederatedCredentialsUpdateManyWithoutUserInput
+  hashedPassword: NullableStringFieldUpdateOperationsInput
+  idToken: NullableStringFieldUpdateOperationsInput
+  jwt: NullableStringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  refreshToken: NullableStringFieldUpdateOperationsInput
+  roles: UserUpdaterolesInput
+  salt: NullableStringFieldUpdateOperationsInput
+  username: StringFieldUpdateOperationsInput
+}
+
+input UserUpdateWithoutGamePlayerInput {
+  Club: ClubUpdateManyWithoutAdminInput
+  ClubMember: ClubMemberUpdateManyWithoutMemberInput
+  accessToken: NullableStringFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  emailVerified: BoolFieldUpdateOperationsInput
   hashedPassword: NullableStringFieldUpdateOperationsInput
   idToken: NullableStringFieldUpdateOperationsInput
   jwt: NullableStringFieldUpdateOperationsInput
@@ -1278,24 +5298,31 @@ input UserUpdaterolesInput {
   set: [Role!]
 }
 
-input UserUpsertWithoutFederatedCredentialsInput {
-  create: UserCreateWithoutFederatedCredentialsInput!
-  update: UserUpdateWithoutFederatedCredentialsInput!
+input UserUpsertWithoutClubInput {
+  create: UserCreateWithoutClubInput!
+  update: UserUpdateWithoutClubInput!
 }
 
-input UserUpsertWithoutTodosInput {
-  create: UserCreateWithoutTodosInput!
-  update: UserUpdateWithoutTodosInput!
+input UserUpsertWithoutClubMemberInput {
+  create: UserCreateWithoutClubMemberInput!
+  update: UserUpdateWithoutClubMemberInput!
+}
+
+input UserUpsertWithoutGamePlayerInput {
+  create: UserCreateWithoutGamePlayerInput!
+  update: UserUpdateWithoutGamePlayerInput!
 }
 
 input UserWhereInput {
   AND: [UserWhereInput!]
+  Club: ClubListRelationFilter
+  ClubMember: ClubMemberListRelationFilter
+  GamePlayer: GamePlayerListRelationFilter
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
   accessToken: StringNullableFilter
   email: StringFilter
   emailVerified: BoolFilter
-  federatedCredentials: FederatedCredentialsListRelationFilter
   hashedPassword: StringNullableFilter
   id: IntFilter
   idToken: StringNullableFilter
@@ -1304,7 +5331,6 @@ input UserWhereInput {
   refreshToken: StringNullableFilter
   roles: EnumRoleNullableListFilter
   salt: StringNullableFilter
-  todos: TodoListRelationFilter
   username: StringFilter
 }
 

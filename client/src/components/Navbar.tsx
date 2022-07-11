@@ -5,7 +5,7 @@ import {
   Flowbite,
   DarkThemeToggle,
 } from "flowbite-react";
-
+import { Link } from "react-router-dom";
 const component = () => (
   <Navbar fluid={true} rounded={true}>
     <Navbar.Brand href="https://flowbite.com/">
@@ -48,13 +48,18 @@ const component = () => (
       <Navbar.Toggle />
     </div>
     <Navbar.Collapse>
-      <Navbar.Link href="/navbars" active={true}>
+      <Navbar.Link href="/" active={true}>
         Home
       </Navbar.Link>
       <Navbar.Link href="/navbars">About</Navbar.Link>
-      <Navbar.Link href="/navbars">Services</Navbar.Link>
-      <Navbar.Link href="/navbars">Pricing</Navbar.Link>
-      <Navbar.Link href="/navbars">Contact</Navbar.Link>
+      <Navbar.Link href="https://ex1.cmhackers.com/api/auth/login">
+        Login
+      </Navbar.Link>
+      <Navbar.Link href="/users">UsersNav</Navbar.Link>
+      {/* Reacct-router Link seems to be equivalent to Navbar.Link 
+          should prefer Navbar for 
+      */}
+      <Link to="/users">Users</Link>
     </Navbar.Collapse>
   </Navbar>
 );

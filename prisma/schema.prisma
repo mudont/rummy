@@ -8,7 +8,7 @@ generator dbml {
 
 generator typegraphql {
   provider = "typegraphql-prisma"
-  output   = "../node_modules/@generated/typegraphql"
+  output   = "./@generated/typegraphql"
 }
 
 datasource db {
@@ -24,43 +24,50 @@ enum Role {
 }
 
 enum Suit {
-  Clubs
-  Diamonds
-  Hearts
-  Spades
-  Joker
+  Clubs     @map("C")
+  Diamonds  @map("D")
+  Hearts    @map("H")
+  Spades    @map("S")
+  Joker     @map("J")
 }
 
 enum Rank {
-  Ace
-  One
-  Two
-  Three
-  Four
-  Five
-  Six
-  Seven
-  Eight
-  Nine
-  Ten
-  Jack
-  Queen
+  Ace    @map("A")
+  One    @map("1")
+  Two    @map("2")
+  Three  @map("3")
+  Four   @map("4")
+  Five   @map("5")
+  Six    @map("6")
+  Seven  @map("7")
+  Eight  @map("8")
+  Nine   @map("9")
+  Ten    @map("T")
+  Jack   @map("J")
+  Queen  @map("Q")
+  King   @map("K")
 }
 
 enum PlayerStatus {
-  ACTIVE
-  OWES_CARD
-  DROPPED
-  WON
-  LOST
+  Active
+  OwesCard
+  Dropped
+  Won
+  Lost
 }
 
 enum MoveType {
-  Drop
   TakeOpen
   TakeFromDeck
   ReturnExtraCard
+  Meld
   Show
+  Finish
+}
+
+enum GameState {
+  Active
+  Finished
 }
 
 model User {
@@ -83,5 +90,172 @@ model User {
   /// @TypeGraphQL.omit(output: true)
   jwt            String?
 
-  @@map("identitity")
+  Club       Club[]       @relation("Admin")
+  ClubMember ClubMember[]
+  GamePlayer GamePlayer[] @relation("PlayerUser")
+  @@map("identity")
+}
+
+model Club {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  adminId Int
+  admin   User @relation("Admin", fields: [adminId], references: [id])
+
+  ClubMember ClubMember[]
+  @@map("club")
+}
+
+model ClubMember {
+  clubId    Int
+  club      Club     @relation(fields: [clubId], references: [id])
+  memberId  Int
+  member    User     @relation(fields: [memberId], references: [id])
+  startDate DateTime
+  isActive  Boolean
+
+  @@unique([clubId, memberId])
+  @@map("club_member")
+}
+
+model Game {
+  id           Int        @id @default(autoincrement())
+  state        GameState
+  deck         String[]
+  openPile     String[]
+  turnPlayerId Int
+  openCard     String?
+  currJoker    String
+  turnPlayer   GamePlayer @relation("TurnInGame", fields: [turnPlayerId], references: [id])
+
+  // SimpleMove     SimpleMove[]     @relation("Game")
+  // ShowMove       ShowMove[]       @relation("ShowMoveGame")
+  // ReturnCardMove ReturnCardMove[] @relation("ReturnCardMove")
+  GamePlayer GamePlayer[] @relation("GamePlayer")
+  @@map("game")
+}
+
+model GamePlayer {
+
+  id        Int  @id @default(autoincrement())
+  gameId    Int
+  playerIdx Int
+  userId    Int
+  user      User @relation("PlayerUser", fields: [userId], references: [id])
+  game      Game @relation("GamePlayer", fields: [gameId], references: [id])
+
+  hand String[]
+
+  TurnInGame     Game[]           @relation("TurnInGame")
+  SimpleMove     SimpleMove[]     @relation("GamePlayerSimpleMove")
+  ShowMove       ShowMove[]       @relation("ShowGamePlayer")
+  ReturnCardMove ReturnCardMove[] @relation("ReturnCardGamePlayer")
+  MeldMove       MeldMove[]       @relation("GamePlayerMeldMove")
+  Meld           Meld[]           @relation("GamePlayerMeld")
+  @@unique([gameId, playerIdx])
+  @@map("game_player")
+}
+
+model Meld {
+
+  id           Int        @id @default(autoincrement())
+  gamePlayerId Int
+  gamePlayer   GamePlayer @relation("GamePlayerMeld", fields: [gamePlayerId], references: [id])
+
+  createdAt DateTime
+  ShowMove  ShowMove[] @relation("MeldShowMove")
+  MeldMove  MeldMove[] @relation("MeldMove")
+  Life      Life[]     @relation("MeldLife")
+  Sequence  Sequence[] @relation("MeldSequence")
+  Triplet   Triplet[]  @relation("MeldTriplet")
+
+  @@unique([gamePlayerId])
+  @@map("meld")
+}
+
+model Life {
+  id     Int      @id @default(autoincrement())
+  meldId Int
+  meld   Meld     @relation("MeldLife", fields: [meldId], references: [id])
+  suit   String
+  ranks  String[]
+
+  @@map("life")
+}
+
+model Sequence {
+  id Int @id @default(autoincrement())
+
+
+  meldId Int
+  meld   Meld @relation("MeldSequence", fields: [meldId], references: [id])
+
+  rank      String
+  suits     String[]
+  numJokers Int
+
+  @@map("sequence")
+}
+
+model Triplet {
+  id     Int  @id @default(autoincrement())
+  meldId Int
+  meld   Meld @relation("MeldTriplet", fields: [meldId], references: [id])
+
+  suit      String
+  ranks     String[]
+  numJokers Int
+
+  @@map("triplet")
+}
+
+model SimpleMove {
+  id           Int        @id @default(autoincrement())
+  moveNum      Int
+  gamePlayerId Int
+  gamePlayer   GamePlayer @relation("GamePlayerSimpleMove", fields: [gamePlayerId], references: [id])
+  moveType     MoveType
+
+
+
+  @@map("simple_move")
+}
+
+model ShowMove {
+  id           Int        @id @default(autoincrement())
+  moveNum      Int
+  gamePlayerId Int
+  gamePlayer   GamePlayer @relation("ShowGamePlayer", fields: [gamePlayerId], references: [id])
+
+  moveType MoveType
+  meldId   Int
+  meld     Meld     @relation("MeldShowMove", fields: [meldId], references: [id])
+
+  @@map("show_move")
+}
+
+model ReturnCardMove {
+  id           Int        @id @default(autoincrement())
+  moveNum      Int
+  gamePlayerId Int
+  gamePlayer   GamePlayer @relation("ReturnCardGamePlayer", fields: [gamePlayerId], references: [id])
+  moveType     MoveType
+
+  card String
+
+  @@map("return_card_move")
+}
+
+model MeldMove {
+  id           Int        @id @default(autoincrement())
+  moveNum      Int
+  gamePlayerId Int
+  gamePlayer   GamePlayer @relation("GamePlayerMeldMove", fields: [gamePlayerId], references: [id])
+
+  moveType MoveType
+  meldId   Int
+  meld     Meld     @relation("MeldMove", fields: [meldId], references: [id])
+
+  @@map("meld_move")
 }

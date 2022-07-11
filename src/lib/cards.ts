@@ -5,6 +5,7 @@ const debug = Dbg("app:cards");
 export const GAMES: IGame[] = [];
 const MIDDLE_DROP_POINTS = 50;
 const INITIAL_DROP_POINTS = 25;
+const FULL_COUNT_POINTS = 80;
 
 // ♣♦♥♠  ♧♢♡♤
 export enum Suit {
@@ -33,11 +34,11 @@ export enum Rank {
 }
 
 export enum PlayerStatus {
-  Active = "ACTIVE",
-  OwesCard = "OWES_CARD",
-  Dropped = "DROPPED",
-  Won = "WON",
-  Lost = "LOST",
+  Active,
+  OwesCard,
+  Dropped,
+  Won,
+  Lost,
 }
 
 export enum MoveType {
@@ -102,8 +103,10 @@ export interface IPlayer {
   status: PlayerStatus;
   points: number;
   moved: boolean;
+  hand: Hand;
+  meld: IMeldedHand;
 }
-
+export type RestrictedPlayer = Omit<IPlayer, "hand"|"meld">
 export interface IMoveSimple {
   moveType:
     | MoveType.Drop
@@ -127,7 +130,7 @@ export interface IMoveReturnCard {
   player: UserId;
   cardDiscarded: Card;
 }
-type IMove = IMoveSimple | IMoveShow | IMoveReturnCard;
+type IMove = IMoveSimple | IMoveShow | IMoveReturnCard | IMoveMeld;
 export enum GameState {
   Active,
   Finished,
@@ -140,17 +143,16 @@ export interface IGame {
   state: GameState;
   deck: Deck;
   openPile: Card[];
-  hands: Hand[];
-  melds: IMeldedHand[];
   currJoker: Card;
-  players: IPlayer[];
   turnPlayer: IPlayer;
+  players: IPlayer[];
   moves: IMove[];
 }
-
-export type GameRestricted = Omit<IGame, "deck" | "hands" | "melds"> & {
+ 
+export type GameRestricted = Omit<IGame, "deck" | "players"> & {
   myHand?: Hand;
   myMeld?: IMeldedHand;
+  players: RestrictedPlayer[];
 };
 
 //-------------------------------=============================================
@@ -192,6 +194,7 @@ export function makeCard(cardStr: string): Card {
 }
 export const deserializeCard = makeCard;
 
+export const gamePlayersLens = R.lens(R.prop('players')<any>, R.assoc('players'))
 /**
  * Get the view of Game that the player is allowed to see
  * Player is not allowed to see the deck and other players' hands
@@ -200,13 +203,15 @@ export const deserializeCard = makeCard;
  * @returns
  */
 function getRestrictedView(game: IGame, playerIdx: number) {
+  const restrictedPlayers = R.map(R.omit(["hand", "meld"]))(game.players)
+  const limitedGame = R.set(gamePlayersLens, restrictedPlayers, game);
   const gameRestricted: GameRestricted = R.omit(
-    ["deck", "hands", "melds"],
-    game
+    ["deck"],
+    limitedGame as GameRestricted
   );
 
-  gameRestricted["myHand"] = playerIdx >= 0 ? game.hands[playerIdx] : undefined;
-  gameRestricted["myMeld"] = playerIdx >= 0 ? game.melds[playerIdx] : undefined;
+  gameRestricted["myHand"] = playerIdx >= 0 ? game.players[playerIdx].hand : undefined;
+  gameRestricted["myMeld"] = playerIdx >= 0 ? game.players[playerIdx].meld : undefined;
   return gameRestricted;
 }
 
@@ -420,14 +425,17 @@ function pointsOfCard(c: Card): number {
  * @returns
  */
 export function computePoints(game: IGame, playerIdx: number): number {
-  if (game.players[playerIdx].status === "WON") {
+  if (game.players[playerIdx].status === PlayerStatus.Won) {
     return 0;
   }
   const cardsToCount = setDiff(
-    new Set(game.hands[playerIdx]),
-    new Set(enumerateMeldedHand(game.melds[playerIdx]))
+    new Set(game.players[playerIdx].hand),
+    new Set(enumerateMeldedHand(game.players[playerIdx].meld))
   );
-  return sum(R.map(pointsOfCard)(Array.from(cardsToCount)));
+  return Math.min(
+    FULL_COUNT_POINTS,
+    sum(R.map(pointsOfCard)(Array.from(cardsToCount)))
+  );
 }
 /**
  * Is winning hand made from these cards?
@@ -447,7 +455,7 @@ export function meldedHandMatchesHand(
  * @returns
  */
 export function newPlayer(user: UserId): IPlayer {
-  return { user, status: PlayerStatus.Active, points: 0, moved: false };
+  return { user, status: PlayerStatus.Active, points: 0, moved: false, hand: [], meld:{}};
 }
 
 /**
@@ -489,10 +497,7 @@ export function makeGame(
   };
   GAMES.push(game);
   const userIdx = R.findIndex(R.propEq("user", currUser), game.players);
-
-  const gameRestricted: GameRestricted = getRestrictedView(game, userIdx);
-
-  return gameRestricted;
+  return getRestrictedView(game, userIdx);
 }
 
 /**
@@ -623,12 +628,12 @@ export function makeMove(
       if (game.openPile.length === 0) {
         return Error("No Open cards yet");
       }
-      game.hands[playerIdx].push(game.openPile.splice(-1, 1)[0]);
+      game.players[playerIdx].hand.push(game.openPile.splice(-1, 1)[0]);
       player.status = PlayerStatus.OwesCard;
       break;
 
     case MoveType.TakeFromDeck:
-      game.hands[playerIdx].push(game.deck.splice(0, 1)[0]);
+      game.players[playerIdx].hand.push(game.deck.splice(0, 1)[0]);
       player.status = PlayerStatus.OwesCard;
       if (game.deck.length === 0) {
         // Deck has run out
@@ -645,14 +650,26 @@ export function makeMove(
       } else {
         return Error("No card returned");
       }
-      game.hands[playerIdx] = game.hands[playerIdx].filter(
+      game.players[playerIdx].hand = game.players[playerIdx].hand.filter(
         (c) => c !== move.cardDiscarded
       );
       player.status = PlayerStatus.Active;
       break;
 
+    case MoveType.Meld:
+      if (
+        setDiff(
+          new Set(enumerateMeldedHand(move.meldedHand)),
+          new Set(game.players[playerIdx].hand)
+        ).size > 0
+      ) {
+        return Error("Meld contains cards not in your Hand");
+      }
+      game.players[playerIdx].meld = move.meldedHand;
+      break;
+
     case MoveType.Show:
-      if (!meldedHandMatchesHand(move.meldedHand, game.hands[playerIdx])) {
+      if (!meldedHandMatchesHand(move.meldedHand, game.players[playerIdx].hand)) {
         return Error("Wrong Show");
       }
       game.players.forEach((p) => {
@@ -672,7 +689,5 @@ export function makeMove(
   }
   game.moves.push(move);
   player.moved = true;
-  const gameRestricted: GameRestricted = getRestrictedView(game, playerIdx);
-
-  return gameRestricted;
+  return getRestrictedView(game, playerIdx);
 }

@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-// import App from "./App";
+import App from "pages/App";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import {
   ApolloClient,
@@ -45,22 +46,32 @@ function Users() {
 
   return data ? <UserTable users={data.users} /> : null;
 }
-function App() {
-  return (
-    <div>
-      <Navbar />
-      <h1 className="text-3xl font-bold underline">My second Apollo app 🚀</h1>
-      <Users />
-    </div>
-  );
-}
+// function App() {
+//   return (
+//     <div>
+//       <Navbar />
+//       <h1 className="text-3xl font-bold underline">My second Apollo app 🚀</h1>
+//       <Users />
+//     </div>
+//   );
+// }
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route path="users" element={<Users />} />
+        </Routes>
+        {/* <div>
+          <h1 className="text-3xl font-bold underline">Rummy</h1>
+          <App />
+        </div> */}
+      </BrowserRouter>
     </ApolloProvider>
   </React.StrictMode>
 );
