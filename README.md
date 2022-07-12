@@ -3,15 +3,16 @@
 ## Current state of development
 
 - the `client` dir has react-dnd code. The essential features are
-  demonstrated there, though quirks remain.
-  - touch backend works on mobile, html5 backend works on desktop, react-end-multi-backend is
-    supposed to solve this but is too old. maybe implement the idea of reacting to first touch event and
-    changing back end
-  - drag preview is offset way to right
+  demonstrated there,
 - `lib/cards.ts` in this repo has a fairly good Rummy engine
-  - Needs Prisma/database support. Prisma defs very incomplete
-- GraphQl layer needed
-  - queries/subscriptions/mutations
+- Prisma schema OK
+
+## Next To Do
+
+- DB update whenever Game state changes
+- Load game from DB
+- GraphQl layer
+  - server queries/subscriptions/mutations
   - client side graphql
 - Build out the React UI
   - Don't forget Chat

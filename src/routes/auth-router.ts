@@ -263,7 +263,7 @@ router.get("/oauth2/redirect", function (req, res, next) {
     const p = req.user;
     userSvc.profileToUserUpsert({ ...p, jwt }).then((user) => {
       debug(`user found`);
-      return res.redirect("/users");
+      return res.redirect("/");
     });
   }
   debug(`Calling passport.authenticate`);

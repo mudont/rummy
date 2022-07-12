@@ -11,6 +11,7 @@ export interface UICard {
   z: number;
   title: string;
   angle: number;
+  classes: string;
 }
 export interface BoxMap {
   [key: string]: UICard;

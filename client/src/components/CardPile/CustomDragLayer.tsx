@@ -33,7 +33,7 @@ function getItemStyles(
 
   let { x, y } = currentOffset;
 
-  console.log(`rotate(${item.angle}deg) translate(${x}px, ${y}px)`);
+  //console.log(`rotate(${item.angle}deg) translate(${x}px, ${y}px)`);
   const transform = `translate(${x}px, ${y}px)`; // rotate(30deg)`;
   return {
     transform,
@@ -58,7 +58,13 @@ export const CustomDragLayer: FC<CustomDragLayerProps> = (props) => {
   function renderItem() {
     switch (itemType) {
       case ItemTypes.BOX:
-        return <BoxDragPreview title={item.title} angle={item.angle} />;
+        return (
+          <BoxDragPreview
+            title={item.title}
+            angle={item.angle}
+            classes={item.classes}
+          />
+        );
       default:
         return null;
     }
@@ -67,9 +73,13 @@ export const CustomDragLayer: FC<CustomDragLayerProps> = (props) => {
   if (!isDragging) {
     return null;
   }
+  console.log(`drging class=${item.classes}`);
   return (
     <div style={layerStyles}>
-      <div style={getItemStyles(item, initialOffset, currentOffset)}>
+      <div
+        className={item.classes}
+        style={getItemStyles(item, initialOffset, currentOffset)}
+      >
         {renderItem()}
       </div>
     </div>

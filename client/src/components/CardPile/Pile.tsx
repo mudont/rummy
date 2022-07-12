@@ -6,33 +6,37 @@ import { CustomDragLayer } from "./CustomDragLayer";
 import { BoxMap } from "./interfaces";
 import update from "immutability-helper";
 import * as _ from "lodash";
-
+import R from "ramda";
+import { getRandomCard } from "../../lib/cards";
 const NUM_CARDS = 13;
-const WIDTH = 600;
-const HEIGHT = 600;
+const HEIGHT_HAND = "100px";
+const HEIGHT_PILE = 200;
 const CARD_HEIGHT = 328;
 const CARD_WIDTH = 211;
 const MIN_USEFUL_CARD_WIDTH = 20;
-function getRandomCard(i: number, isHand: boolean): BoxMap[keyof BoxMap] {
-  const top = isHand
-    ? 10
-    : 100 + Math.floor(Math.random() * (HEIGHT - CARD_HEIGHT)) / 4;
+
+function getRandomCardData(
+  i: number,
+  isHand: boolean,
+  totalCards: number
+): BoxMap[keyof BoxMap] {
+  const top = isHand ? 10 : 25 + Math.floor(Math.random() * CARD_HEIGHT) / 4;
   const left = isHand
     ? i * MIN_USEFUL_CARD_WIDTH
-    : 100 + Math.floor((Math.random() * (WIDTH - CARD_WIDTH)) / 4);
+    : 50 + Math.floor((Math.random() * CARD_WIDTH) / 4);
   const angle = isHand ? 0 : Math.floor(Math.random() * 180);
-  const z = isHand ? left : i;
+  const z = isHand ? Math.floor(left / 10) : i;
   const isJoker = Math.floor(Math.random() * 54) > 51;
-  if (isJoker) {
-    return { top, left, z, title: "J1", angle };
+  let classes: string = "";
+  if (i === totalCards - 1 && !isHand) {
+    classes = "border-solid border-2 border-red-600";
   }
-  const suits = Array.from("CDHS");
-  const ranks = Array.from("A23456789TJQK");
-  const s = suits[Math.floor(Math.random() * suits.length)];
-  const r = ranks[Math.floor(Math.random() * ranks.length)];
+  if (isJoker) {
+    return { top, left, z, title: "J1", angle, classes };
+  }
 
-  const title = s + r;
-  return { top, left, z, title, angle };
+  const title = getRandomCard();
+  return { top, left, z, title, angle, classes };
 }
 
 function reorgCardsToHand(boxes: BoxMap) {
@@ -52,15 +56,18 @@ function reorgCardsToHand(boxes: BoxMap) {
   //console.log(boxes);
   return boxes;
 }
+interface IProps {
+  isHand: boolean;
+}
 
-export const Pile: FC = () => {
-  const [showHand, setShowHand] = useState(false);
-  const [boxes, setBoxes] = useState<BoxMap>(
-    _.range(NUM_CARDS).reduce(
-      (o, key) => ({ ...o, [key]: getRandomCard(key, showHand) }),
-      {}
-    )
+function makePile(numCards: number, isHand: boolean): BoxMap {
+  return _.range(numCards).reduce(
+    (o, key) => ({ ...o, [key]: getRandomCardData(key, isHand, numCards) }),
+    {}
   );
+}
+export const Pile: FC<IProps> = ({ isHand }) => {
+  const [boxes, setBoxes] = useState<BoxMap>(makePile(NUM_CARDS, isHand));
 
   const moveBox = useCallback(
     (id: string, left: number, top: number) => {
@@ -69,43 +76,31 @@ export const Pile: FC = () => {
           $merge: { left, top },
         },
       });
-      if (showHand) {
+      if (isHand) {
         reorgCardsToHand(newBoxes);
       }
       setBoxes(newBoxes);
     },
-    [boxes, showHand]
+    [boxes, isHand]
   );
 
-  const handleShowHandChange = useCallback(() => {
-    // console.log(`handleShowHandChange`);
-    const newShowHand = !showHand;
-    setShowHand(newShowHand);
-    if (newShowHand) {
-      setBoxes(reorgCardsToHand(boxes));
-    }
-  }, [showHand, boxes]);
-
+  const height = isHand ? HEIGHT_HAND : `${HEIGHT_PILE}px`;
   return (
     // XXX
-    <div style={{ width: WIDTH, height: HEIGHT }}>
+    <div
+      className={"Pile"}
+      style={{
+        height,
+        width: "100%",
+        background: isHand ? "#E59866" : "green",
+      }}
+    >
       {/* <div> */}
       <Container boxes={boxes} moveBox={moveBox} />
       {/* 
       MRD
       This is if we we want a custome Drag preview while dragging*/}
       <CustomDragLayer />
-      <p>
-        <label htmlFor="showHand">
-          <input
-            id="showHand"
-            type="checkbox"
-            checked={showHand}
-            onChange={handleShowHandChange}
-          />
-          <small>Show a ordered Hand rather than a Pile</small>
-        </label>
-      </p>
     </div>
   );
 };

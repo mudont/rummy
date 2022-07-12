@@ -23,7 +23,7 @@ function getStyles(
     // IE fallback: hide the real node using CSS when dragging
     // because IE will ignore our custom "empty image" drag preview.
     opacity: isDragging ? 0.3 : 1,
-    height: isDragging ? "" : "",
+    //height: isDragging ? "" : "",
     zIndex: z,
   };
 }
@@ -35,16 +35,17 @@ export interface DraggableBoxProps {
   top: number;
   z: number;
   angle: number;
+  classes: string;
 }
 
 export const DraggableBox: FC<DraggableBoxProps> = memo(function DraggableBox(
   props
 ) {
-  const { id, title, left, z, top, angle } = props;
+  const { id, title, left, z, top, angle, classes } = props;
   const [{ isDragging }, drag, preview] = useDrag(
     () => ({
       type: ItemTypes.BOX,
-      item: { id, left, top, title, angle, z },
+      item: { id, left, top, title, angle, z, classes },
       collect: (monitor: DragSourceMonitor) => ({
         isDragging: monitor.isDragging(),
       }),
@@ -66,11 +67,14 @@ export const DraggableBox: FC<DraggableBoxProps> = memo(function DraggableBox(
   return (
     <div
       onClick={() => console.log(`clicked: ${id} : ${title}`)}
+      // className={classes}
       ref={drag}
       style={getStyles(left, top, z, isDragging, angle)}
       role="DraggableBox"
     >
-      <Box title={title} />
+      <div>
+        <Box classes={classes} title={title} />
+      </div>
     </div>
   );
 });

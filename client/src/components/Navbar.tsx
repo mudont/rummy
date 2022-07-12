@@ -7,7 +7,7 @@ import {
 } from "flowbite-react";
 import { Link } from "react-router-dom";
 const component = () => (
-  <Navbar fluid={true} rounded={true}>
+  <Navbar className="hidden" fluid={true} rounded={true}>
     <Navbar.Brand href="https://flowbite.com/">
       <img
         src="https://flowbite.com/docs/images/logo.svg"
@@ -15,7 +15,7 @@ const component = () => (
         alt="Flowbite Logo"
       />
       <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-        Flowbite
+        Tewerubbeth Rummy
       </span>
     </Navbar.Brand>
     <div className="flex md:order-2">
@@ -48,18 +48,14 @@ const component = () => (
       <Navbar.Toggle />
     </div>
     <Navbar.Collapse>
-      <Navbar.Link href="/" active={true}>
-        Home
-      </Navbar.Link>
-      <Navbar.Link href="/navbars">About</Navbar.Link>
       <Navbar.Link href="https://ex1.cmhackers.com/api/auth/login">
         Login
       </Navbar.Link>
-      <Navbar.Link href="/users">UsersNav</Navbar.Link>
+      <Navbar.Link href="/users">Users</Navbar.Link>
       {/* Reacct-router Link seems to be equivalent to Navbar.Link 
           should prefer Navbar for 
-      */}
       <Link to="/users">Users</Link>
+      */}
     </Navbar.Collapse>
   </Navbar>
 );

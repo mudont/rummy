@@ -8,7 +8,7 @@ import { ItemTypes } from "./ItemTypes";
 const styles: CSSProperties = {
   width: "100%",
   height: "100%",
-  border: "1px solid black",
+  //border: "1px solid black",
   position: "relative",
 };
 
@@ -22,6 +22,7 @@ export const Container: FC<ContainerProps> = ({ boxes, moveBox }) => {
     () => ({
       accept: ItemTypes.BOX,
       drop(item: DragItem, monitor) {
+        //console.log(`drop`);
         const delta = monitor.getDifferenceFromInitialOffset() as {
           x: number;
           y: number;
@@ -38,7 +39,7 @@ export const Container: FC<ContainerProps> = ({ boxes, moveBox }) => {
   );
 
   return (
-    <div ref={drop} style={styles}>
+    <div className={"Container"} ref={drop} style={styles}>
       {Object.keys(boxes).map((key) => (
         <DraggableBox
           key={key}
@@ -49,6 +50,7 @@ export const Container: FC<ContainerProps> = ({ boxes, moveBox }) => {
             z: number;
             title: string;
             angle: number;
+            classes: string;
           })}
         />
       ))}

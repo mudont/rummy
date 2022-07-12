@@ -15,6 +15,7 @@ const styles = (angle: number): CSSProperties => {
 export interface BoxDragPreviewProps {
   title: string;
   angle: number;
+  classes: string;
 }
 
 export interface BoxDragPreviewState {
@@ -22,7 +23,7 @@ export interface BoxDragPreviewState {
 }
 
 export const BoxDragPreview: FC<BoxDragPreviewProps> = memo(
-  function BoxDragPreview({ title, angle }) {
+  function BoxDragPreview({ title, angle, classes }) {
     const [tickTock, setTickTock] = useState(false);
 
     useEffect(
@@ -35,7 +36,7 @@ export const BoxDragPreview: FC<BoxDragPreviewProps> = memo(
 
     return (
       <div style={styles(angle)}>
-        <Box title={title} yellow={tickTock} preview />
+        <Box classes={classes} title={title} yellow={tickTock} preview />
       </div>
     );
   }
