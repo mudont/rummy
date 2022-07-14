@@ -36,16 +36,32 @@ export interface DraggableBoxProps {
   z: number;
   angle: number;
   classes: string;
+  isHand: boolean;
+  isDeck: boolean;
 }
 
 export const DraggableBox: FC<DraggableBoxProps> = memo(function DraggableBox(
   props
 ) {
-  const { id, title, left, z, top, angle, classes } = props;
+  const { id, title, left, z, top, angle, classes, isHand, isDeck } = props;
   const [{ isDragging }, drag, preview] = useDrag(
     () => ({
-      type: ItemTypes.BOX,
-      item: { id, left, top, title, angle, z, classes },
+      type: isHand
+        ? ItemTypes.HAND_CARD
+        : isDeck
+        ? ItemTypes.DECK_CARD
+        : ItemTypes.PILE_CARD,
+      item: {
+        id,
+        left,
+        top,
+        title,
+        angle,
+        z,
+        classes,
+        isHand,
+        isDeck,
+      },
       collect: (monitor: DragSourceMonitor) => ({
         isDragging: monitor.isDragging(),
       }),
@@ -57,15 +73,17 @@ export const DraggableBox: FC<DraggableBoxProps> = memo(function DraggableBox(
   // don't want the HTML5 preview
   // This code seems to show an empty image
   useEffect(() => {
+    //if (!isDeck) {
     preview(getEmptyImage(), { captureDraggingState: true });
-  }, [preview]);
-
+    //}
+  }, [preview, isDeck]);
   // XXX
   // CSS issue: Draggable box is to left and higher than Box
   // Draggable box is the size of a card but Box tiny
   // The SVG under it is big a
   return (
     <div
+      className="DraggableBox"
       onClick={() => console.log(`clicked: ${id} : ${title}`)}
       // className={classes}
       ref={drag}
@@ -73,7 +91,7 @@ export const DraggableBox: FC<DraggableBoxProps> = memo(function DraggableBox(
       role="DraggableBox"
     >
       <div>
-        <Box classes={classes} title={title} />
+        <Box classes={classes} title={isDeck ? "B2" : title} />
       </div>
     </div>
   );

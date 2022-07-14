@@ -25,7 +25,7 @@ export interface BoxDragPreviewState {
 export const BoxDragPreview: FC<BoxDragPreviewProps> = memo(
   function BoxDragPreview({ title, angle, classes }) {
     const [tickTock, setTickTock] = useState(false);
-
+    console.log(`preview ${title}`);
     useEffect(
       function subscribeToIntervalTick() {
         const interval = setInterval(() => setTickTock(!tickTock), 500);

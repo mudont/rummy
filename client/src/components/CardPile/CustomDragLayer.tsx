@@ -13,7 +13,7 @@ const layerStyles: CSSProperties = {
   // This is still subject to elment not being rotated
   position: "fixed",
   pointerEvents: "none",
-  zIndex: 100,
+  zIndex: 1000,
   left: 0,
   top: 0,
   //width: "100%",
@@ -57,10 +57,12 @@ export const CustomDragLayer: FC<CustomDragLayerProps> = (props) => {
 
   function renderItem() {
     switch (itemType) {
-      case ItemTypes.BOX:
+      case ItemTypes.HAND_CARD:
+      case ItemTypes.PILE_CARD:
+      case ItemTypes.DECK_CARD:
         return (
           <BoxDragPreview
-            title={item.title}
+            title={item.isDeck ? "B2" : item.title}
             angle={item.angle}
             classes={item.classes}
           />
@@ -73,7 +75,7 @@ export const CustomDragLayer: FC<CustomDragLayerProps> = (props) => {
   if (!isDragging) {
     return null;
   }
-  console.log(`drging class=${item.classes}`);
+  //console.log(`CustomDragLayer: dragging hide=${item.hideCard}`);
   return (
     <div style={layerStyles}>
       <div
