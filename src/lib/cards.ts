@@ -182,6 +182,18 @@ const getRankOrdinal = (rank: Rank): number => {
 function hasDuplicates(array: any[]): boolean {
   return new Set(array).size !== array.length;
 }
+/**
+ * Get a random card
+ * @returns 2 char string representing the card
+ */
+export function getRandomCard(): string {
+  const suits = Array.from("CDHS");
+  const ranks = Array.from("A23456789TJQK");
+  const s = suits[Math.floor(Math.random() * suits.length)];
+  const r = ranks[Math.floor(Math.random() * ranks.length)];
+
+  return s + r;
+}
 
 /**
  * Make a Card from a two character string containing suit and rank

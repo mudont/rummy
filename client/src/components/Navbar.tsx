@@ -5,18 +5,26 @@ import {
   Flowbite,
   DarkThemeToggle,
 } from "flowbite-react";
-import { Link } from "react-router-dom";
+//import * as cards from "./cards";
 const component = () => (
   <Navbar className="hidden" fluid={true} rounded={true}>
-    <Navbar.Brand href="https://flowbite.com/">
-      <img
+    <Navbar.Brand href="/">
+      <img src="/favicon.ico" className="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
+      {/* <div
+        className="mr-0 h-6 sm:h-9"
+        style={{ transform: "scale(0.12)", transformOrigin: "top left" }}
+      >
+        <cards.DK />
+      </div> */}
+
+      {/* img
         src="https://flowbite.com/docs/images/logo.svg"
         className="mr-3 h-6 sm:h-9"
         alt="Flowbite Logo"
-      />
-      <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-        Tawarubbath Rummy
-      </span>
+      /> */}
+      {/* <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+        Rummy
+      </span> */}
     </Navbar.Brand>
     <div className="flex md:order-2">
       <Flowbite>

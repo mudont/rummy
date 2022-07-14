@@ -46,7 +46,7 @@ function reorgCardsToHand(boxes: BoxMap) {
   );
   let i = 0;
   sortedEntries.forEach((item) => {
-    const [k, v] = item;
+    const [k] = item;
     //console.log(`changeing ${k}${JSON.stringify(v)}`);
     boxes[k].left = i * MIN_USEFUL_CARD_WIDTH;
     boxes[k].z = i;
@@ -71,20 +71,20 @@ export const moveCard = (
   top: number
 ): [BoxMap, BoxMap, BoxMap] => {
   let newItem = { ...item };
-  const nCardsInPile = Object.keys(p).length;
+  //const nCardsInPile = Object.keys(p).length;
   const nCardsInHand = Object.keys(h).length;
-  console.log(
-    `moveBox hand: ${nCardsInHand} cards. pile ${nCardsInPile} cards/`
-  );
+  //   console.log(
+  //     `moveBox hand: ${nCardsInHand} cards. pile ${nCardsInPile} cards/`
+  //   );
   if (item.isHand === isTargetHand && item.isDeck === isTargetDeck) {
-    console.log(`source same as target ${item.isHand} === ${isTargetHand}`);
+    // console.log(`source same as target ${item.isHand} === ${isTargetHand}`);
     // same list
     newItem.top = top;
     newItem.left = left;
   } else {
-    console.log(
-      `source NOT same as target ${item.isHand} !== ${isTargetHand} | ${item.isDeck} !== ${isTargetDeck}`
-    );
+    // console.log(
+    //   `source NOT same as target ${item.isHand} !== ${isTargetHand} | ${item.isDeck} !== ${isTargetDeck}`
+    // );
 
     const keys: string[] = Object.keys(isTargetHand ? h : isTargetDeck ? d : p);
     const vals: UICard[] = Object.values(

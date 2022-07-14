@@ -1,8 +1,6 @@
 import type { FC } from "react";
 import { Container } from "./DndContainer";
 import { CustomDragLayer } from "./CustomDragLayer";
-import * as _ from "lodash";
-import R from "ramda";
 import { BoxMap } from "./interfaces";
 const HEIGHT_HAND = "100px";
 const HEIGHT_PILE = 200;

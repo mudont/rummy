@@ -15,7 +15,11 @@
   - server queries/subscriptions/mutations
   - client side graphql
 - Build out the React UI
-  - Don't forget Chat
+  - Buttons for Drop/Show
+  - Chat
+  - When game is over, allow option of
+    - (Syndicate) continue with new deal (turn changes) . accumulate points
+    - (standard) Finish the game
 
 ## SVGs
 

@@ -1,13 +1,9 @@
 import type { FC } from "react";
 import { Container } from "./DndContainer";
 import { CustomDragLayer } from "./CustomDragLayer";
-import * as _ from "lodash";
-import R from "ramda";
 import { BoxMap } from "./interfaces";
 import cardsMap from "./cardsMap";
-import { getRandomCard } from "lib/cards";
-const HEIGHT_HAND = "100px";
-const HEIGHT_PILE = 200;
+import { getRandomCard } from "../../lib/cards";
 
 const WCJoker: FC = cardsMap[getRandomCard()];
 
@@ -75,7 +71,7 @@ const Deck: FC<IDeckProps> = ({ deck, moveBox }) => {
             className="text-2xl text-yellow-400 w-96"
             style={{ position: "absolute", left: "25px" }}
           >
-            ← Remaining Deck({Object.keys(deck).length} cards)
+            ← Remaining Deck({Object.keys(deck).length})
           </p>
         </div>
       </div>

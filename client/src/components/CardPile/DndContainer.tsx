@@ -33,7 +33,7 @@ export const Container: FC<ContainerProps> = ({
         ? [ItemTypes.DECK_CARD]
         : [ItemTypes.HAND_CARD, ItemTypes.PILE_CARD],
       drop(item: DragItem, monitor) {
-        console.log(`drop ${JSON.stringify(item)}`);
+        //console.log(`drop ${JSON.stringify(item)}`);
         const delta = monitor.getDifferenceFromInitialOffset() as {
           x: number;
           y: number;

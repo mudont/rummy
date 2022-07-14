@@ -5,14 +5,11 @@ import Pile from "../components/CardPile/Pile";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
-import { B1, B2, SA } from "components/cards";
+import { B2 } from "components/cards";
 import _ from "lodash";
-import cardsMap from "../components//CardPile/cardsMap";
-import { FC } from "react";
 //import {MultiBackend} from "react-dnd-multi-backend";
 //import { MultiBackend, DndProvider } from 'react-dnd-multi-backend'
 //import { HTML5toTouch } from 'rdndmb-html5-to-touch'
-import * as R from "ramda";
 import { useCallback, useState } from "react";
 
 import { BoxMap, UICard } from "../components/CardPile/interfaces";
@@ -64,7 +61,7 @@ function reorgCardsToDeck(boxes: BoxMap) {
   );
   let i = 0;
   sortedEntries.forEach((item) => {
-    const [k, v] = item;
+    const [k] = item;
     //console.log(`changeing ${k}${JSON.stringify(v)}`);
     boxes[k].left = i / 6;
     boxes[k].z = i;
@@ -137,7 +134,11 @@ function App() {
         <div className="flex gap-16" style={{ height: "120px" }}>
           <div className="flex flex-col" style={{ position: "relative" }}></div>
           {["Arun", "Sri", "Ramu"].map((p) => (
-            <div className="flex flex-col" style={{ position: "relative" }}>
+            <div
+              key={p}
+              className="flex flex-col"
+              style={{ position: "relative" }}
+            >
               <div className="flex-initial w-14 h-24">
                 <span className="text-2xl">{p}</span>
               </div>
@@ -165,7 +166,7 @@ function App() {
             className="text-2xl text-yellow-400 w-72"
             style={{ position: "absolute", left: "10px" }}
           >
-            Discarded pile ({nPile} cards) ↓
+            Discarded pile ({nPile} ) ↓
           </p>
           <Pile isHand={false} boxes={pile} moveBox={moveBox} />
         </div>
@@ -180,12 +181,11 @@ function App() {
             className="text-2xl text-red-800 w-72"
             style={{ position: "absolute", top: "0px", left: "10px" }}
           >
-            <span> Your Hand </span>
+            <span> Your Hand (</span>
             <span className={nHand === 13 ? "" : "animate-ping text-slate-900"}>
-              {" "}
-              ({nHand} cards)
+              {nHand}
             </span>
-            ↓
+            )↓
           </p>
           <div
             style={{

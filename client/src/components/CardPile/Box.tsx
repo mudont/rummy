@@ -32,7 +32,7 @@ export const Box: FC<BoxProps> = memo(function Box({
     ? { ...styles, backgroundColor: "yellow", padding: "0.5rem" }
     : styles;
   const Card: FC = cardsMap[title];
-  console.log(`Box ${title} classes: ${classes}`);
+  //console.log(`Box ${title} classes: ${classes}`);
   return (
     <div className={classes} style={st} role={preview ? "BoxPreview" : "Box"}>
       <Card />
