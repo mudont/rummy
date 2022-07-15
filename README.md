@@ -9,6 +9,11 @@
 
 ## Next To Do
 
+- UI
+  - Need support for user to Meld.
+    - Show current points
+    - Game in Pro mode no melds/points
+  - Show/Drop controls
 - DB update whenever Game state changes
 - Load game from DB
 - GraphQl layer
