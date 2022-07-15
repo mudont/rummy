@@ -12,6 +12,7 @@ const styles: CSSProperties = {
   height: HEIGHT,
   width: WIDTH,
   transform: `scale(${CARD_SCALE})`,
+  WebkitTransform: `scale(${CARD_SCALE})`,
   transformOrigin: `top left`,
 };
 

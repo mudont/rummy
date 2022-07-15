@@ -1,4 +1,4 @@
-import * as c from "../cards";
+import * as c from "react-ts-svg-playing-cards";
 export type MapKindToComponentT = {
   [key: string]: React.FC;
 };

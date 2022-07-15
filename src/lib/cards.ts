@@ -1,5 +1,5 @@
 import assert from "assert";
-import R from "ramda";
+import * as R from "ramda";
 import Dbg from "debug";
 const debug = Dbg("app:cards");
 export const GAMES: IGame[] = [];
@@ -244,11 +244,11 @@ export function makeSequence(
   const nonJokers = cards.filter(isJoker(game));
   const numJokers = numCards - nonJokers.length;
 
-  if (!R.all((a: Card) => a.suit == nonJokers[0].suit)(nonJokers)) {
+  if (!R.all((a: Card) => a.suit === nonJokers[0].suit)(nonJokers)) {
     return Error("Sequence can't have different suits");
   }
 
-  if (nonJokers.length == 0) {
+  if (nonJokers.length === 0) {
     return { suit: Suit.Joker, ranks: [], numJokers: cards.length };
   }
   nonJokers.sort((a, b) => getRankOrdinal(a.rank) - getRankOrdinal(b.rank));
@@ -296,7 +296,7 @@ export function makeTriplet(
   const nonJokers = cards.filter(isJoker(game));
   const numJokers = numCards - nonJokers.length;
 
-  if (nonJokers.length == 0) {
+  if (nonJokers.length === 0) {
     return { rank: Rank.Two, suits: [], numJokers: cards.length };
   }
   nonJokers.sort((a, b) => getRankOrdinal(a.rank) - getRankOrdinal(b.rank));
@@ -343,7 +343,7 @@ export function makeMeldedHand(
   if (sequences.length < 2) {
     return Error(`Need at least two sequences`);
   }
-  const life = R.find((s) => s.numJokers == 0, sequences);
+  const life = R.find((s) => s.numJokers === 0, sequences);
   if (!life) {
     return Error(`Need a Life`);
   }
@@ -625,7 +625,7 @@ export function makeMove(
     return Error("Player status doesn't allow any moves");
   }
   if (
-    player.status == PlayerStatus.OwesCard &&
+    player.status === PlayerStatus.OwesCard &&
     move.moveType !== MoveType.ReturnExtraCard
   ) {
     return Error("Player must return extra card before doing anything else");
@@ -697,7 +697,7 @@ export function makeMove(
       break;
     default:
       return Error("Unknown move type");
-      break;
+      //break;
   }
   game.moves.push(move);
   player.moved = true;

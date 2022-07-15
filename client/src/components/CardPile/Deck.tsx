@@ -40,6 +40,7 @@ const Deck: FC<IDeckProps> = ({ deck, moveBox }) => {
               position: "absolute",
               transformOrigin: "top left",
               transform: "scale(0.25)",
+              WebkitTransform: "scale(0.25)",
             }}
           >
             <WCJoker />

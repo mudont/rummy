@@ -11,6 +11,13 @@ generator typegraphql {
   output   = "./@generated/typegraphql"
 }
 
+// ERD tool doesn't work if some columns are
+// arrays of scalar types, eg User.roles is Role[]
+// generator erd {
+//   provider = "prisma-erd-generator"
+//   output   = "./ERD.svg"
+// }
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -122,8 +129,8 @@ model ClubMember {
 model Game {
   id           Int        @id @default(autoincrement())
   state        GameState
-  deck         String[]
-  openPile     String[]
+  deck         String
+  openPile     String
   turnPlayerId Int
   openCard     String?
   currJoker    String
@@ -145,7 +152,7 @@ model GamePlayer {
   user      User @relation("PlayerUser", fields: [userId], references: [id])
   game      Game @relation("GamePlayer", fields: [gameId], references: [id])
 
-  hand String[]
+  hand String
 
   TurnInGame     Game[]           @relation("TurnInGame")
   SimpleMove     SimpleMove[]     @relation("GamePlayerSimpleMove")
@@ -175,11 +182,11 @@ model Meld {
 }
 
 model Life {
-  id     Int      @id @default(autoincrement())
+  id     Int    @id @default(autoincrement())
   meldId Int
-  meld   Meld     @relation("MeldLife", fields: [meldId], references: [id])
+  meld   Meld   @relation("MeldLife", fields: [meldId], references: [id])
   suit   String
-  ranks  String[]
+  ranks  String
 
   @@map("life")
 }
@@ -192,7 +199,7 @@ model Sequence {
   meld   Meld @relation("MeldSequence", fields: [meldId], references: [id])
 
   rank      String
-  suits     String[]
+  suits     String
   numJokers Int
 
   @@map("sequence")
@@ -204,7 +211,7 @@ model Triplet {
   meld   Meld @relation("MeldTriplet", fields: [meldId], references: [id])
 
   suit      String
-  ranks     String[]
+  ranks     String
   numJokers Int
 
   @@map("triplet")

@@ -5,7 +5,7 @@ import Pile from "../components/CardPile/Pile";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
-import { B2 } from "components/cards";
+import { B2 } from "react-ts-svg-playing-cards";
 import _ from "lodash";
 //import {MultiBackend} from "react-dnd-multi-backend";
 //import { MultiBackend, DndProvider } from 'react-dnd-multi-backend'
@@ -150,6 +150,7 @@ function App() {
                   zIndex: "1",
                   transformOrigin: "top left",
                   transform: "scale(0.25)",
+                  WebkitTransform: `scale(0.25)`,
                 }}
               />
             </div>
