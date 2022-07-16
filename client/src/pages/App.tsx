@@ -13,7 +13,8 @@ import _ from "lodash";
 import { useCallback, useState } from "react";
 
 import { BoxMap, UICard } from "../components/CardPile/interfaces";
-import { getRandomCard } from "../lib/cards";
+import { getRandomCard } from "ts-indian-rummy/dist/cards";
+// "ts-indian-rummy/cards";
 import Deck from "components/CardPile/Deck";
 import moveCard from "lib/moveCard";
 const NUM_CARDS = 13;
@@ -167,7 +168,7 @@ function App() {
             className="text-2xl text-yellow-400 w-72"
             style={{ position: "absolute", left: "10px" }}
           >
-            Discarded pile ({nPile} ) ↓
+            Discard pile ({nPile} ) ↓
           </p>
           <Pile isHand={false} boxes={pile} moveBox={moveBox} />
         </div>

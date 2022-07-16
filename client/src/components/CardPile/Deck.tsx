@@ -3,7 +3,7 @@ import { Container } from "./DndContainer";
 import { CustomDragLayer } from "./CustomDragLayer";
 import { BoxMap } from "./interfaces";
 import cardsMap from "./cardsMap";
-import { getRandomCard } from "../../lib/cards";
+import { getRandomCard } from "ts-indian-rummy/dist/cards";
 
 const WCJoker: FC = cardsMap[getRandomCard()];
 
@@ -72,7 +72,7 @@ const Deck: FC<IDeckProps> = ({ deck, moveBox }) => {
             className="text-2xl text-yellow-400 w-96"
             style={{ position: "absolute", left: "25px" }}
           >
-            ← Remaining Deck({Object.keys(deck).length})
+            ← Stock Pile({Object.keys(deck).length})
           </p>
         </div>
       </div>

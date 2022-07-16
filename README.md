@@ -26,6 +26,18 @@
     - (Syndicate) continue with new deal (turn changes) . accumulate points
     - (standard) Finish the game
 
+## Terminology
+
+Meld
+Deadwood - part of Hand that is not melded
+Stock
+Discardiple
+
+- paper joker
+- bomman joker
+  Run/Sequence
+  Set/Triplet
+
 ## SVGs
 
 Got zipfile from [here](https://www.me.uk/cards/makeadeck.cgi)
