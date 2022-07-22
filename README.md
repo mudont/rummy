@@ -1,10 +1,21 @@
 # Rummy project
 
+## Components state of development
+
+- DB <-> Prisma <-> Persistence <-> rummy-core <-> GQL <-> Front-end core <-> Front-end UI
+- [x] DB
+- [x] Prisma
+- [ ] Persistence
+- [x] rummy-core
+- [_] GQL
+- [ ] Front-end core
+- [x] Front-end UI
+
 ## Current state of development
 
 - the `client` dir has react-dnd code. The essential features are
   demonstrated there,
-- `lib/cards.ts` in this repo has a fairly good Rummy engine
+- `rummy-core` repo has a fairly complete but untested Rummy engine. Now being changed to fp-ts
 - Prisma schema OK
 
 ## Next To Do
